@@ -11,8 +11,9 @@ UNDO_COL = \033[0m
 
 
 # place all source files here
-SRC = 	$(SRC_DIR)subject_main.cpp \
-		# $(SRC_DIR)main.cpp
+SRC = 	$(SRC_DIR)main.cpp
+		# $(SRC_DIR)subject_main.cpp \
+		
 
 # takes all named source files and converts them to .o files in the /obj directory
 OBJ = $(SRC:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.o)
@@ -27,11 +28,11 @@ $(OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# compiles all object files and builds executable file 'webserv'
+# compiles all object files and builds executable file 'FT_CONTAINERS'
 $(NAME): $(OBJ)
 	@echo "$(RED)Compiling $(NAME)...$(UNDO_COL)"
 	$(CC) $(CFLAGS) $^ -o $@
-	@echo "$(GREEN)SUCCESSFULLY CREATED WEBSERV!$(UNDO_COL)"
+	@echo "$(GREEN)SUCCESSFULLY CREATED FT_CONTAINERS!$(UNDO_COL)"
 
 # removes all object files and the /obj directory and cleans libft
 clean:
@@ -51,10 +52,10 @@ debug: fclean dall
 dall: $(OBJ)
 	@echo "$(RED)Compiling Debug 3 $(NAME)...$(UNDO_COL)"
 	$(CC) $(CFLAGS) -D DEBUG=3 $^ -o $(NAME)
-	@echo "$(GREEN)SUCCESSFULLY CREATED WEBSERV!$(UNDO_COL)"
+	@echo "$(GREEN)SUCCESSFULLY CREATED FT_CONTAINERS!$(UNDO_COL)"
 
 dspec: $(OBJ)
 	@echo "$(RED)Compiling Debug 1 $(NAME)...$(UNDO_COL)"
 	$(CC) $(CFLAGS) -D DEBUG=1 $^ -o $(NAME)
-	@echo "$(GREEN)SUCCESSFULLY CREATED WEBSERV!$(UNDO_COL)"
+	@echo "$(GREEN)SUCCESSFULLY CREATED FT_CONTAINERS!$(UNDO_COL)"
  
