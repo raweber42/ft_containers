@@ -1,17 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
+/*   Updated: 2022/11/10 14:47:19 by raweber          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
 #include <string>
 #include <deque>
 #include <unistd.h>
 #include "../inc/colors.hpp"
-#if 1 //CREATE A REAL STL EXAMPLE
+
+#if STD //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>
 	namespace ft = std;
 #else
-	#include <map.hpp>
-	#include <stack.hpp>
-	#include <vector.hpp>
+	#include "../inc/map.hpp"
+	#include "../inc/stack.hpp"
+	#include "../inc/stack.hpp"
 #endif
 
 #include <stdlib.h>
@@ -47,7 +60,6 @@ void print_values_reversed(ft::vector<int> v1) {
 	}
 	std::cout << "]" << std::endl << std::endl;
 }
-
 
 int main(void) {
 
@@ -123,6 +135,7 @@ int main(void) {
 	std::cout << "Address is: " << v1.data() << " which holds the value of " << *v1.data() << std::endl << std::endl;
 	usleep(500000);
 
+
 	usleep(500000);
 	std::cout << COLOR_RED <<  "TESTS FOR CAPACITY FUNCTIONS" << COLOR_DEFAULT << std::endl;
 	std::cout << COLOR_BLUE << "Check if container is empty via 'v1.empty()'" << COLOR_DEFAULT << std::endl;
@@ -140,6 +153,7 @@ int main(void) {
 	v1.reserve(50);
 	std::cout << "Current capacity is: " << v1.capacity() << std::endl << std::endl;
 	usleep(500000);
+
 
 	usleep(500000);
 	std::cout << COLOR_RED <<  "TESTS FOR MODIFIER FUNCTIONS" << COLOR_DEFAULT << std::endl;
@@ -179,7 +193,7 @@ int main(void) {
 	std::cout << COLOR_BLUE << "Is 'v1 <= v2'? (should return false) " << COLOR_DEFAULT << ((v1 <= v2) ? "YES" : "NO") << std::endl;
 	std::cout << COLOR_BLUE << "Is 'v1 > v2'? (should return false) " << COLOR_DEFAULT << ((v1 > v2) ? "YES" : "NO") << std::endl;
 	std::cout << COLOR_BLUE << "Is 'v1 >= v2'? (should return false) " << COLOR_DEFAULT << ((v1 >= v2) ? "YES" : "NO") << std::endl;
-	
+
 	std::cout << COLOR_BLUE << "Compare v2 and v3" << COLOR_DEFAULT << std::endl;
 	std::cout << COLOR_BLUE << "Is 'v2 == v3'? (should return false) " << COLOR_DEFAULT << ((v2 == v3) ? "YES" : "NO") << std::endl;
 	std::cout << COLOR_BLUE << "Is 'v2 != v3'? (should return true) " << COLOR_DEFAULT << ((v2 != v3) ? "YES" : "NO") << std::endl;
@@ -187,7 +201,7 @@ int main(void) {
 	std::cout << COLOR_BLUE << "Is 'v2 <= v3'? (should return false) " << COLOR_DEFAULT << ((v2 <= v3) ? "YES" : "NO") << std::endl;
 	std::cout << COLOR_BLUE << "Is 'v2 > v3'? (should return true) " << COLOR_DEFAULT << ((v2 > v3) ? "YES" : "NO") << std::endl;
 	std::cout << COLOR_BLUE << "Is 'v2 >= v3'? (should return true) " << COLOR_DEFAULT << ((v2 >= v3) ? "YES" : "NO") << std::endl;
-
+	usleep(500000);
 
 
 
