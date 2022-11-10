@@ -170,10 +170,25 @@ int main(void) {
 	usleep(500000);
 
 
+	usleep(500000);
+	std::cout << COLOR_RED <<  "TESTS FOR RELATIONAL OPERATORS" << COLOR_DEFAULT << std::endl;
+	std::cout << COLOR_BLUE << "Compare v1 and v2" << COLOR_DEFAULT << std::endl;
+	std::cout << COLOR_BLUE << "Is 'v1 == v2'? (should return true) " << COLOR_DEFAULT << ((v1 == v2) ? "YES" : "NO") << std::endl;
+	std::cout << COLOR_BLUE << "Is 'v1 != v2'? (should return true) " << COLOR_DEFAULT << ((v1 != v2) ? "YES" : "NO") << std::endl;
+	std::cout << COLOR_BLUE << "Is 'v1 < v2'? (should return false) " << COLOR_DEFAULT << ((v1 < v2) ? "YES" : "NO") << std::endl;
+	std::cout << COLOR_BLUE << "Is 'v1 <= v2'? (should return false) " << COLOR_DEFAULT << ((v1 <= v2) ? "YES" : "NO") << std::endl;
+	std::cout << COLOR_BLUE << "Is 'v1 > v2'? (should return false) " << COLOR_DEFAULT << ((v1 > v2) ? "YES" : "NO") << std::endl;
+	std::cout << COLOR_BLUE << "Is 'v1 >= v2'? (should return false) " << COLOR_DEFAULT << ((v1 >= v2) ? "YES" : "NO") << std::endl;
+	
+	std::cout << COLOR_BLUE << "Compare v2 and v3" << COLOR_DEFAULT << std::endl;
+	std::cout << COLOR_BLUE << "Is 'v2 == v3'? (should return false) " << COLOR_DEFAULT << ((v2 == v3) ? "YES" : "NO") << std::endl;
+	std::cout << COLOR_BLUE << "Is 'v2 != v3'? (should return true) " << COLOR_DEFAULT << ((v2 != v3) ? "YES" : "NO") << std::endl;
+	std::cout << COLOR_BLUE << "Is 'v2 < v3'? (should return false) " << COLOR_DEFAULT << ((v2 < v3) ? "YES" : "NO") << std::endl;
+	std::cout << COLOR_BLUE << "Is 'v2 <= v3'? (should return false) " << COLOR_DEFAULT << ((v2 <= v3) ? "YES" : "NO") << std::endl;
+	std::cout << COLOR_BLUE << "Is 'v2 > v3'? (should return true) " << COLOR_DEFAULT << ((v2 > v3) ? "YES" : "NO") << std::endl;
+	std::cout << COLOR_BLUE << "Is 'v2 >= v3'? (should return true) " << COLOR_DEFAULT << ((v2 >= v3) ? "YES" : "NO") << std::endl;
 
-	// std::cout << COLOR_BLUE << "Check '==' operator overload" << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is v1 == copy_assign_vector? " << ((v1 == copy_assign_vector) ? "YES" : "NO") << std::endl;
-	// std::cout << "Is v1 == assign_vector? " << ((v1 == copy_assign_vector) ? "YES" : "NO") << std::endl;
+
 
 
 
