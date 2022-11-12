@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/11 13:53:53 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/11 14:48:55 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <string>
 #include <deque>
 #include <unistd.h>
+#include <cstdio>
 #include "../inc/colors.hpp"
 
 #if STD //CREATE A REAL STL EXAMPLE
@@ -22,8 +23,8 @@
 	#include <vector>
 	namespace ft = std;
 #else
+	#include "../inc/vector.hpp"
 	#include "../inc/map.hpp"
-	#include "../inc/stack.hpp"
 	#include "../inc/stack.hpp"
 #endif
 
@@ -37,41 +38,42 @@ struct Buffer
 	char buff[BUFFER_SIZE];
 };
 
-void print_values(ft::vector<int> v1) {
+// void print_values(ft::vector<int> v1) {
 	
-	std::cout << "The values held by the vector are (accessed via iterator): [ ";
+// 	std::cout << "The values held by the vector are (accessed via iterator): [ ";
 	for (ft::vector<int>::iterator it = v1.begin(); it != v1.end(); it++)
-	{
-		std::cout << *it << " ";
-		fflush(stdout);
-		usleep(80000);
-	}
-	std::cout << "]" << std::endl << std::endl;
-}
+// 	{
+// 		std::cout << *it << " ";
+// 		fflush(stdout);
+// 		usleep(80000);
+// 	}
+// 	std::cout << "]" << std::endl << std::endl;
+// }
 
-void print_values_reversed(ft::vector<int> v1) {
+// void print_values_reversed(ft::vector<int> v1) {
 	
-	std::cout << "The values held by the vector are (accessed via REVERSE iterator): [ ";
-	for (ft::vector<int>::reverse_iterator it = v1.rbegin(); it != v1.rend(); it++)
-	{
-		std::cout << *it << " ";
-		fflush(stdout);
-		usleep(80000);
-	}
-	std::cout << "]" << std::endl << std::endl;
-}
+// 	std::cout << "The values held by the vector are (accessed via REVERSE iterator): [ ";
+// 	for (ft::vector<int>::reverse_iterator it = v1.rbegin(); it != v1.rend(); it++)
+// 	{
+// 		std::cout << *it << " ";
+// 		fflush(stdout);
+// 		usleep(80000);
+// 	}
+// 	std::cout << "]" << std::endl << std::endl;
+// }
 
 int main(void) {
 
-	int test_size = 20;
 	std::cout << std::endl << COLOR_YELLOW << "######################## INTEGER VECTOR ###############################" << COLOR_DEFAULT << std::endl;
 	
 	usleep(500000);
 	std::cout << COLOR_RED <<  "CONSTRUCTOR TESTS" << COLOR_DEFAULT << std::endl;
 	std::cout << COLOR_BLUE << "Initializing empty vector v1" << COLOR_DEFAULT << std::endl;
 	ft::vector<int> v1;
-	print_values(v1);
+	(void) v1;
+	// print_values(v1);
 
+	// int test_size = 20;
 	// std::cout << COLOR_BLUE << "Initializing vector v2 with 5 values of '5' via 'v2(5, 5)'" << COLOR_DEFAULT  << std::endl;
 	// ft::vector<int> v2(size_t(5), int(5));
 	// print_values(v2);

@@ -21,7 +21,7 @@ all: $(NAME)
 $(NAME):
 	@echo "$(RED)Compiling $(NAME)...$(UNDO_COL)"
 	$(CC) $(CFLAGS) $(SRC) -D STD=1 -o std_containers
-	# $(CC) $(CFLAGS) $(SRC) -D STD=0 -o ft_containers
+	$(CC) $(CFLAGS) $(SRC) -D STD=0 -o ft_containers
 	@echo "$(GREEN)SUCCESSFULLY CREATED FT_CONTAINERS!$(UNDO_COL)"
 
 clean:
