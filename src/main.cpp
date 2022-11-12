@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/11 14:48:55 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/12 17:16:29 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ struct Buffer
 // void print_values(ft::vector<int> v1) {
 	
 // 	std::cout << "The values held by the vector are (accessed via iterator): [ ";
-	for (ft::vector<int>::iterator it = v1.begin(); it != v1.end(); it++)
+//	for (ft::vector<int>::iterator it = v1.begin(); it != v1.end(); it++)
 // 	{
 // 		std::cout << *it << " ";
 // 		fflush(stdout);
@@ -49,6 +49,14 @@ struct Buffer
 // 	}
 // 	std::cout << "]" << std::endl << std::endl;
 // }
+
+void print_values_no_iter(ft::vector<int> &v1) {
+	
+	std::cout << "Values in vector are: [";
+	for (unsigned long i = 0; i < v1.size(); i++)
+		std::cout << " " << v1[i];
+	std::cout <<  " ]" << std::endl;
+}
 
 // void print_values_reversed(ft::vector<int> v1) {
 	
@@ -69,10 +77,9 @@ int main(void) {
 	usleep(500000);
 	std::cout << COLOR_RED <<  "CONSTRUCTOR TESTS" << COLOR_DEFAULT << std::endl;
 	std::cout << COLOR_BLUE << "Initializing empty vector v1" << COLOR_DEFAULT << std::endl;
-	ft::vector<int> v1;
-	(void) v1;
-	// print_values(v1);
-
+	ft::vector<int> v1(5);
+	print_values_no_iter(v1);
+	
 	// int test_size = 20;
 	// std::cout << COLOR_BLUE << "Initializing vector v2 with 5 values of '5' via 'v2(5, 5)'" << COLOR_DEFAULT  << std::endl;
 	// ft::vector<int> v2(size_t(5), int(5));
@@ -222,3 +229,6 @@ int main(void) {
 }
 
 // add constructor tests and non-member-functions!
+
+
+// use std::find for testing (and container::find)
