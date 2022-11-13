@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/12 17:12:30 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/13 12:23:01 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <memory>
 #include <iostream>
+#include <exception>
 
 namespace ft
 {
@@ -91,41 +92,72 @@ namespace ft
 			// reverse_iterator rend();const_reverse_iterator rend() const;
 			
 			//---------------------------CAPACITY----------------------------------------//
-			bool empty() const;
-			size_type size() const { return(_size); };
-			size_type max_size() const;
-			void reserve( size_type new_cap );
-			size_type capacity() const;
+			
+	 		bool empty(void) const { return(_size == 0); }
+			
+			size_type size(void) const { return(_size); }
+			
+			size_type max_size(void) const { return(_alloc.max_size()); }
+			
+			void reserve(size_type new_cap) {
+
+				if (new_cap > _alloc.max_size())
+					throw std::length_error;
+				else if (new_cap < _capacity)
+					return;
+				
+				pointer tmp = Alloc.allocate(new_cap);
+				for (size_type i = 0; i < _size; i++)
+					_alloc.construct(&(tmp[i]), &(_vec_ptr[i]));
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(&(_vec_ptr[i]));
+				_alloc.deallocate(_vec_ptr, _capacity);
+				_vec_ptr = tmp;
+				_capacity = n;
+			}
+			
+			size_type capacity(void) const { return(_capacity); }
+			
 			//---------------------------ELEMENT ACCESS----------------------------------------//
-			reference at( size_type pos );
-
-			reference operator[](unsigned int index) {
 			
-				return (_vec_ptr[index]);
-			}
+			reference at(size_type pos) { return(_vec_ptr[pos]); }
 
-			const_reference operator[](unsigned int index) const {
+			reference operator[](unsigned int index) { return(_vec_ptr[index]); }
+
+			const_reference operator[](unsigned int index) const { return(_vec_ptr[index]); }
+
+			reference front(void) { return(*_vec_ptr); }
 			
-				return (_vec_ptr[index]);
-			}
-
-			reference front();
-			const_reference front() const;
-			reference back();
-			const_reference back() const;
-			T* data();
-			const T* data() const;
-
+			const_reference front(void) const { return(*_vec_ptr); }
+			
+			reference back(void) { return(*(_vec_ptr[_size - 1]); }
+			
+			const_reference back(void) const { return(*(_vec_ptr[_size - 1]); }
+			
+			T* data(void) { return(_vec_ptr); }
+			
+			const T* data(void) const { return(_vec_ptr); }
 			
 			//---------------------------MODIFIERS----------------------------------------//
 			
-			void assign( size_type count, const T& value );
-			
 			template< class InputIt >
-			void assign( InputIt first, InputIt last );
+			void assign(InputIt first, InputIt last);
+			
+			void assign(size_type count, const T& value) {
+				
+				
+			}
 			
 			void push_back (const value_type& val);
-			void pop_back();
+				// user insert() here
+			
+			void pop_back(void) {
+				
+				if (!_size)
+					return;
+				_alloc.destroy(&(_vec_ptr[_size - 1]));
+				_size--;
+			}
 			
 			// iterator insert (iterator position, const value_type& val);
 			// void insert (iterator position, size_type n, const value_type& val);
@@ -133,10 +165,37 @@ namespace ft
 			// void insert (iterator position, InputIterator first, InputIterator last);
 			// iterator erase (iterator position);iterator erase (iterator first, iterator last);
 
-			void swap (vector& x);			
-			void clear();
+			void swap (vector& x);
+				
+			void clear(void) {
+				
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(&(_vec_ptr[i]));
+				_size = 0;
+			}
 
-			void resize (size_type n, value_type val = value_type());
+			void resize(size_type n, value_type val = value_type()) {
+				
+				if (n > _alloc.max_size())
+					throw std::length_error;
+				else if (n > _size) {
+					pointer tmp = _alloc.allocate(n);
+					for (size_type i = 0; i < _size; i++)
+						_alloc.construct(&(tmp[i]), &(_vec_ptr[i]));
+					for (size_type i = _size; i < n; i++)
+						_alloc.construct(&(tmp[i]), val);
+					for (size_type i = 0; i < _size; i++)
+						_alloc.destroy(&(_vec_ptr[i]));
+					_alloc.deallocate(_vec_ptr, _capacity);
+					_vec_ptr = tmp;
+					_capacity = n;
+				}
+				else if (n < _size) {
+					for (size_type i = n - 1; i < _size; i++)
+						_alloc.destroy(&(_vec_ptr[i]));
+				}
+				_size = n;
+			}
 			
 		//--------------------------PRIVATE VARIABLES----------------------------------------//
 		private:
@@ -173,4 +232,7 @@ namespace ft
 // see bookmark page 484
 
 // constructors: capacity = size?
+// when use _alloc and when Alloc ?? zurzeit beide in Benutzung
+// why is 'multi' in Mikes resize?
+
 #endif
