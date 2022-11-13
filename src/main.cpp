@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/13 12:26:06 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/13 15:17:52 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int main(void) {
 	usleep(500000);
 	std::cout << COLOR_RED <<  "CONSTRUCTOR TESTS" << COLOR_DEFAULT << std::endl;
 	std::cout << COLOR_BLUE << "Initializing empty vector v1" << COLOR_DEFAULT << std::endl;
-	ft::vector<int> v1(5);
+	ft::vector<int> v1;
 	print_values_no_iter(v1);
 	
 	int test_size = 20;
@@ -101,7 +101,7 @@ int main(void) {
 	// usleep(500000);
 	
 	usleep(500000);
-	std::cout << COLOR_RED <<  "FILL AND SHRINK V1" << COLOR_DEFAULT << std::endl;
+	std::cout << COLOR_RED <<  "PUSH TO AND POP FROM V1" << COLOR_DEFAULT << std::endl;
 	std::cout << COLOR_BLUE << "Pushing integers 0 - " << (test_size - 1) << " to v1" << COLOR_DEFAULT;
 	for (int i = 0; i < 5; i++)
 	{
@@ -113,6 +113,8 @@ int main(void) {
 	for (int i = 0; i < test_size; i++)
 	{
 		v1.push_back(i);
+		// v1[i] = i;
+		// v1._size++;
 	}
 	print_values_no_iter(v1);
 	// print_values(v1);

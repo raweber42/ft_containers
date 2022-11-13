@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/13 12:23:01 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/13 15:10:12 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <memory>
 #include <iostream>
-#include <exception>
+#include <stdexcept>
 
 namespace ft
 {
@@ -102,18 +102,18 @@ namespace ft
 			void reserve(size_type new_cap) {
 
 				if (new_cap > _alloc.max_size())
-					throw std::length_error;
+					throw std::length_error("Reserve: too big new cap");
 				else if (new_cap < _capacity)
 					return;
 				
-				pointer tmp = Alloc.allocate(new_cap);
+				pointer tmp = _alloc.allocate(new_cap);
 				for (size_type i = 0; i < _size; i++)
-					_alloc.construct(&(tmp[i]), &(_vec_ptr[i]));
+					_alloc.construct(&(tmp[i]), _vec_ptr[i]);
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(&(_vec_ptr[i]));
 				_alloc.deallocate(_vec_ptr, _capacity);
 				_vec_ptr = tmp;
-				_capacity = n;
+				_capacity = new_cap;
 			}
 			
 			size_type capacity(void) const { return(_capacity); }
@@ -130,9 +130,9 @@ namespace ft
 			
 			const_reference front(void) const { return(*_vec_ptr); }
 			
-			reference back(void) { return(*(_vec_ptr[_size - 1]); }
+			reference back(void) { return(_vec_ptr[_size - 1]); }
 			
-			const_reference back(void) const { return(*(_vec_ptr[_size - 1]); }
+			const_reference back(void) const { return(*(_vec_ptr[_size - 1])); }
 			
 			T* data(void) { return(_vec_ptr); }
 			
@@ -143,10 +143,7 @@ namespace ft
 			template< class InputIt >
 			void assign(InputIt first, InputIt last);
 			
-			void assign(size_type count, const T& value) {
-				
-				
-			}
+			void assign(size_type count, const T& value);
 			
 			void push_back (const value_type& val);
 				// user insert() here
@@ -176,12 +173,10 @@ namespace ft
 
 			void resize(size_type n, value_type val = value_type()) {
 				
-				if (n > _alloc.max_size())
-					throw std::length_error;
-				else if (n > _size) {
+				if (n > _size) {
 					pointer tmp = _alloc.allocate(n);
 					for (size_type i = 0; i < _size; i++)
-						_alloc.construct(&(tmp[i]), &(_vec_ptr[i]));
+						_alloc.construct(&(tmp[i]), _vec_ptr[i]);
 					for (size_type i = _size; i < n; i++)
 						_alloc.construct(&(tmp[i]), val);
 					for (size_type i = 0; i < _size; i++)
