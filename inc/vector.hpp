@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/13 15:10:12 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/14 12:44:05 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <memory>
 #include <iostream>
 #include <stdexcept>
+#include "vec_iterator.hpp"
 
 namespace ft
 {
@@ -30,10 +31,10 @@ namespace ft
 			typedef const T&									const_reference;
 			typedef T*											pointer;
 			typedef const T*									const_pointer;
-			// typedef iterator;				// ADD
-			// typedef const_iterator;			// ADD
-			// typedef std::reverse_iterator<iterator>			reverse_iterator;
-			// typedef std::reverse_iterator<const_iterator>	const_reverse_iterator;
+			typedef vector_iterator<T>							iterator;
+			typedef const vector_iterator<T>					const_iterator;
+			// typedef std::reverse_iterator<iterator>				reverse_iterator;
+			// typedef std::reverse_iterator<const_iterator>		const_reverse_iterator;
 			
 			//---------------------------CONSTRUCTORS---------------------------------------//
 			
@@ -86,10 +87,14 @@ namespace ft
 
 			//---------------------------ITERATORS----------------------------------------//
 			
-			// iterator begin();const_iterator begin() const;
-			// iterator end();const_iterator end() const;
-			// reverse_iterator rbegin();const_reverse_iterator rbegin() const;
-			// reverse_iterator rend();const_reverse_iterator rend() const;
+			iterator begin(void) { return(_vec_ptr); }
+			const_iterator begin(void) const { return(_vec_ptr); }
+			iterator end(void) { return(_vec_ptr + _size); }
+			const_iterator end(void) const { return(_vec_ptr + _size); }
+			// reverse_iterator rbegin(void);
+			// const_reverse_iterator rbegin(void) const;
+			// reverse_iterator rend(void);
+			// const_reverse_iterator rend(void) const;
 			
 			//---------------------------CAPACITY----------------------------------------//
 			
