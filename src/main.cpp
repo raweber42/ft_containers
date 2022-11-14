@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/14 12:30:26 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/14 15:28:03 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int main(void) {
 	// print_values(v1);
 	
 	// int test_size = 20;
-	std::cout << COLOR_BLUE << "Initializing vector v2 with 5 values of '5' via 'v2(5, 5)'" << COLOR_DEFAULT  << std::endl;
+	std::cout << COLOR_BLUE << "Initializing vector v2 with 5 values of '5' via 'v2(size_t(5), int(5)) -> enable_if :D'" << COLOR_DEFAULT  << std::endl;
 	ft::vector<int> v2(size_t(5), int(5)); // WITHOUT TYPECASTING (enable_if!)
 
 	// temp

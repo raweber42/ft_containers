@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/14 12:44:05 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/14 15:21:19 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ namespace ft
 			typedef const T&									const_reference;
 			typedef T*											pointer;
 			typedef const T*									const_pointer;
-			typedef vector_iterator<T>							iterator;
-			typedef const vector_iterator<T>					const_iterator;
+			typedef vector_iterator<vector<T, Alloc> >			iterator;
+			typedef const vector_iterator<vector<T, Alloc> >	const_iterator;
 			// typedef std::reverse_iterator<iterator>				reverse_iterator;
 			// typedef std::reverse_iterator<const_iterator>		const_reverse_iterator;
 			
@@ -87,10 +87,11 @@ namespace ft
 
 			//---------------------------ITERATORS----------------------------------------//
 			
-			iterator begin(void) { return(_vec_ptr); }
-			const_iterator begin(void) const { return(_vec_ptr); }
-			iterator end(void) { return(_vec_ptr + _size); }
-			const_iterator end(void) const { return(_vec_ptr + _size); }
+			iterator begin(void) { return( iterator(_vec_ptr) ); }
+			// const_iterator begin(void) const { return(_vec_ptr); }
+			iterator end(void) { return( iterator(_vec_ptr + _size)); }
+			// const_iterator end(void) const { return(_vec_ptr + _size); }
+			
 			// reverse_iterator rbegin(void);
 			// const_reverse_iterator rbegin(void) const;
 			// reverse_iterator rend(void);

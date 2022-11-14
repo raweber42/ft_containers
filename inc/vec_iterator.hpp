@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/14 12:36:29 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/14 15:27:06 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,27 @@
 template<typename T>
 class vector_iterator {
 	public:
-		vector_iterator(T *ptr) : _ptr(ptr) {}
+		typedef std::random_access_iterator_tag		iterator_category;
+		typedef typename T::value_type				value_type;
+		typedef typename T::difference_type			difference_type;
+		typedef typename T::pointer					pointer;
+		typedef typename T::reference				reference;
+		
+	public:
+		vector_iterator(pointer ptr) : _ptr(ptr) {}
 		// ~VectorIterator();
 		// VectorIterator(const VectorIterator &src);
 		// VectorIterator& operator=(Cat const &rhs);
 
-		T& operator*(void) { return (*_ptr); }
+		reference operator*(void) { return (*_ptr); }
 		
-		T& operator++(void) {
+		vector_iterator &operator++(void) {
 			_ptr++;
 			return (*this);
 		}
 		
-		T operator++(int) {
-			T ret(*this);
+		vector_iterator operator++(int) {
+			vector_iterator ret(*this);
 			_ptr++;
 			return (ret);
 		}
@@ -45,7 +52,7 @@ class vector_iterator {
 		}
 		
 		bool operator!=(vector_iterator const &rhs) const {
-			if (_ptr != rhs.ptr)
+			if (_ptr != rhs._ptr)
 				return(true);
 			else
 				return(false);
@@ -58,7 +65,7 @@ class vector_iterator {
 		
 		
 	private: // protected??
-		T	*_ptr;
+		pointer _ptr;
 };
 
 
