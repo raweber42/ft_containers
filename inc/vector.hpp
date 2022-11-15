@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/14 15:21:19 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/15 11:37:17 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,14 @@ namespace ft
 			
 			template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-			: _alloc(alloc), _size(last - first), _capacity(last - first) {
+			: _alloc(alloc), _size(0) {
 				
-				_vec_ptr = _alloc.allocate(last - first);
+				InputIterator tmp = first;
+				while (tmp++ != last)
+					_size++;
+				_vec_ptr = _alloc.allocate(_size);
 				for (size_type i = 0; i < _size; i++)
-					_alloc.construct(_vec_ptr[i], *first++);
+					_alloc.construct(&(_vec_ptr[i]), *first++);
 			}
 
 			vector(const vector& rhs)
@@ -67,7 +70,7 @@ namespace ft
 				
 				_vec_ptr = _alloc.allocate(_capacity);
 				for (size_type i = 0; i < _size; i++)
-					_alloc.construct(_vec_ptr[i], *(rhs[i]));
+					_alloc.construct(&(_vec_ptr[i]), rhs[i]);
 			}
 
 			//---------------------------DESTRUCTOR----------------------------------------//
@@ -107,12 +110,16 @@ namespace ft
 			
 			void reserve(size_type new_cap) {
 
+				pointer tmp = NULL;
 				if (new_cap > _alloc.max_size())
 					throw std::length_error("Reserve: too big new cap");
 				else if (new_cap < _capacity)
 					return;
-				
-				pointer tmp = _alloc.allocate(new_cap);
+				try{
+					tmp = _alloc.allocate(new_cap);
+				} catch (std::bad_alloc &e) {
+					throw e;
+				}
 				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(&(tmp[i]), _vec_ptr[i]);
 				for (size_type i = 0; i < _size; i++)

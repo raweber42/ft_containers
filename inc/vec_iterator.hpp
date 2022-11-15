@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/14 15:27:06 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/15 10:48:41 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,46 @@ class vector_iterator {
 		typedef typename T::reference				reference;
 		
 	public:
+		vector_iterator(void) : _ptr(NULL) {}
 		vector_iterator(pointer ptr) : _ptr(ptr) {}
-		// ~VectorIterator();
-		// VectorIterator(const VectorIterator &src);
-		// VectorIterator& operator=(Cat const &rhs);
+		vector_iterator(const vector_iterator &src) : _ptr(src._ptr) {}
+		~vector_iterator() {};
 
+		// --- VECTOR OPERATOR OVERLOADS ---
+
+		vector_iterator& operator=(vector_iterator const &rhs) {
+			_ptr = rhs._ptr;
+			return (*this);
+		}
+		
 		reference operator*(void) { return (*_ptr); }
+
+		pointer operator->(void) { return (_ptr); }
+		
+		bool operator==(vector_iterator const &rhs) const {
+			return (_ptr == rhs._ptr);	
+		}
+		
+		bool operator!=(vector_iterator const &rhs) const {
+			return (_ptr != rhs._ptr);
+		}
+
+		bool operator<(vector_iterator const &rhs) const {
+			return (_ptr < rhs._ptr);
+		}
+
+		bool operator<=(vector_iterator const &rhs) const {
+			return (_ptr <= rhs._ptr);
+		}
+
+		bool operator>(vector_iterator const &rhs) const {
+			return (_ptr > rhs._ptr);
+		}
+
+		bool operator>=(vector_iterator const &rhs) const {
+			return (_ptr >= rhs._ptr);
+		}
+		
 		
 		vector_iterator &operator++(void) {
 			_ptr++;
@@ -43,22 +77,41 @@ class vector_iterator {
 			_ptr++;
 			return (ret);
 		}
-		
-		bool operator==(vector_iterator const &rhs) const {
-			if (_ptr == rhs._ptr)
-				return(true);
-			else
-				return(false);	
+
+		vector_iterator &operator--(void) {
+			_ptr--;
+			return (*this);
 		}
 		
-		bool operator!=(vector_iterator const &rhs) const {
-			if (_ptr != rhs._ptr)
-				return(true);
-			else
-				return(false);
+		vector_iterator operator--(int) {
+			vector_iterator ret(*this);
+			_ptr--;
+			return (ret);
+		}
+
+		vector_iterator operator+(difference_type offset) const {
+
+			return (vector_iterator(_ptr + offset));
+		}
+
+		vector_iterator  operator-(difference_type offset) const {
+
+			return (vector_iterator(_ptr - offset));
+		}
+
+		vector_iterator &operator+=(difference_type offset) {
+			_ptr += offset;
+			return (*this);
 		}
 		
-		// VectorIterator& operator++(CVectorIterator const &rhs);
+		vector_iterator &operator-=(difference_type offset) {
+			_ptr -= offset;
+			return (*this);
+		}
+
+		reference operator[](difference_type offset) { return(*((*this) + offset)); }
+
+		
 		// VectorIterator& operator!=(CVectorIterator const &rhs);
 		// VectorIterator& operator!=(CVectorIterator const &rhs);
 		// VectorIterator& operator!=(CVectorIterator const &rhs);

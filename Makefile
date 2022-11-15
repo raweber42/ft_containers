@@ -25,7 +25,7 @@ $(NAME):
 	@echo "$(GREEN)SUCCESSFULLY CREATED FT_CONTAINERS!$(UNDO_COL)"
 
 clean:
-	-rm -rf $(NAME)
+	-rm -rf std_containers ft_containers iterator_overload std_containers.dSYM ft_containers.dSYM
 	@echo "$(RED)Finished cleaning up$(UNDO_COL)"
 
 fclean: clean
@@ -33,6 +33,11 @@ fclean: clean
 re: fclean all
 
 debug: fclean dall
+
+iterator_overload:
+	@echo "$(RED)Compiling iterator_overload_test...$(UNDO_COL)"
+	$(CC) $(CFLAGS) src/iterator_overload_test.cpp -o iterator_overload
+	@echo "$(GREEN)SUCCESSFULLY CREATED iterator_overload_test!$(UNDO_COL)"
 
 # dall: $(OBJ)
 # 	@echo "$(RED)Compiling Debug 3 $(NAME)...$(UNDO_COL)"
