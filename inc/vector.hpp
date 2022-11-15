@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/15 11:37:17 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/15 15:16:41 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ namespace ft
 			
 			
 			explicit vector(const allocator_type &alloc = allocator_type())
-			: _alloc(alloc), _size(0), _capacity(0) {
-				
-				_vec_ptr = _alloc.allocate(0);			
-			}
+			: _alloc(alloc), _size(0), _capacity(0), _vec_ptr(NULL) {};
 			
 			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 			: _alloc(alloc), _size(n), _capacity(n) {
@@ -169,14 +166,44 @@ namespace ft
 				_size--;
 			}
 			
-			// iterator insert (iterator position, const value_type& val);
-			// void insert (iterator position, size_type n, const value_type& val);
-			// template <class InputIterator>
-			// void insert (iterator position, InputIterator first, InputIterator last);
-			// iterator erase (iterator position);iterator erase (iterator first, iterator last);
+			// TO FILL
+			
+			iterator insert (iterator position, const value_type& val) {
+
+				if (!_vec_ptr) {
+					_vec_ptr = _alloc.allocate(1);
+					_alloc.construct(&_vec_ptr[0], val);
+					_size = 1;
+					_capacity = 1;
+					std::cout << "HERE" << std::endl;
+					return iterator(&_vec_ptr[0]);
+				}
+				if (_size == _capacity) { // has to reallocate
+					if (!_capacity)
+						MEM_realloc(1);
+					else
+						MEM_realloc(_capacity * 2);
+				}
+				// make a temp and insert val at the position, pushing the others to the back
+				*position = val;
+				// for (iterator it = position + 1; it < this->end(); it++)
+				// 	*it = *(it + 1);
+				return (position);
+			}
+			
+			void insert (iterator position, size_type n, const value_type& val);
+			
+			template <class InputIterator>
+			void insert (iterator position, InputIterator first, InputIterator last);
+			
+			iterator erase (iterator position);
+			
+			iterator erase (iterator first, iterator last);
 
 			void swap (vector& x);
-				
+			
+			// TO FILL END
+
 			void clear(void) {
 				
 				for (size_type i = 0; i < _size; i++)
@@ -187,16 +214,17 @@ namespace ft
 			void resize(size_type n, value_type val = value_type()) {
 				
 				if (n > _size) {
-					pointer tmp = _alloc.allocate(n);
-					for (size_type i = 0; i < _size; i++)
-						_alloc.construct(&(tmp[i]), _vec_ptr[i]);
-					for (size_type i = _size; i < n; i++)
-						_alloc.construct(&(tmp[i]), val);
-					for (size_type i = 0; i < _size; i++)
-						_alloc.destroy(&(_vec_ptr[i]));
-					_alloc.deallocate(_vec_ptr, _capacity);
-					_vec_ptr = tmp;
-					_capacity = n;
+					MEM_realloc(n, val);
+					// pointer tmp = _alloc.allocate(n);
+					// for (size_type i = 0; i < _size; i++)
+					// 	_alloc.construct(&(tmp[i]), _vec_ptr[i]);
+					// for (size_type i = _size; i < n; i++)
+					// 	_alloc.construct(&(tmp[i]), val);
+					// for (size_type i = 0; i < _size; i++)
+					// 	_alloc.destroy(&(_vec_ptr[i]));
+					// _alloc.deallocate(_vec_ptr, _capacity);
+					// _vec_ptr = tmp;
+					// _capacity = n;
 				}
 				else if (n < _size) {
 					for (size_type i = n - 1; i < _size; i++)
@@ -211,6 +239,20 @@ namespace ft
 			allocator_type	_alloc;
 			size_t			_size;
 			size_t			_capacity;
+
+			void MEM_realloc(size_type new_cap, value_type val = value_type()) {
+				
+				pointer tmp = _alloc.allocate(new_cap);
+				for (size_type i = 0; i < _size; i++)
+					_alloc.construct(&(tmp[i]), _vec_ptr[i]);
+				for (size_type i = _size; i < new_cap; i++)
+					_alloc.construct(&(tmp[i]), val);
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(&(_vec_ptr[i]));
+				_alloc.deallocate(_vec_ptr, _capacity);
+				_vec_ptr = tmp;
+				_capacity = new_cap;
+			}
 	};
 	//---------------------------RELATIONAL OPERATORS (non-member)--------------------------------//
 	template< class T, class Alloc >

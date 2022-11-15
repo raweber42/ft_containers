@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/15 11:42:48 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/15 15:06:12 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,114 +75,119 @@ int main(void) {
 	ft::vector<int> v2(size_t(5), int(5)); // WITHOUT TYPECASTING (enable_if!)	
 	print_values(v2);
 
-	std::cout << COLOR_BLUE << "Initializing vector v3 with iterator range via 'v3(v2.begin() + 1, v2.end() - 1)'" << COLOR_DEFAULT  << std::endl;
-	ft::vector<int>::iterator tmp_it_begin = v2.begin() + 1;
-	ft::vector<int>::iterator tmp_it_end = v2.end() - 1;
-	ft::vector<int> v3(tmp_it_begin, tmp_it_end);
-	print_values(v3);
+	// std::cout << COLOR_BLUE << "Initializing vector v3 with iterator range via 'v3(v2.begin() + 1, v2.end() - 1)'" << COLOR_DEFAULT  << std::endl;
+	// ft::vector<int>::iterator tmp_it_begin = v2.begin() + 1;
+	// ft::vector<int>::iterator tmp_it_end = v2.end() - 1;
+	// ft::vector<int> v3(tmp_it_begin, tmp_it_end);
+	// print_values(v3);
 
-	std::cout << COLOR_BLUE << "Initializing vector v4 via copy constructor via 'v4(v3)'" << COLOR_DEFAULT  << std::endl;
-	ft::vector<int> v4(v3);
-	print_values(v4);
+	// std::cout << COLOR_BLUE << "Initializing vector v4 via copy constructor via 'v4(v3)'" << COLOR_DEFAULT  << std::endl;
+	// ft::vector<int> v4(v3);
+	// print_values(v4);
 
-	std::cout << COLOR_BLUE << "Initializing vector v5 via assignment 'v5 = v4'" << COLOR_DEFAULT  << std::endl;
-	ft::vector<int> v5 = v4;
-	print_values(v5);
-	usleep(500000);
+	// std::cout << COLOR_BLUE << "Initializing vector v5 via assignment 'v5 = v4'" << COLOR_DEFAULT  << std::endl;
+	// ft::vector<int> v5 = v4;
+	// print_values(v5);
+	// usleep(500000);
 	
-	usleep(500000);
-	int test_size = 20;
-	std::cout << COLOR_RED <<  "PUSH TO AND POP FROM V1" << COLOR_DEFAULT << std::endl;
-	std::cout << COLOR_BLUE << "Pushing integers 0 - " << (test_size - 1) << " to v1" << COLOR_DEFAULT;
-	for (int i = 0; i < 5; i++)
-	{
-		std::cout << " .";
-		fflush(stdout);
-		usleep(200000);
-	}
-	std::cout << std::endl;
-	for (int i = 0; i < test_size; i++)
-		v1.push_back(i);
-	print_values(v1);
-	// print_values_reversed(v1);
+	// usleep(500000);
+	// int test_size = 20;
+	// std::cout << COLOR_RED <<  "PUSH TO AND POP FROM V1" << COLOR_DEFAULT << std::endl;
+	// std::cout << COLOR_BLUE << "Pushing integers 0 - " << (test_size - 1) << " to v1" << COLOR_DEFAULT;
+	// for (int i = 0; i < 5; i++)
+	// {
+	// 	std::cout << " .";
+	// 	fflush(stdout);
+	// 	usleep(200000);
+	// }
+	// std::cout << std::endl;
+	// for (int i = 0; i < test_size; i++)
+	// 	v1.push_back(i);
+	// print_values(v1);
+	// // print_values_reversed(v1);
 
-	std::cout << COLOR_BLUE <<  "Popping half of the values from v1" << COLOR_DEFAULT;
-	for (int i = 0; i < (test_size/2); i++)
-	{
-		std::cout << " .";
-		fflush(stdout);
-		v1.pop_back();
-		usleep(200000);
-	}
-	std::cout << std::endl;
-	print_values(v1);
-	usleep(500000);
-
-
-	usleep(500000);
-	std::cout << COLOR_RED <<  "TESTS FOR ELEMENT ACCESS" << COLOR_DEFAULT << std::endl;
-	std::cout << COLOR_BLUE << "Get first value via ' v1.front()'" << COLOR_DEFAULT << std::endl;
-	std::cout << "First value is: " << v1.front() << std::endl;
-	std::cout << COLOR_BLUE << "Get last value via 'v1.back()'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Last value is: " << v1.back() << std::endl;
-	std::cout <<  COLOR_BLUE << "Get first value via 'v1.at(0)'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Value is: " << v1.at(0) << std::endl;
-	std::cout <<  COLOR_BLUE << "Get first value via 'v1[0]'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Value is: " << v1[0] << std::endl;
-	std::cout <<  COLOR_BLUE << "Get pointer to first container element via 'v1.data()'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Address is: " << v1.data() << " which holds the value of " << *v1.data() << std::endl << std::endl;
-	usleep(500000);
+	// std::cout << COLOR_BLUE <<  "Popping half of the values from v1" << COLOR_DEFAULT;
+	// for (int i = 0; i < (test_size/2); i++)
+	// {
+	// 	std::cout << " .";
+	// 	fflush(stdout);
+	// 	v1.pop_back();
+	// 	usleep(200000);
+	// }
+	// std::cout << std::endl;
+	// print_values(v1);
+	// usleep(500000);
 
 
-	usleep(500000);
-	std::cout << COLOR_RED <<  "TESTS FOR CAPACITY FUNCTIONS" << COLOR_DEFAULT << std::endl;
-	std::cout << COLOR_BLUE << "Check if container is empty via 'v1.empty()'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Function returns: " << ((v1.empty()) ? "TRUE" : "FALSE") << std::endl;
-	std::cout << COLOR_BLUE << "Get size of vector via 'v1.size()'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Current size is is: " << v1.size() << std::endl;
-	std::cout <<  COLOR_BLUE << "Get max size of vector via 'max_size()'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Max size is: " << v1.max_size() << std::endl;
-	std::cout <<  COLOR_BLUE << "Get capacity of vector via 'v1.capacity()'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Current capacity is: " << v1.capacity() << std::endl;
-	std::cout <<  COLOR_BLUE << "Try calling 'v1.reserve(5)' (should NOT increase capacity)" << COLOR_DEFAULT << std::endl;
-	try {
-		v1.reserve(5);
-	}
-	catch (std::exception &e) {
-		std::cerr << e.what() << std::endl;
-	}
-	std::cout << "Current capacity is: " << v1.capacity() << std::endl;
-	std::cout <<  COLOR_BLUE << "Try calling 'v1.reserve(50)' (SHOULD increase capacity)" << COLOR_DEFAULT << std::endl;
-	try {
-		v1.reserve(50);
-	}
-	catch (std::exception &e) {
-		std::cerr << e.what() << std::endl;
-	}
-	std::cout << "Current capacity is: " << v1.capacity() << std::endl;
-	std::cout <<  COLOR_BLUE << "Try calling 'v1.reserve(999999999999999)' (should THROW EXCEPTION)" << COLOR_DEFAULT << std::endl;
-	try {
-		v1.reserve(99999999999999);
-	}
-	catch (std::exception &e) {
-		std::cerr << e.what() << std::endl;
-	}
-	catch (std::bad_alloc &e) {
-		std::cerr << e.what() << std::endl;
-	}
-	std::cout << "Current capacity is: " << v1.capacity() << std::endl << std::endl;
-	usleep(500000);
+	// usleep(500000);
+	// std::cout << COLOR_RED <<  "TESTS FOR ELEMENT ACCESS" << COLOR_DEFAULT << std::endl;
+	// std::cout << COLOR_BLUE << "Get first value via ' v1.front()'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "First value is: " << v1.front() << std::endl;
+	// std::cout << COLOR_BLUE << "Get last value via 'v1.back()'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Last value is: " << v1.back() << std::endl;
+	// std::cout <<  COLOR_BLUE << "Get first value via 'v1.at(0)'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Value is: " << v1.at(0) << std::endl;
+	// std::cout <<  COLOR_BLUE << "Get first value via 'v1[0]'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Value is: " << v1[0] << std::endl;
+	// std::cout <<  COLOR_BLUE << "Get pointer to first container element via 'v1.data()'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Address is: " << v1.data() << " which holds the value of " << *v1.data() << std::endl << std::endl;
+	// usleep(500000);
 
 
-	usleep(500000);
-	std::cout << COLOR_RED <<  "TESTS FOR MODIFIER FUNCTIONS" << COLOR_DEFAULT << std::endl;
-	std::cout << COLOR_BLUE << "Resize the vector via v1.resize(10)" << COLOR_DEFAULT << std::endl;
-	v1.resize(10);
-	print_values(v1);
-	std::cout << COLOR_BLUE << "Resize the vector via v1.resize(20, 5)" << COLOR_DEFAULT << std::endl;
-	v1.resize(20, 5);
-	print_values(v1);
+	// usleep(500000);
+	// std::cout << COLOR_RED <<  "TESTS FOR CAPACITY FUNCTIONS" << COLOR_DEFAULT << std::endl;
+	// std::cout << COLOR_BLUE << "Check if container is empty via 'v1.empty()'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Function returns: " << ((v1.empty()) ? "TRUE" : "FALSE") << std::endl;
+	// std::cout << COLOR_BLUE << "Get size of vector via 'v1.size()'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Current size is is: " << v1.size() << std::endl;
+	// std::cout <<  COLOR_BLUE << "Get max size of vector via 'max_size()'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Max size is: " << v1.max_size() << std::endl;
+	// std::cout <<  COLOR_BLUE << "Get capacity of vector via 'v1.capacity()'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Current capacity is: " << v1.capacity() << std::endl;
+	// std::cout <<  COLOR_BLUE << "Try calling 'v1.reserve(5)' (should NOT increase capacity)" << COLOR_DEFAULT << std::endl;
+	// try {
+	// 	v1.reserve(5);
+	// }
+	// catch (std::exception &e) {
+	// 	std::cerr << e.what() << std::endl;
+	// }
+	// std::cout << "Current capacity is: " << v1.capacity() << std::endl;
+	// std::cout <<  COLOR_BLUE << "Try calling 'v1.reserve(50)' (SHOULD increase capacity)" << COLOR_DEFAULT << std::endl;
+	// try {
+	// 	v1.reserve(50);
+	// }
+	// catch (std::exception &e) {
+	// 	std::cerr << e.what() << std::endl;
+	// }
+	// std::cout << "Current capacity is: " << v1.capacity() << std::endl;
+	// std::cout <<  COLOR_BLUE << "Try calling 'v1.reserve(999999999999999)' (should THROW EXCEPTION)" << COLOR_DEFAULT << std::endl;
+	// try {
+	// 	v1.reserve(99999999999999);
+	// }
+	// catch (std::exception &e) {
+	// 	std::cerr << e.what() << std::endl;
+	// }
+	// catch (std::bad_alloc &e) {
+	// 	std::cerr << e.what() << std::endl;
+	// }
+	// std::cout << "Current capacity is: " << v1.capacity() << std::endl << std::endl;
+	// usleep(500000);
+
+
+	// usleep(500000);
+	// std::cout << COLOR_RED <<  "TESTS FOR MODIFIER FUNCTIONS" << COLOR_DEFAULT << std::endl;
+	// std::cout << COLOR_BLUE << "Resize the vector via v1.resize(10)" << COLOR_DEFAULT << std::endl;
+	// v1.resize(10);
+	// print_values(v1);
+	// std::cout << COLOR_BLUE << "Resize the vector via v1.resize(20, 5)" << COLOR_DEFAULT << std::endl;
+	// v1.resize(20, 5);
+	// print_values(v1);
 	
+	std::cout << COLOR_BLUE << "Insert one elements of value '77' at the beginning of the vector via 'v1.insert(v1.begin(), 77)'" << COLOR_DEFAULT << std::endl;
+	std::cout << "Current capacity is: " << v1.capacity() << std::endl;
+	v1.insert(v1.begin(), 77);
+	std::cout << "Current capacity is: " << v1.capacity() << std::endl;
+	print_values(v1);
 	// std::cout << COLOR_BLUE << "Insert 5 elements of value '66' at the beginning of the vector via 'v1.insert(v1.begin(), 5, 66)'" << COLOR_DEFAULT << std::endl;
 	// v1.insert(v1.begin(), 5, 66);
 	// print_values(v1);
@@ -203,6 +208,7 @@ int main(void) {
 	// std::cout << "Current capacity is: " << v1.capacity() << std::endl;
 	// usleep(500000);
 
+	
 
 	// usleep(500000);
 	// std::cout << COLOR_RED <<  "TESTS FOR RELATIONAL OPERATORS" << COLOR_DEFAULT << std::endl;
