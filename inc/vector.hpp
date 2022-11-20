@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/15 15:16:41 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/20 17:54:08 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ namespace ft
 			
 			
 			explicit vector(const allocator_type &alloc = allocator_type())
-			: _alloc(alloc), _size(0), _capacity(0), _vec_ptr(NULL) {};
+			: _alloc(alloc), _size(0), _capacity(0) { _vec_ptr = NULL; };
 			
 			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 			: _alloc(alloc), _size(n), _capacity(n) {
@@ -175,9 +175,11 @@ namespace ft
 					_alloc.construct(&_vec_ptr[0], val);
 					_size = 1;
 					_capacity = 1;
-					std::cout << "HERE" << std::endl;
 					return iterator(&_vec_ptr[0]);
 				}
+				size_type pos_counter = 0;
+				for (iterator it = this->begin(); it != position; it++)
+					pos_counter++;
 				if (_size == _capacity) { // has to reallocate
 					if (!_capacity)
 						MEM_realloc(1);
@@ -185,10 +187,14 @@ namespace ft
 						MEM_realloc(_capacity * 2);
 				}
 				// make a temp and insert val at the position, pushing the others to the back
-				*position = val;
-				// for (iterator it = position + 1; it < this->end(); it++)
-				// 	*it = *(it + 1);
-				return (position);
+				for (size_type i = _size; i > pos_counter; i--)
+				{
+					_alloc.construct(&(_vec_ptr[i]), _vec_ptr[i - 1]);
+					_alloc.destroy(&(_vec_ptr[i - 1]));
+				}
+				_alloc.construct(&(_vec_ptr[pos_counter]), val);
+				_size++;
+				return (iterator(&(_vec_ptr[pos_counter])));
 			}
 			
 			void insert (iterator position, size_type n, const value_type& val);

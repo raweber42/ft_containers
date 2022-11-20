@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/15 15:06:12 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/20 17:49:36 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,9 +184,21 @@ int main(void) {
 	// print_values(v1);
 	
 	std::cout << COLOR_BLUE << "Insert one elements of value '77' at the beginning of the vector via 'v1.insert(v1.begin(), 77)'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Current capacity is: " << v1.capacity() << std::endl;
+	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	v1.insert(v1.begin(), 77);
-	std::cout << "Current capacity is: " << v1.capacity() << std::endl;
+	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
+	print_values(v1);
+	v1.insert(v1.begin(), 78);
+	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
+	print_values(v1);
+	v1.insert(v1.begin(), 79);
+	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
+	print_values(v1);
+	v1.insert(v1.begin(), 80);
+	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
+	print_values(v1);
+	v1.insert(v1.begin(), 81);
+	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	print_values(v1);
 	// std::cout << COLOR_BLUE << "Insert 5 elements of value '66' at the beginning of the vector via 'v1.insert(v1.begin(), 5, 66)'" << COLOR_DEFAULT << std::endl;
 	// v1.insert(v1.begin(), 5, 66);
