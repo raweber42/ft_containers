@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/21 15:31:23 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/21 17:03:32 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ int main(void) {
 	// ft::vector<int> v4(v3);
 	// print_values(v4);
 
-	// std::cout << COLOR_BLUE << "Initializing vector v5 via assignment 'v5 = v4'" << COLOR_DEFAULT  << std::endl;
-	// ft::vector<int> v5 = v4;
-	// print_values(v5);
-	// usleep(500000);
+	std::cout << COLOR_BLUE << "Initializing vector v5 via assignment 'v5 = v2'" << COLOR_DEFAULT  << std::endl;
+	ft::vector<int> v5 = v2;
+	print_values(v5);
+	usleep(500000);
 	
 	usleep(500000);
 	int test_size = 20;

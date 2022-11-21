@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/21 10:47:26 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/21 17:36:56 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,24 @@
 
 template<typename T>
 class vector_iterator {
+	
+//---------------VECTOR TYPEDEFS (iterator traits)---------------------------------
 	public:
 		typedef std::random_access_iterator_tag		iterator_category;
 		typedef typename T::value_type				value_type;
 		typedef typename T::difference_type			difference_type;
 		typedef typename T::pointer					pointer;
 		typedef typename T::reference				reference;
-		
+
+//---------------VECTOR CONSTRUCTORS-----------------------------------------------
+
 	public:
 		vector_iterator(void) : _ptr(NULL) {}
 		vector_iterator(pointer ptr) : _ptr(ptr) {}
 		vector_iterator(const vector_iterator &src) : _ptr(src._ptr) {}
 		~vector_iterator() {};
 
-		// --- VECTOR OPERATOR OVERLOADS ---
+//---------------VECTOR OPERATOR OVERLOADS----------------------------------------
 
 		vector_iterator& operator=(vector_iterator const &rhs) {
 			_ptr = rhs._ptr;
@@ -121,37 +125,9 @@ class vector_iterator {
 
 		reference operator[](difference_type offset) { return(*((*this) + offset)); }
 
-		
-		// VectorIterator& operator!=(CVectorIterator const &rhs);
-		// VectorIterator& operator!=(CVectorIterator const &rhs);
-		// VectorIterator& operator!=(CVectorIterator const &rhs);
-		
-		
-	private: // protected??
+
+	private:
 		pointer _ptr;
 };
-
-
-//-------------------OLD (ask Maggie)----------------------
-// template<typename Iterator>
-// template<typename Category, typename T, typename Distance = std::ptrdiff_t>
-// class vector_iterator : Iterator< std::random_access_iterator_tag, T, Distance> {
-// 	public:
-// 		vector_iterator(Iterator ptr) : _iterator(ptr) {}
-// 		// ~VectorIterator();
-// 		// VectorIterator(const VectorIterator &src);
-// 		// VectorIterator& operator=(Cat const &rhs);
-
-// 		// VectorIterator& operator==(VectorIterator const &rhs);
-// 		// VectorIterator& operator!=(CVectorIterator const &rhs);
-// 		// VectorIterator& operator++(CVectorIterator const &rhs);
-// 		// VectorIterator& operator!=(CVectorIterator const &rhs);
-// 		// VectorIterator& operator!=(CVectorIterator const &rhs);
-// 		// VectorIterator& operator!=(CVectorIterator const &rhs);
-		
-		
-// 	private: // protected??
-// 		Iterator::pointer _iterator;
-// };
 
 #endif

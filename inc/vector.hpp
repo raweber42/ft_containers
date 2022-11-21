@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/21 15:36:17 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/21 17:33:50 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ namespace ft
 			// typedef std::reverse_iterator<iterator>				reverse_iterator;
 			// typedef std::reverse_iterator<const_iterator>		const_reverse_iterator;
 			
-			//---------------------------CONSTRUCTORS---------------------------------------//
+
+//---------------------------CONSTRUCTORS---------------------------------------//
 			
 			
 			explicit vector(const allocator_type &alloc = allocator_type())
@@ -50,6 +51,7 @@ namespace ft
 					_alloc.construct(&(_vec_ptr[i]), val);
 			}
 			
+			
 			template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
 			: _alloc(alloc), _size(0) {
@@ -62,6 +64,7 @@ namespace ft
 					_alloc.construct(&(_vec_ptr[i]), *first++);
 			}
 
+
 			vector(const vector& rhs)
 			: _alloc(rhs._alloc), _size(rhs._size), _capacity(rhs._capacity) {
 				
@@ -70,7 +73,9 @@ namespace ft
 					_alloc.construct(&(_vec_ptr[i]), rhs[i]);
 			}
 
-			//---------------------------DESTRUCTOR----------------------------------------//
+
+//---------------------------DESTRUCTOR----------------------------------------//
+
 			
 			~vector(void) {
 				
@@ -79,31 +84,50 @@ namespace ft
 				_alloc.deallocate(_vec_ptr, _capacity);
 			}
 			
-			//---------------------------OPERATOR=----------------------------------------//
 
-			reference operator=(const vector& rhs);
-				// do this later! (assign)
-			
+//---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
-			//---------------------------ITERATORS----------------------------------------//
+
+			reference operator=(const vector& rhs) {
+				
+				if (_vec_ptr != rhs._vec_ptr)
+				{
+					_alloc = rhs._alloc;
+					assign(rhs.begin(), rhs.end());
+				}
+				return (*this);
+			}
+
+
+//---------------------------ITERATOR FUNCTIONS----------------------------------------//
+
 			
 			iterator begin(void) { return( iterator(_vec_ptr) ); }
+
 			const_iterator begin(void) const { return(_vec_ptr); }
-			iterator end(void) { return( iterator(_vec_ptr + _size)); }
+
+			iterator end(void) { return(iterator(_vec_ptr + _size)); }
+			
 			const_iterator end(void) const { return(_vec_ptr + _size); }
 			
 			// reverse_iterator rbegin(void);
+
 			// const_reverse_iterator rbegin(void) const;
+
 			// reverse_iterator rend(void);
-			// const_reverse_iterator rend(void) const;
 			
-			//---------------------------CAPACITY----------------------------------------//
+			// const_reverse_iterator rend(void) const;
+
+
+//---------------------------CAPACITY----------------------------------------//
+
 			
 	 		bool empty(void) const { return(_size == 0); }
 			
 			size_type size(void) const { return(_size); }
 			
 			size_type max_size(void) const { return(_alloc.max_size()); }
+			
 			
 			void reserve(size_type new_cap) {
 
@@ -126,9 +150,12 @@ namespace ft
 				_capacity = new_cap;
 			}
 			
-			size_type capacity(void) const { return(_capacity); }
 			
-			//---------------------------ELEMENT ACCESS----------------------------------------//
+			size_type capacity(void) const { return(_capacity); }
+
+
+//---------------------------ELEMENT ACCESS----------------------------------------//
+	
 			
 			reference at(size_type pos) { return(_vec_ptr[pos]); }
 
@@ -147,8 +174,10 @@ namespace ft
 			T* data(void) { return(_vec_ptr); }
 			
 			const T* data(void) const { return(_vec_ptr); }
+
+
+//---------------------------MODIFIERS----------------------------------------//
 			
-			//---------------------------MODIFIERS----------------------------------------//
 			
 			template< class InputIt >
 			void assign(InputIt first, InputIt last) {
@@ -167,6 +196,7 @@ namespace ft
 				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(&(_vec_ptr[i]), *first++);
 			}
+			
 			
 			void assign(size_type count, const T& value) {
 				
@@ -193,9 +223,11 @@ namespace ft
 				// }
 			}
 			
+			
 			void push_back (const value_type& val) {
 				this->insert(this->end(), val);
 			}
+			
 			
 			void pop_back(void) {
 				
@@ -206,7 +238,6 @@ namespace ft
 			}
 			
 
-			
 			iterator insert (iterator position, const value_type& val) {
 
 				if (!_vec_ptr) {
@@ -234,6 +265,7 @@ namespace ft
 				_size++;
 				return (iterator(&(_vec_ptr[pos_counter])));
 			}
+			
 			
 			void insert (iterator position, size_type n, const value_type& val) {
 				
@@ -267,10 +299,11 @@ namespace ft
 			}
 			// CHECK IF POSSIBLE WITH ITERATOR???
 			
+			
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last);
+			// MISSING HERE!
 			
-
 
 			iterator erase (iterator position) {
 				
@@ -289,6 +322,7 @@ namespace ft
 				_size--;
 				return (iterator(&(_vec_ptr[pos_counter])));
 			}
+			
 			
 			iterator erase (iterator first, iterator last) {
 				
@@ -309,10 +343,9 @@ namespace ft
 			}
 
 
-
 			void swap (vector& x);
-			
-			// TO FILL END
+			// TO FILL!!
+
 
 			void clear(void) {
 				
@@ -320,6 +353,7 @@ namespace ft
 					_alloc.destroy(&(_vec_ptr[i]));
 				_size = 0;
 			}
+
 
 			void resize(size_type n, value_type val = value_type()) {
 				
@@ -354,7 +388,11 @@ namespace ft
 				_capacity = new_cap;
 			}
 	};
-	//---------------------------RELATIONAL OPERATORS (non-member)--------------------------------//
+
+
+//---------------------------RELATIONAL OPERATORS (non-member)--------------------------------//
+
+
 	template< class T, class Alloc >
 	bool operator==( const std::vector<T,Alloc>& lhs, const std::vector<T,Alloc>& rhs );
 
@@ -373,9 +411,13 @@ namespace ft
 	template< class T, class Alloc >
 	bool operator>=( const std::vector<T,Alloc>& lhs, const std::vector<T,Alloc>& rhs );
 
-	//---------------------------SWAP (non-member)--------------------------------//
+
+//---------------------------SWAP (non-member)--------------------------------//
+
+
 	template< class T, class Alloc >
 	void swap( std::vector<T,Alloc>& lhs, std::vector<T,Alloc>& rhs );
+
 
 } // namespace ft
 
