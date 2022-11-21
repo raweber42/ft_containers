@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/21 11:07:48 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/21 12:16:01 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 	#include "../inc/stack.hpp"
 #endif
 
+#include <vector>
 
 #define MAX_RAM 4294967296
 #define BUFFER_SIZE 4096
@@ -185,21 +186,29 @@ int main(void) {
 	
 	std::cout << COLOR_BLUE << "Insert one elements of value '77' at the beginning of the vector via 'v1.insert(v1.begin(), 77)'" << COLOR_DEFAULT << std::endl;
 	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
-	v1.insert(v1.begin(), 77);
-	v1.insert(v1.begin(), 78);
-	v1.insert(v1.begin(), 79);
-	v1.insert(v1.begin(), 80);
-	v1.insert(v1.begin(), 81);
-	v1.insert(v1.begin(), 77);
-	v1.insert(v1.begin(), 78);
-	v1.insert(v1.begin(), 79);
-	v1.insert(v1.begin(), 80);
-	v1.insert(v1.begin(), 81);
+	v1.insert(v1.begin(), size_t(5), 5);
+	v1.insert(v1.begin() + 1, size_t(3), 3);
+	// v1.insert(v1.begin(), 78);
+	// v1.insert(v1.begin(), 79);
+	// v1.insert(v1.begin(), 80);
+	// v1.insert(v1.begin(), 81);
+	// v1.insert(v1.begin(), 77);
+	// v1.insert(v1.begin(), 78);
+	// v1.insert(v1.begin(), 79);
+	// v1.insert(v1.begin(), 80);
+	// v1.insert(v1.begin(), 81);
 	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	print_values(v1);
-	v1.erase(v1.begin(), v1.begin() + 2);
-	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
-	print_values(v1);
+	// v1.erase(v1.begin(), v1.begin() + 2);
+	// std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
+	// print_values(v1);
+
+	// std::vector<int> v_test;
+	// std::cout << "Current capacity is: " << v_test.capacity() << " | current size is: " << v_test.size() << std::endl;
+	// v_test.insert(v_test.begin(), 10, 10);
+	// std::cout << "Current capacity is: " << v_test.capacity() << " | current size is: " << v_test.size() << std::endl;
+	// v_test.insert(v_test.begin(), 20, 20);
+	// std::cout << "Current capacity is: " << v_test.capacity() << " | current size is: " << v_test.size() << std::endl;
 
 	// std::cout << COLOR_BLUE << "Insert 5 elements of value '66' at the beginning of the vector via 'v1.insert(v1.begin(), 5, 66)'" << COLOR_DEFAULT << std::endl;
 	// v1.insert(v1.begin(), 5, 66);

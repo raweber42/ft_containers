@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/21 11:13:06 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/21 12:20:44 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,11 +196,40 @@ namespace ft
 				return (iterator(&(_vec_ptr[pos_counter])));
 			}
 			
-			// void insert (iterator position, size_type n, const value_type& val) {
+			void insert (iterator position, size_type n, const value_type& val) {
 				
-				
-			// }
-			
+				if (!_vec_ptr)
+				{
+					_vec_ptr = _alloc.allocate(n);
+					for (size_type i = 0; i < n; i++)
+						_alloc.construct(&_vec_ptr[i], val);
+					_size = n;
+					_capacity = n;
+					return;
+				}
+				size_type pos_counter = 0;
+				for (iterator it = this->begin(); it != position; it++)
+					pos_counter++;
+				if (_size + n >= _capacity)
+				{
+					if (!_capacity)
+						MEM_realloc(n);
+					else
+						MEM_realloc(_size + n);
+				}
+				for (size_type i = (_size + n - 1); i >= pos_counter + n; i--)
+				{
+					_alloc.construct(&(_vec_ptr[i]), _vec_ptr[i - n]);
+					_alloc.destroy(&(_vec_ptr[i - n]));
+				}
+				for (size_type i = 0; i < n; i++)
+					_alloc.construct(&(_vec_ptr[pos_counter + i]), val);
+				_size += n;
+			}
+			// CHECK IF POSSIBLE WITH ITERATOR???
+			// 5 5 5 5 5 - - -
+			//  ^
+			// 3 3 3
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last);
 			
