@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/21 12:20:44 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/21 15:36:17 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ namespace ft
 			//---------------------------ITERATORS----------------------------------------//
 			
 			iterator begin(void) { return( iterator(_vec_ptr) ); }
-			// const_iterator begin(void) const { return(_vec_ptr); }
+			const_iterator begin(void) const { return(_vec_ptr); }
 			iterator end(void) { return( iterator(_vec_ptr + _size)); }
-			// const_iterator end(void) const { return(_vec_ptr + _size); }
+			const_iterator end(void) const { return(_vec_ptr + _size); }
 			
 			// reverse_iterator rbegin(void);
 			// const_reverse_iterator rbegin(void) const;
@@ -112,7 +112,7 @@ namespace ft
 					throw std::length_error("Reserve: too big new cap");
 				else if (new_cap < _capacity)
 					return;
-				try{
+				try {
 					tmp = _alloc.allocate(new_cap);
 				} catch (std::bad_alloc &e) {
 					throw e;
@@ -151,12 +151,51 @@ namespace ft
 			//---------------------------MODIFIERS----------------------------------------//
 			
 			template< class InputIt >
-			void assign(InputIt first, InputIt last);
+			void assign(InputIt first, InputIt last) {
+				
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(&(_vec_ptr[i]));
+				_size = last - first;
+				if (_size> _capacity)
+					_alloc.deallocate(_vec_ptr, _capacity);
+				
+				if (_size > _capacity)
+				{
+					_vec_ptr = _alloc.allocate(_size);
+					_capacity = _size;
+				}
+				for (size_type i = 0; i < _size; i++)
+					_alloc.construct(&(_vec_ptr[i]), *first++);
+			}
 			
-			void assign(size_type count, const T& value);
+			void assign(size_type count, const T& value) {
+				
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(&(_vec_ptr[i]));
+				_alloc.deallocate(_vec_ptr, _capacity);
+
+				_vec_ptr = _alloc.allocate(count);	
+				for (size_type i = 0; i < count; i++)
+					_alloc.construct(&(_vec_ptr[i]), value);
 			
-			void push_back (const value_type& val);
-				// user insert() here
+				// LATER:
+				// if (_size > _capacity)
+				// {
+				// 	this->~vector();
+				// 	*this = vector(count, value);
+				// }
+				// else
+				// {
+				// 	this->clear();
+				// 	_size = count;
+				// 	for (size_type i = 0; i < count; i++)
+				// 		_alloc.construct(&(_vec_ptr[i]), value);
+				// }
+			}
+			
+			void push_back (const value_type& val) {
+				this->insert(this->end(), val);
+			}
 			
 			void pop_back(void) {
 				
@@ -227,9 +266,7 @@ namespace ft
 				_size += n;
 			}
 			// CHECK IF POSSIBLE WITH ITERATOR???
-			// 5 5 5 5 5 - - -
-			//  ^
-			// 3 3 3
+			
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last);
 			
