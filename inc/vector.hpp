@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/21 10:48:26 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/21 11:13:06 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ namespace ft
 				_size--;
 			}
 			
-			// TO FILL
+
 			
 			iterator insert (iterator position, const value_type& val) {
 
@@ -196,12 +196,16 @@ namespace ft
 				return (iterator(&(_vec_ptr[pos_counter])));
 			}
 			
-			void insert (iterator position, size_type n, const value_type& val);
+			// void insert (iterator position, size_type n, const value_type& val) {
+				
+				
+			// }
 			
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last);
 			
-			// ------------------ ERASE --------------------------------------------------//
+
+
 			iterator erase (iterator position) {
 				
 				size_type pos_counter = 0;
@@ -223,36 +227,22 @@ namespace ft
 			iterator erase (iterator first, iterator last) {
 				
 				iterator tmp = first;
-				_size -= last - first;
+				difference_type tmp_size = last - first;
 				while (first != this->end())
 				{
 					_alloc.destroy(&(*first));
 					if (last != this->end())
 					{
 						_alloc.construct(&(*first), *last);
+						last++;
 					}
 					first++;
 				}
+				_size -= tmp_size;
 				return (tmp);
-				
-				// size_type first_pos = 0;
-				// for (iterator it = this->begin(); it != first; it++)
-				// 	first_pos++;
-				// size_type last_pos = 0;
-				// for (iterator it = this->begin(); it != last; it++)
-				// 	last_pos++;
-				// for (size_type i = first_pos; i < last_pos; i++)
-				// 	_alloc.destroy(&(_vec_ptr[i]));
-				// std::cout << "First pos is: " << first_pos << " last pos: " << last_pos << std::endl;
-		
-				// for (size_type i = first_pos; i < (_size - (last_pos - first_pos)); i++)
-				// {
-				// 	_alloc.construct(&(_vec_ptr[i]), _vec_ptr[i + (last_pos - first_pos)]);
-				// 	_alloc.destroy(&(_vec_ptr[i + (last_pos - first_pos)]));
-				// }
-				// _size -= last_pos - first_pos;
-				// return (iterator(&(_vec_ptr[first_pos])));
 			}
+
+
 
 			void swap (vector& x);
 			

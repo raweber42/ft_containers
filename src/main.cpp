@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/21 10:49:18 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/21 11:07:48 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,9 +190,14 @@ int main(void) {
 	v1.insert(v1.begin(), 79);
 	v1.insert(v1.begin(), 80);
 	v1.insert(v1.begin(), 81);
+	v1.insert(v1.begin(), 77);
+	v1.insert(v1.begin(), 78);
+	v1.insert(v1.begin(), 79);
+	v1.insert(v1.begin(), 80);
+	v1.insert(v1.begin(), 81);
 	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	print_values(v1);
-	v1.erase(v1.begin() + 1, v1.end());
+	v1.erase(v1.begin(), v1.begin() + 2);
 	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	print_values(v1);
 
