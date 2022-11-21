@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/20 17:54:08 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/21 09:18:26 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,6 @@ namespace ft
 					else
 						MEM_realloc(_capacity * 2);
 				}
-				// make a temp and insert val at the position, pushing the others to the back
 				for (size_type i = _size; i > pos_counter; i--)
 				{
 					_alloc.construct(&(_vec_ptr[i]), _vec_ptr[i - 1]);
@@ -202,7 +201,23 @@ namespace ft
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last);
 			
-			iterator erase (iterator position);
+			iterator erase (iterator position) {
+				
+				size_type pos_counter = 0;
+				for (iterator it = this->begin(); it != position; it++)
+					pos_counter++;
+				_alloc.destroy(&(_vec_ptr[pos_counter]));
+				if (pos_counter < (_size - 1))
+				{
+					for (size_type i = pos_counter; i < _size - 1; i++)
+					{
+						_alloc.construct(&(_vec_ptr[i]), _vec_ptr[i + 1]);
+						_alloc.destroy(&(_vec_ptr[i + 1]));
+					}
+				}
+				_size--;
+				return (iterator(&(_vec_ptr[pos_counter])));
+			}
 			
 			iterator erase (iterator first, iterator last);
 

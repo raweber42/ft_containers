@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/20 17:49:36 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/21 09:16:51 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,10 +194,10 @@ int main(void) {
 	v1.insert(v1.begin(), 79);
 	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	print_values(v1);
-	v1.insert(v1.begin(), 80);
+	v1.erase(v1.begin());
 	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	print_values(v1);
-	v1.insert(v1.begin(), 81);
+	v1.erase(v1.begin());
 	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	print_values(v1);
 	// std::cout << COLOR_BLUE << "Insert 5 elements of value '66' at the beginning of the vector via 'v1.insert(v1.begin(), 5, 66)'" << COLOR_DEFAULT << std::endl;
