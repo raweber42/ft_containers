@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/15 10:48:41 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/21 10:47:26 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,20 @@ class vector_iterator {
 
 			return (vector_iterator(_ptr + offset));
 		}
+		
+		difference_type  operator+(vector_iterator rhs) const {
+
+			return (_ptr + rhs._ptr);
+		}
 
 		vector_iterator  operator-(difference_type offset) const {
 
 			return (vector_iterator(_ptr - offset));
+		}
+
+		difference_type  operator-(vector_iterator rhs) const {
+
+			return (_ptr - rhs._ptr);
 		}
 
 		vector_iterator &operator+=(difference_type offset) {
