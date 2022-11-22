@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/21 17:03:32 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/22 08:28:21 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,14 @@ int main(void) {
 	print_values(v2);
 
 	std::cout << COLOR_BLUE << "Initializing vector v3 with iterator range via 'v3(v2.begin() + 1, v2.end() - 1)'" << COLOR_DEFAULT  << std::endl;
-	ft::vector<int>::iterator tmp_it_begin = v2.begin() + 1;
-	ft::vector<int>::iterator tmp_it_end = v2.end() - 1;
-	ft::vector<int> v3(tmp_it_begin, tmp_it_end);
+	ft::vector<int> v3(v2.begin() + 1, v2.end() - 1);
 	print_values(v3);
 
 	// std::cout << COLOR_BLUE << "Initializing vector v4 via copy constructor via 'v4(v3)'" << COLOR_DEFAULT  << std::endl;
 	// ft::vector<int> v4(v3);
 	// print_values(v4);
 
-	std::cout << COLOR_BLUE << "Initializing vector v5 via assignment 'v5 = v2'" << COLOR_DEFAULT  << std::endl;
+	std::cout << COLOR_BLUE << "Initializing vector v5 via assignment 'v5 = v3'" << COLOR_DEFAULT  << std::endl;
 	ft::vector<int> v5 = v2;
 	print_values(v5);
 	usleep(500000);
@@ -94,6 +92,7 @@ int main(void) {
 	usleep(500000);
 	int test_size = 20;
 	std::cout << COLOR_RED <<  "PUSH TO AND POP FROM V1" << COLOR_DEFAULT << std::endl;
+	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	std::cout << COLOR_BLUE << "Pushing integers 0 - " << (test_size - 1) << " to v1" << COLOR_DEFAULT;
 	for (int i = 0; i < 5; i++)
 	{
@@ -102,13 +101,11 @@ int main(void) {
 		usleep(200000);
 	}
 	std::cout << std::endl;
-	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	for (int i = 0; i < test_size; i++)
 	{
 		v1.push_back(i);
-		//std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	}
-		
+	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	print_values(v1);
 	// // print_values_reversed(v1);
 
@@ -121,6 +118,7 @@ int main(void) {
 		usleep(200000);
 	}
 	std::cout << std::endl;
+	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	print_values(v1);
 	usleep(500000);
 
@@ -165,7 +163,7 @@ int main(void) {
 	catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
 	}
-	std::cout << "Current capacity is: " << v1.capacity() << std::endl;
+	// std::cout << "Current capacity is: " << v1.capacity() << std::endl;
 	// std::cout <<  COLOR_BLUE << "Try calling 'v1.reserve(999999999999999)' (should THROW EXCEPTION)" << COLOR_DEFAULT << std::endl;
 	// try {
 	// 	v1.reserve(99999999999999);
@@ -176,17 +174,19 @@ int main(void) {
 	// catch (std::bad_alloc &e) {
 	// 	std::cerr << e.what() << std::endl;
 	// }
-	// std::cout << "Current capacity is: " << v1.capacity() << std::endl << std::endl;
-	// usleep(500000);
+	std::cout << "Current capacity is: " << v1.capacity() << std::endl << std::endl;
+	usleep(500000);
 
 
 	usleep(500000);
 	std::cout << COLOR_RED <<  "TESTS FOR MODIFIER FUNCTIONS" << COLOR_DEFAULT << std::endl;
-	std::cout << COLOR_BLUE << "Resize the vector via v1.resize(10)" << COLOR_DEFAULT << std::endl;
-	v1.resize(10);
+	std::cout << COLOR_BLUE << "Resize the vector via v1.resize(5)" << COLOR_DEFAULT << std::endl;
+	v1.resize(5);
+	std::cout << "Current capacity is: " << v1.capacity() << std::endl;
 	print_values(v1);
-	std::cout << COLOR_BLUE << "Resize the vector via v1.resize(20, 5)" << COLOR_DEFAULT << std::endl;
-	v1.resize(20, 5);
+	std::cout << COLOR_BLUE << "Resize the vector via v1.resize(10, 5)" << COLOR_DEFAULT << std::endl;
+	v1.resize(10, 5);
+	std::cout << "Current capacity is: " << v1.capacity() << std::endl;
 	print_values(v1);
 	
 	std::cout << COLOR_BLUE << "Insert one elements of value '77' at the beginning of the vector via 'v1.insert(v1.begin(), 77)'" << COLOR_DEFAULT << std::endl;
@@ -196,11 +196,17 @@ int main(void) {
 	std::cout << COLOR_BLUE << "Insert 5 elements of value '66' at the beginning of the vector via 'v1.insert(v1.begin(), 5, 66)'" << COLOR_DEFAULT << std::endl;
 	v1.insert(v1.begin(), size_t(5), 66); // ENABLE_IF!
 	print_values(v1);
+	std::cout << COLOR_BLUE << "Insert the first three elements of value v2 at the beginning of the vector via 'v1.insert(v1.begin(), v2.begin(), v2.begin() + 3)'" << COLOR_DEFAULT << std::endl;
+	v1.insert(v1.begin(), v2.begin(), v2.begin() + 3);
+	print_values(v1);
 	// maybe more insert tests here!
 	
-	std::cout << COLOR_BLUE << "Erase the first five elements at the beginning of the vector via calling 'v1.erase(v1.begin())' five times" << COLOR_DEFAULT << std::endl;
+	std::cout << COLOR_BLUE << "Erase the first element at the beginning of the vector via calling 'v1.erase(v1.begin())'" << COLOR_DEFAULT << std::endl;
 	for (int i = 0; i < 5; i++)
 		v1.erase(v1.begin());
+	print_values(v1);
+	std::cout << COLOR_BLUE << "Erase the first four element at the beginning of the vector via calling 'v1.erase(v1.begin(), v1.begin() + 4)'" << COLOR_DEFAULT << std::endl;
+	v1.erase(v1.begin(), v1.begin() + 4);
 	print_values(v1);
 	// std::cout << COLOR_BLUE << "Swap v1 and v2 via v1.swap(v2)" << COLOR_DEFAULT << std::endl;
 	// v1.swap(v2);

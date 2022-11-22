@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/21 17:33:50 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/22 08:21:50 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,8 +301,41 @@ namespace ft
 			
 			
 			template <class InputIterator>
-			void insert (iterator position, InputIterator first, InputIterator last);
-			// MISSING HERE!
+			void insert (iterator position, InputIterator first, InputIterator last) {
+				
+				size_type tmp_size = last - first;
+				if (!_vec_ptr)
+				{
+					_vec_ptr = _alloc.allocate(tmp_size);
+					for (size_type i = 0; i < tmp_size; i++)
+						_alloc.construct(&_vec_ptr[i], *first++);
+					_size = tmp_size;
+					_capacity = tmp_size;
+					return ;
+				}
+				if (_size + tmp_size >= _capacity)
+				{
+					if (!_capacity)
+						MEM_realloc(tmp_size);
+					else
+						MEM_realloc(_size + tmp_size);
+				}
+				size_type pos_counter = 0;
+				for (iterator it = this->begin(); it != position; it++)
+					pos_counter++;
+				for (size_type i = (_size + tmp_size - 1); i >= pos_counter + tmp_size; i--)
+				{
+					_alloc.construct(&(_vec_ptr[i]), _vec_ptr[i - tmp_size]);
+					_alloc.destroy(&(_vec_ptr[i - tmp_size]));
+				}
+				for (size_type i = 0; i < tmp_size; i++)
+					_alloc.construct(&(_vec_ptr[pos_counter + i]), *first++);
+				_size += tmp_size;
+
+				// 3 3 3 3
+				//  ^
+				// 1 2 3
+			}
 			
 
 			iterator erase (iterator position) {
@@ -357,8 +390,13 @@ namespace ft
 
 			void resize(size_type n, value_type val = value_type()) {
 				
-				if (n > _size) {
+				if (n > _capacity) {
 					MEM_realloc(n, val);
+				}
+				else if (n > _size) {
+					for (size_type i = _size; i < n; i++)
+						_alloc.construct(&(_vec_ptr[i]), val);
+					// _size = n;
 				}
 				else if (n < _size) {
 					for (size_type i = n - 1; i < _size; i++)
