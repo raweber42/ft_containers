@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/23 11:17:49 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/23 12:14:27 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ namespace ft
 			typedef T*											pointer;
 			typedef const T*									const_pointer;
 			typedef vector_iterator<vector<T, Alloc> >			iterator;
-			typedef const vector_iterator<vector<T, Alloc> >	const_iterator;
+			typedef const_vector_iterator<vector<T, Alloc> >	const_iterator;
 			typedef reverse_vector_iterator<iterator>			reverse_iterator;
 			typedef reverse_vector_iterator<const_iterator>		const_reverse_iterator;
 			
@@ -105,11 +105,11 @@ namespace ft
 			
 			iterator begin(void) { return( iterator(_vec_ptr) ); }
 
-			const_iterator begin(void) const { return(_vec_ptr); }
+			const_iterator begin(void) const { return( const_iterator(_vec_ptr)); }
 
 			iterator end(void) { return(iterator(_vec_ptr + _size)); }
 			
-			const_iterator end(void) const { return(_vec_ptr + _size); }
+			const_iterator end(void) const { return(const_iterator(_vec_ptr + _size)); }
 			
 			reverse_iterator rbegin(void) { return(reverse_iterator(_vec_ptr + _size)); }
 
@@ -373,8 +373,23 @@ namespace ft
 			}
 
 
-			void swap (vector& x);
-			// TO FILL!!
+			void swap (vector& x) {
+				
+				pointer tmp_ptr = _vec_ptr;
+				allocator_type	tmp_alloc = _alloc;
+				size_t			tmp_size = _size;
+				size_t			tmp_capacity = _capacity;
+				
+				_vec_ptr = x._vec_ptr;
+				_alloc = x._alloc;
+				_size = x._size;
+				_capacity = x._capacity;
+				
+				x._vec_ptr = tmp_ptr;
+				x._alloc = tmp_alloc;
+				x._size = tmp_size;
+				x._capacity = tmp_capacity;
+			}
 
 
 			void clear(void) {
@@ -404,6 +419,8 @@ namespace ft
 	
 			
 		//--------------------------PRIVATE VARIABLES----------------------------------------//
+		
+		
 		private:
 			pointer			_vec_ptr;
 			allocator_type	_alloc;
@@ -482,9 +499,5 @@ namespace ft
 } // namespace ft
 
 // see bookmark page 484
-
-// constructors: capacity = size?
-// when use _alloc and when Alloc ?? zurzeit beide in Benutzung
-// why is 'multi' in Mikes resize?
 
 #endif

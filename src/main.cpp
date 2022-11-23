@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/23 11:14:51 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/23 11:58:29 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ struct Buffer
 void print_values(ft::vector<int> &v1) {
 	
 	std::cout << "The values held by the vector are (accessed via iterator): [ ";
-	for (ft::vector<int>::iterator it = v1.begin(); it != v1.end(); it++)
+	for (ft::vector<int>::const_iterator it = v1.begin(); it != v1.end(); it++)
 	{
 		std::cout << *it << " ";
 		fflush(stdout);
@@ -52,7 +52,7 @@ void print_values(ft::vector<int> &v1) {
 void print_values_reversed(ft::vector<int> v1) {
 	
 	std::cout << "The values held by the vector are (accessed via REVERSE iterator): [ ";
-	for (ft::vector<int>::reverse_iterator it = v1.rbegin(); it != v1.rend(); it++)
+	for (ft::vector<int>::const_reverse_iterator it = v1.rbegin(); it != v1.rend(); it++)
 	{
 		std::cout << *it << " ";
 		fflush(stdout);
@@ -205,12 +205,18 @@ int main(void) {
 	std::cout << COLOR_BLUE << "Erase the first four element at the beginning of the vector via calling 'v1.erase(v1.begin(), v1.begin() + 4)'" << COLOR_DEFAULT << std::endl;
 	v1.erase(v1.begin(), v1.begin() + 4);
 	print_values(v1);
-	// std::cout << COLOR_BLUE << "Swap v1 and v2 via v1.swap(v2)" << COLOR_DEFAULT << std::endl;
-	// v1.swap(v2);
-	// std::cout << "Print values of v1:" << std::endl;
-	// print_values(v1);
-	// std::cout << "Print values of v2:" << std::endl;
-	// print_values(v2);
+	std::cout << COLOR_BLUE << "Swap v1 and v2 via v1.swap(v2)" << COLOR_DEFAULT << std::endl;
+	v1.swap(v2);
+	std::cout << "Print values of v1:" << std::endl;
+	print_values(v1);
+	std::cout << "Print values of v2:" << std::endl;
+	print_values(v2);
+	std::cout << COLOR_BLUE << "Swap them back via v2.swap(v1)" << COLOR_DEFAULT << std::endl;
+	v2.swap(v1);
+	std::cout << "Print values of v1:" << std::endl;
+	print_values(v1);
+	std::cout << "Print values of v2:" << std::endl;
+	print_values(v2);
 	std::cout << COLOR_BLUE << "Clear the vector via v1.clear()" << COLOR_DEFAULT << std::endl;
 	v1.clear();
 	std::cout << "Current size is is: " << v1.size() << std::endl;

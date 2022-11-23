@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/23 11:18:14 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/23 11:59:19 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,127 @@ class vector_iterator {
 			return (*this);
 		}
 
-
 	private:
 		pointer _ptr;
+};
+
+
+//######################################################################
+//###################### CONST ITERATOR ################################
+//######################################################################
+
+template<typename T>
+class const_vector_iterator {
+	
+//---------------ITERATOR TYPEDEFS (iterator traits)---------------------------------
+	public:
+		typedef std::random_access_iterator_tag		iterator_category;
+		typedef typename T::value_type				value_type;
+		typedef typename T::difference_type			difference_type;
+		typedef const value_type*					pointer;
+		typedef const value_type&					reference;
+
+//---------------CONST_ITERATOR CONSTRUCTORS-----------------------------------------------
+
+	public:
+		const_vector_iterator(void) : _ptr(NULL) {}
+		const_vector_iterator(value_type *ptr) : _ptr(ptr) {}
+		const_vector_iterator(const const_vector_iterator &src) : _ptr(src._ptr) {}
+		~const_vector_iterator() {};
+
+//---------------ITERATOR OPERATOR OVERLOADS----------------------------------------
+
+		const_vector_iterator& operator=(const_vector_iterator const &rhs) {
+			_ptr = rhs._ptr;
+			return (*this);
+		}
+		
+		reference operator*(void) { return (*_ptr); }
+
+		pointer operator->(void) { return (_ptr); }
+
+		reference operator[](difference_type offset) { return(*((*this) + offset)); }
+		
+		bool operator==(const_vector_iterator const &rhs) const {
+			return (_ptr == rhs._ptr);	
+		}
+		
+		bool operator!=(const_vector_iterator const &rhs) const {
+			return (_ptr != rhs._ptr);
+		}
+
+		bool operator<(const_vector_iterator const &rhs) const {
+			return (_ptr < rhs._ptr);
+		}
+
+		bool operator<=(const_vector_iterator const &rhs) const {
+			return (_ptr <= rhs._ptr);
+		}
+
+		bool operator>(const_vector_iterator const &rhs) const {
+			return (_ptr > rhs._ptr);
+		}
+
+		bool operator>=(const_vector_iterator const &rhs) const {
+			return (_ptr >= rhs._ptr);
+		}
+
+		// above: move out of member functions?
+		
+		const_vector_iterator &operator++(void) {
+			_ptr++;
+			return (*this);
+		}
+		
+		const_vector_iterator operator++(int) {
+			const_vector_iterator ret(*this);
+			_ptr++;
+			return (ret);
+		}
+
+		const_vector_iterator &operator--(void) {
+			_ptr--;
+			return (*this);
+		}
+		
+		const_vector_iterator operator--(int) {
+			const_vector_iterator ret(*this);
+			_ptr--;
+			return (ret);
+		}
+
+		const_vector_iterator operator+(difference_type offset) const {
+
+			return (const_vector_iterator(_ptr + offset));
+		}
+		
+		difference_type  operator+(const_vector_iterator rhs) const {
+
+			return (_ptr + rhs._ptr);
+		}
+
+		const_vector_iterator  operator-(difference_type offset) const {
+
+			return (const_vector_iterator(_ptr - offset));
+		}
+
+		difference_type  operator-(const_vector_iterator rhs) const {
+
+			return (_ptr - rhs._ptr);
+		}
+
+		const_vector_iterator &operator+=(difference_type offset) {
+			_ptr += offset;
+			return (*this);
+		}
+		
+		const_vector_iterator &operator-=(difference_type offset) {
+			_ptr -= offset;
+			return (*this);
+		}
+
+	private:
+		value_type *_ptr;
 };
 
 
@@ -160,11 +278,11 @@ class reverse_vector_iterator {
 		explicit reverse_vector_iterator(iterator_type x) : _base(x) {}
 		
 		template< class U >
-		reverse_vector_iterator(const reverse_vector_iterator<U>& other) : _base(other._base) {}
+		reverse_vector_iterator(const reverse_vector_iterator<U>& other) : _base(other.base()) {}
 
 		template< class U >
 		reverse_vector_iterator& operator=(const reverse_vector_iterator& rhs) {
-			_base = rhs._base;
+			_base = rhs.base();
 			return (*this);
 		}
 
