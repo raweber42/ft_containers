@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/22 08:32:10 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/23 08:16:04 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@
 	#include "../inc/stack.hpp"
 #endif
 
-#include <vector>
-
 #define MAX_RAM 4294967296
 #define BUFFER_SIZE 4096
 struct Buffer
@@ -51,17 +49,17 @@ void print_values(ft::vector<int> &v1) {
 	std::cout << "]" << std::endl << std::endl;
 }
 
-// void print_values_reversed(ft::vector<int> v1) {
+void print_values_reversed(ft::vector<int> v1) {
 	
-// 	std::cout << "The values held by the vector are (accessed via REVERSE iterator): [ ";
-// 	for (ft::vector<int>::reverse_iterator it = v1.rbegin(); it != v1.rend(); it++)
-// 	{
-// 		std::cout << *it << " ";
-// 		fflush(stdout);
-// 		usleep(80000);
-// 	}
-// 	std::cout << "]" << std::endl << std::endl;
-// }
+	std::cout << "The values held by the vector are (accessed via REVERSE iterator): [ ";
+	for (ft::vector<int>::reverse_iterator it = v1.rbegin(); it != v1.rend(); it++)
+	{
+		std::cout << *it << " ";
+		fflush(stdout);
+		usleep(80000);
+	}
+	std::cout << "]" << std::endl << std::endl;
+}
 
 int main(void) {
 
@@ -107,7 +105,7 @@ int main(void) {
 	}
 	std::cout << "Current capacity is: " << v1.capacity() << " | current size is: " << v1.size() << std::endl;
 	print_values(v1);
-	// // print_values_reversed(v1);
+	print_values_reversed(v1);
 
 	std::cout << COLOR_BLUE <<  "Popping half of the values from v1" << COLOR_DEFAULT;
 	for (int i = 0; i < (test_size/2); i++)
@@ -199,7 +197,6 @@ int main(void) {
 	std::cout << COLOR_BLUE << "Insert the first three elements of value v2 at the beginning of the vector via 'v1.insert(v1.begin(), v2.begin(), v2.begin() + 3)'" << COLOR_DEFAULT << std::endl;
 	v1.insert(v1.begin(), v2.begin(), v2.begin() + 3);
 	print_values(v1);
-	// maybe more insert tests here!
 	
 	std::cout << COLOR_BLUE << "Erase the first element at the beginning of the vector via calling 'v1.erase(v1.begin())'" << COLOR_DEFAULT << std::endl;
 	for (int i = 0; i < 5; i++)

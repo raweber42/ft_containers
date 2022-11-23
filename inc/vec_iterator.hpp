@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/21 17:36:56 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/23 08:14:53 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@
 #include <iostream>
 #include "iterator.hpp"
 
+
+//######################################################################
+//######################## ITERATOR ####################################
+//######################################################################
+
 template<typename T>
 class vector_iterator {
 	
-//---------------VECTOR TYPEDEFS (iterator traits)---------------------------------
+//---------------ITERATOR TYPEDEFS (iterator traits)---------------------------------
 	public:
 		typedef std::random_access_iterator_tag		iterator_category;
 		typedef typename T::value_type				value_type;
@@ -27,7 +32,7 @@ class vector_iterator {
 		typedef typename T::pointer					pointer;
 		typedef typename T::reference				reference;
 
-//---------------VECTOR CONSTRUCTORS-----------------------------------------------
+//---------------ITERATOR CONSTRUCTORS-----------------------------------------------
 
 	public:
 		vector_iterator(void) : _ptr(NULL) {}
@@ -35,7 +40,7 @@ class vector_iterator {
 		vector_iterator(const vector_iterator &src) : _ptr(src._ptr) {}
 		~vector_iterator() {};
 
-//---------------VECTOR OPERATOR OVERLOADS----------------------------------------
+//---------------ITERATOR OPERATOR OVERLOADS----------------------------------------
 
 		vector_iterator& operator=(vector_iterator const &rhs) {
 			_ptr = rhs._ptr;
@@ -45,6 +50,8 @@ class vector_iterator {
 		reference operator*(void) { return (*_ptr); }
 
 		pointer operator->(void) { return (_ptr); }
+
+		reference operator[](difference_type offset) { return(*((*this) + offset)); }
 		
 		bool operator==(vector_iterator const &rhs) const {
 			return (_ptr == rhs._ptr);	
@@ -69,7 +76,8 @@ class vector_iterator {
 		bool operator>=(vector_iterator const &rhs) const {
 			return (_ptr >= rhs._ptr);
 		}
-		
+
+		// above: move out of member functions?
 		
 		vector_iterator &operator++(void) {
 			_ptr++;
@@ -123,11 +131,146 @@ class vector_iterator {
 			return (*this);
 		}
 
-		reference operator[](difference_type offset) { return(*((*this) + offset)); }
-
 
 	private:
 		pointer _ptr;
 };
+
+
+//######################################################################
+//#################### REVERSE ITERATOR ################################
+//######################################################################
+
+template <typename vector_iterator>
+class reverse_vector_iterator {
+	
+//---------------REVERSE_ITERATOR TYPEDEFS (iterator traits)------------------------------------
+	public:
+		typedef vector_iterator									iterator_type;
+		typedef typename vector_iterator::iterator_category		iterator_category;
+		typedef typename vector_iterator::value_type			value_type;
+		typedef typename vector_iterator::difference_type		difference_type;
+		typedef typename vector_iterator::pointer				pointer;
+		typedef typename vector_iterator::reference				reference;
+
+//---------------REVERSE_ITERATOR CONSTRUCTORS--------------------------------------------------
+	public:
+		reverse_vector_iterator(void) : iterator_type() {}
+		
+		explicit reverse_vector_iterator(iterator_type x) : _base(x) {}
+		
+		template< class U >
+		reverse_vector_iterator(const reverse_vector_iterator<U>& other) : _base(other._base) {}
+
+		template< class U >
+		reverse_vector_iterator& operator=(const reverse_vector_iterator& rhs) {
+			_base = rhs._base;
+			return (*this);
+		}
+
+//---------------BASE FUNCTION--------------------------------------------------------------
+		
+		iterator_type base() const { return (_base); }
+
+//---------------(MEMBER) REVERSE_ITERATOR OPERATOR OVERLOAD--------------------------------------------------
+		reference operator*(void) { 
+			
+			iterator_type tmp = _base;
+			return (*(--tmp));
+		}
+
+		pointer operator->(void) { return ( &(operator*()) ); }
+
+		reference operator[](difference_type offset) { return(base()[offset - 1]); }
+
+		reverse_vector_iterator &operator++(void) {
+			_base--;
+			return (*this);
+		}
+		
+		reverse_vector_iterator operator++(int) {
+			reverse_vector_iterator ret(*this);
+			_base--;
+			return (ret);
+		}
+
+		reverse_vector_iterator &operator--(void) {
+			_base++;
+			return (*this);
+		}
+		
+		reverse_vector_iterator operator--(int) {
+			reverse_vector_iterator ret(*this);
+			_base++;
+			return (ret);
+		}
+
+		reverse_vector_iterator operator+(difference_type offset) const {
+
+			return (reverse_vector_iterator(_base - offset));
+		}
+		
+		difference_type  operator+(reverse_vector_iterator rhs) const {
+
+			return (_base - rhs._base);
+		}
+
+		reverse_vector_iterator  operator-(difference_type offset) const {
+
+			return (reverse_vector_iterator(_base + offset));
+		}
+
+		difference_type  operator-(reverse_vector_iterator rhs) const {
+
+			return (_base + rhs._base);
+		}
+
+		reverse_vector_iterator &operator+=(difference_type offset) {
+			_base -= offset;
+			return (*this);
+		}
+		
+		reverse_vector_iterator &operator-=(difference_type offset) {
+			_base += offset;
+			return (*this);
+		}
+
+	protected:
+		iterator_type _base;
+
+};
+
+//---------------(NON-MEMBER) REVERSE_ITERATOR OPERATOR OVERLOADS--------------------------------------------------
+
+template< class Iterator1, class Iterator2 >
+bool operator==( const reverse_vector_iterator<Iterator1>& lhs, const reverse_vector_iterator<Iterator2>& rhs ) {
+	return (lhs.base() == rhs.base());
+}
+
+template< class Iterator1, class Iterator2 >
+bool operator!=( const reverse_vector_iterator<Iterator1>& lhs, const reverse_vector_iterator<Iterator2>& rhs ) {
+	return (lhs.base() != rhs.base());
+}
+
+template< class Iterator1, class Iterator2 >
+bool operator<( const reverse_vector_iterator<Iterator1>& lhs, const reverse_vector_iterator<Iterator2>& rhs ) {
+	return (lhs.base() > rhs.base());
+}
+
+template< class Iterator1, class Iterator2 >
+bool operator<=( const reverse_vector_iterator<Iterator1>& lhs, const reverse_vector_iterator<Iterator2>& rhs ) {
+	return (lhs.base() >= rhs.base());
+}
+
+
+template< class Iterator1, class Iterator2 >
+bool operator>( const reverse_vector_iterator<Iterator1>& lhs, const reverse_vector_iterator<Iterator2>& rhs ) {
+	return (lhs.base() < rhs.base());
+}
+
+template< class Iterator1, class Iterator2 >
+bool operator>=( const reverse_vector_iterator<Iterator1>& lhs, const reverse_vector_iterator<Iterator2>& rhs ) {
+	return (lhs.base() <= rhs.base());
+}
 
 #endif
