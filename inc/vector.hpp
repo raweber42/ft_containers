@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/23 12:14:27 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/23 17:28:27 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,25 @@
 #include <iostream>
 #include <stdexcept>
 #include "vec_iterator.hpp"
-#include "../src/utils.cpp"
+#include "utils.hpp"
 
 namespace ft
 {
 	template< typename T, class Alloc = std::allocator<T> >
 	class vector {
 		public:
-			typedef T											value_type;
-			typedef Alloc										allocator_type;
-			typedef std::size_t									size_type;
-			typedef std::ptrdiff_t								difference_type;
-			typedef T&											reference;
-			typedef const T&									const_reference;
-			typedef T*											pointer;
-			typedef const T*									const_pointer;
-			typedef vector_iterator<vector<T, Alloc> >			iterator;
-			typedef const_vector_iterator<vector<T, Alloc> >	const_iterator;
-			typedef reverse_vector_iterator<iterator>			reverse_iterator;
-			typedef reverse_vector_iterator<const_iterator>		const_reverse_iterator;
+			typedef T													value_type;
+			typedef Alloc												allocator_type;
+			typedef std::size_t											size_type;
+			typedef std::ptrdiff_t										difference_type;
+			typedef T&													reference;
+			typedef const T&											const_reference;
+			typedef T*													pointer;
+			typedef const T*											const_pointer;
+			typedef vector_iterator<pointer, vector<T, Alloc> >			iterator;
+			typedef vector_iterator<const_pointer, vector<T, Alloc> >	const_iterator;
+			typedef reverse_vector_iterator<iterator>					reverse_iterator;
+			typedef reverse_vector_iterator<const_iterator>				const_reverse_iterator;
 			
 
 //---------------------------CONSTRUCTORS---------------------------------------//

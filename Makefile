@@ -12,7 +12,6 @@ UNDO_COL = \033[0m
 
 
 SRC = 	$(SRC_DIR)main.cpp \
-		$(SRC_DIR)utils.cpp \
 		# $(SRC_DIR)subject_main.cpp \
 
 
