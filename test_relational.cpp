@@ -1,26 +1,44 @@
 #include <iostream>
 #include <vector>
+#include "inc/vector.hpp"
  
 int main()
 {
-    std::vector<std::string> alice;
-	alice.push_back("ABC");
-	alice.push_back("CDE");
-	alice.push_back("EFG");
-    std::vector<std::string> eve;
-	eve.push_back("AC");
-	// eve.push_back("cde");
-	// eve.push_back("efg");
- 
-    std::cout << std::boolalpha;
-  
-    // Compare equal containers
-    std::cout << "alice == eve returns " << (alice == eve) << '\n';
-    std::cout << "alice != eve returns " << (alice != eve) << '\n';
-    std::cout << "alice <  eve returns " << (alice < eve) << '\n';
-    std::cout << "alice <= eve returns " << (alice <= eve) << '\n';
-    std::cout << "alice >  eve returns " << (alice > eve) << '\n';
-    std::cout << "alice >= eve returns " << (alice >= eve) << '\n';
+	{
+		std::vector<std::string> alice;
+		alice.push_back("AB");
+		std::vector<std::string> eve;
+		eve.push_back("AB");
+		eve.push_back("cde");
+		eve.push_back("efg");
+	
+		std::cout << std::boolalpha;
+	
+		// Compare equal containers
+		std::cout << "alice == eve returns " << (alice == eve) << '\n';
+		std::cout << "alice != eve returns " << (alice != eve) << '\n';
+		std::cout << "alice <  eve returns " << (alice < eve) << '\n';
+		std::cout << "alice <= eve returns " << (alice <= eve) << '\n';
+		std::cout << "alice >  eve returns " << (alice > eve) << '\n';
+		std::cout << "alice >= eve returns " << (alice >= eve) << '\n';
+	}
+	std::cout << std::endl << std::endl;
+	ft::vector<std::string> alice;
+	alice.push_back("AB");
+	ft::vector<std::string> eve;
+	eve.push_back("AB");
+	eve.push_back("cde");
+	eve.push_back("efg");
+
+	std::cout << std::boolalpha;
+
+	// Compare equal containers
+	std::cout << "alice == eve returns " << (alice == eve) << '\n';
+	std::cout << "alice != eve returns " << (alice != eve) << '\n';
+	std::cout << "alice <  eve returns " << (alice < eve) << '\n';
+	std::cout << "alice <= eve returns " << (alice <= eve) << '\n';
+	std::cout << "alice >  eve returns " << (alice > eve) << '\n';
+	std::cout << "alice >= eve returns " << (alice >= eve) << '\n';
 }
 
 /*

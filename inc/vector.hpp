@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/23 08:20:30 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/23 10:45:20 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <iostream>
 #include <stdexcept>
 #include "vec_iterator.hpp"
+#include "../src/utils.cpp"
 
 namespace ft
 {
@@ -331,10 +332,6 @@ namespace ft
 				for (size_type i = 0; i < tmp_size; i++)
 					_alloc.construct(&(_vec_ptr[pos_counter + i]), *first++);
 				_size += tmp_size;
-
-				// 3 3 3 3
-				//  ^
-				// 1 2 3
 			}
 			
 
@@ -404,6 +401,7 @@ namespace ft
 				}
 				_size = n;
 			}
+	
 			
 		//--------------------------PRIVATE VARIABLES----------------------------------------//
 		private:
@@ -432,29 +430,113 @@ namespace ft
 
 
 	template< class T, class Alloc >
-	bool operator==( const std::vector<T,Alloc>& lhs, const std::vector<T,Alloc>& rhs );
+	bool operator==( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ) {
+		
+		if (lhs.size() != rhs.size())
+			return (false);
+		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+		// for (size_t i = 0; i < lhs.size(); i++)
+		// {
+		// 	if (lhs._vec_ptr[i] != rhs._vec_ptr[i])
+		// 		return (false);
+		// }
+		// return (true);
+	}
 
 	template< class T, class Alloc >
-	bool operator!=( const std::vector<T,Alloc>& lhs, const std::vector<T,Alloc>& rhs );
+	bool operator!=( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ) {
+		
+		return (!(lhs == rhs));
+	}
 
 	template< class T, class Alloc >
-	bool operator<( const std::vector<T,Alloc>& lhs, const std::vector<T,Alloc>& rhs );
+	bool operator<( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ) {
+		
+		if (lhs.size() < rhs.size())
+			return (true);
+		else if (lhs.size() > rhs.size())
+			return (false);
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+		
+		// for (size_t i = 0; i < lhs.size(); i++)
+		// {
+		// 	if (lhs._vec_ptr[i] == rhs._vec_ptr[i])
+		// 		continue;
+		// 	else if (lhs._vec_ptr[i] < rhs._vec_ptr[i])
+		// 		return (true);
+		// 	else
+		// 		return (false);
+		// }
+		// return (false);
+	}
 				
 	template< class T, class Alloc >
-	bool operator<=( const std::vector<T,Alloc>& lhs, const std::vector<T,Alloc>& rhs );
+	bool operator<=( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ) {
+
+		// if (lhs.size() < rhs.size())
+		// 	return (true);
+		// else if (lhs.size() > rhs.size())
+		// 	return (false);
+		return (!(rhs < lhs));
+		
+		// for (size_t i = 0; i < lhs.size(); i++)
+		// {
+		// 	if (lhs._vec_ptr[i] == rhs._vec_ptr[i])
+		// 		continue;
+		// 	else if (lhs._vec_ptr[i] < rhs._vec_ptr[i])
+		// 		return (true);
+		// 	else
+		// 		return (false);
+		// }
+		// return (true);
+	}
 
 	template< class T, class Alloc >
-	bool operator>( const std::vector<T,Alloc>& lhs, const std::vector<T,Alloc>& rhs );
+	bool operator>( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ) {
+		
+		return (rhs < lhs);
+		// if (lhs._size > rhs._size)
+		// 	return (true);
+		// else if (lhs._size < rhs._size)
+		// 	return (false);
+		// for (size_t i = 0; i < lhs._size; i++)
+		// {
+		// 	if (lhs._vec_ptr[i] == rhs._vec_ptr[i])
+		// 		continue;
+		// 	else if (lhs._vec_ptr[i] > rhs._vec_ptr[i])
+		// 		return (true);
+		// 	else
+		// 		return (false);
+		// }
+		// return (false);
+	}
 
 	template< class T, class Alloc >
-	bool operator>=( const std::vector<T,Alloc>& lhs, const std::vector<T,Alloc>& rhs );
+	bool operator>=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs ) {
+		
+		return (!(lhs < rhs));
+		// if (lhs._size > rhs._size)
+		// 	return (true);
+		// else if (lhs._size < rhs._size)
+		// 	return (false);
+		// for (size_t i = 0; i < lhs._size; i++)
+		// {
+		// 	if (lhs._vec_ptr[i] == rhs._vec_ptr[i])
+		// 		continue;
+		// 	else if (lhs._vec_ptr[i] > rhs._vec_ptr[i])
+		// 		return (true);
+		// 	else
+		// 		return (false);
+		// }
+		// return (true);
+	}
 
 
 //---------------------------SWAP (non-member)--------------------------------//
 
 
 	template< class T, class Alloc >
-	void swap( std::vector<T,Alloc>& lhs, std::vector<T,Alloc>& rhs );
+	void swap( vector<T,Alloc>& lhs, vector<T,Alloc>& rhs );
 
 
 } // namespace ft
