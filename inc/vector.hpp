@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/23 10:45:20 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/23 11:17:49 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -435,12 +435,6 @@ namespace ft
 		if (lhs.size() != rhs.size())
 			return (false);
 		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
-		// for (size_t i = 0; i < lhs.size(); i++)
-		// {
-		// 	if (lhs._vec_ptr[i] != rhs._vec_ptr[i])
-		// 		return (false);
-		// }
-		// return (true);
 	}
 
 	template< class T, class Alloc >
@@ -457,78 +451,24 @@ namespace ft
 		else if (lhs.size() > rhs.size())
 			return (false);
 		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
-		
-		// for (size_t i = 0; i < lhs.size(); i++)
-		// {
-		// 	if (lhs._vec_ptr[i] == rhs._vec_ptr[i])
-		// 		continue;
-		// 	else if (lhs._vec_ptr[i] < rhs._vec_ptr[i])
-		// 		return (true);
-		// 	else
-		// 		return (false);
-		// }
-		// return (false);
 	}
 				
 	template< class T, class Alloc >
 	bool operator<=( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ) {
 
-		// if (lhs.size() < rhs.size())
-		// 	return (true);
-		// else if (lhs.size() > rhs.size())
-		// 	return (false);
 		return (!(rhs < lhs));
-		
-		// for (size_t i = 0; i < lhs.size(); i++)
-		// {
-		// 	if (lhs._vec_ptr[i] == rhs._vec_ptr[i])
-		// 		continue;
-		// 	else if (lhs._vec_ptr[i] < rhs._vec_ptr[i])
-		// 		return (true);
-		// 	else
-		// 		return (false);
-		// }
-		// return (true);
 	}
 
 	template< class T, class Alloc >
 	bool operator>( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ) {
 		
 		return (rhs < lhs);
-		// if (lhs._size > rhs._size)
-		// 	return (true);
-		// else if (lhs._size < rhs._size)
-		// 	return (false);
-		// for (size_t i = 0; i < lhs._size; i++)
-		// {
-		// 	if (lhs._vec_ptr[i] == rhs._vec_ptr[i])
-		// 		continue;
-		// 	else if (lhs._vec_ptr[i] > rhs._vec_ptr[i])
-		// 		return (true);
-		// 	else
-		// 		return (false);
-		// }
-		// return (false);
 	}
 
 	template< class T, class Alloc >
 	bool operator>=( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs ) {
 		
 		return (!(lhs < rhs));
-		// if (lhs._size > rhs._size)
-		// 	return (true);
-		// else if (lhs._size < rhs._size)
-		// 	return (false);
-		// for (size_t i = 0; i < lhs._size; i++)
-		// {
-		// 	if (lhs._vec_ptr[i] == rhs._vec_ptr[i])
-		// 		continue;
-		// 	else if (lhs._vec_ptr[i] > rhs._vec_ptr[i])
-		// 		return (true);
-		// 	else
-		// 		return (false);
-		// }
-		// return (true);
 	}
 
 

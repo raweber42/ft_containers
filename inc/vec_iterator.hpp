@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/23 08:14:53 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/23 11:18:14 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,6 @@ class reverse_vector_iterator {
 
 	protected:
 		iterator_type _base;
-
 };
 
 //---------------(NON-MEMBER) REVERSE_ITERATOR OPERATOR OVERLOADS--------------------------------------------------

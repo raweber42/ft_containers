@@ -36,3 +36,4 @@ ft_containers
 std_containers
 ft_containers.dSYM
 std_containers.dSYM
+test_relational.cpp
