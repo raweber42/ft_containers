@@ -11,7 +11,7 @@ RED = \033[0;31m
 UNDO_COL = \033[0m
 
 
-SRC = 	$(SRC_DIR)main.cpp \
+SRC = 	$(SRC_DIR)main_map.cpp \
 		# $(SRC_DIR)subject_main.cpp \
 
 
