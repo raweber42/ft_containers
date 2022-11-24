@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/23 17:28:27 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/24 14:42:09 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ namespace ft
 			
 			
 			template <class InputIterator>
-			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), 
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
 			: _alloc(alloc), _size(0) {
 				
 				InputIterator tmp = first;
@@ -180,8 +181,9 @@ namespace ft
 //---------------------------MODIFIERS----------------------------------------//
 			
 			
-			template< class InputIt >
-			void assign(InputIt first, InputIt last) {
+			template< class InputIterator >
+			void assign(InputIterator first, InputIterator last,
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) {
 				
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(&(_vec_ptr[i]));
@@ -302,7 +304,8 @@ namespace ft
 			
 			
 			template <class InputIterator>
-			void insert (iterator position, InputIterator first, InputIterator last) {
+			void insert (iterator position, InputIterator first, InputIterator last, 
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) {
 				
 				size_type tmp_size = last - first;
 				if (!_vec_ptr)
@@ -493,7 +496,10 @@ namespace ft
 
 
 	template< class T, class Alloc >
-	void swap( vector<T,Alloc>& lhs, vector<T,Alloc>& rhs );
+	void swap( vector<T,Alloc>& lhs, vector<T,Alloc>& rhs ) {
+		
+		lhs.swap(rhs);
+	}
 
 
 } // namespace ft

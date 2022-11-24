@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/23 18:15:54 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/24 14:38:57 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int main(void) {
 	ft::vector<int> v1;
 	print_values(v1);
 	
-	std::cout << COLOR_BLUE << "Initializing vector v2 with 5 values of '2' via 'v2(size_t(5), int(2)) -> enable_if :D'" << COLOR_DEFAULT  << std::endl;
-	ft::vector<int> v2(size_t(5), int(2)); // WITHOUT TYPECASTING (enable_if!)	
+	std::cout << COLOR_BLUE << "Initializing vector v2 with 5 values of '2' via 'v2(5, 2)'" << COLOR_DEFAULT  << std::endl;
+	ft::vector<int> v2(5, 2); // WITHOUT TYPECASTING (enable_if!)	
 	print_values(v2);
 
 	std::cout << COLOR_BLUE << "Initializing vector v3 with iterator range via 'v3(v2.begin() + 1, v2.end() - 1)'" << COLOR_DEFAULT  << std::endl;
@@ -192,7 +192,7 @@ int main(void) {
 	v1.insert(v1.begin(), 77);
 	print_values(v1);
 	std::cout << COLOR_BLUE << "Insert 5 elements of value '66' at the beginning of the vector via 'v1.insert(v1.begin(), 5, 66)'" << COLOR_DEFAULT << std::endl;
-	v1.insert(v1.begin(), size_t(5), 66); // ENABLE_IF!
+	v1.insert(v1.begin(), 5, 66); // ENABLE_IF!
 	print_values(v1);
 	std::cout << COLOR_BLUE << "Insert the first three elements of value v2 at the beginning of the vector via 'v1.insert(v1.begin(), v2.begin(), v2.begin() + 3)'" << COLOR_DEFAULT << std::endl;
 	v1.insert(v1.begin(), v2.begin(), v2.begin() + 3);
@@ -228,7 +228,7 @@ int main(void) {
 	std::cout << "Current capacity is: " << v1.capacity() << std::endl;
 	print_values(v1);
 	std::cout << COLOR_BLUE << "Assign nine values of '99' to v1 via v1.assign(9, 99)" << COLOR_DEFAULT << std::endl;
-	v1.assign(size_t(9), int(99));
+	v1.assign(9, 99);
 	std::cout << "Current size is is: " << v1.size() << std::endl;
 	std::cout << "Current capacity is: " << v1.capacity() << std::endl;
 	print_values(v1);
