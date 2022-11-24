@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:13:41 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/23 17:02:55 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/24 16:05:41 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,102 @@ namespace ft {
 	struct enable_if<true, T> {
 		typedef T type;
 	};
+
+
+//------------FT::PAIR MEMBER FUNCTIONS------------------------------------
+
+	template<typename T1, typename T2>
+	struct pair {
+
+		typedef T1	first_type;
+		typedef T2	second_type;
+
+		first_type		first;
+		second_type		second;
+
+		pair() : first(), second() {}
+		
+		template<class U, class V>
+		pair (const pair<U,V>& pr) : first(pr.first), second(pr.second) {}
+		
+		pair (const first_type& a, const second_type& b) : first(a), second(b) {}
+
+		pair& operator=(const pair& pr) {
+			
+			first = pr.first;
+			second = pr.second;
+			return (*this);
+		}
+	};
+
+//------------FT::PAIR NON-MEMBER FUNCTIONS------------------------------------
+
+	template< class T1, class T2 >
+	std::pair<T1, T2> make_pair( T1 t, T2 u ) {
+		return (pair<T1, T2>(t, u));
+	}
+
+	template< class T1, class T2 >
+	bool operator==( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ) {
+		
+		return ((lhs.first == rhs.first) && (lhs.second == rhs.second));
+	}
+
+	template< class T1, class T2 >
+	bool operator!=( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ) {
+		
+		return (!(lhs == rhs));
+	}
+
+	template< class T1, class T2 >
+	bool operator<( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ) {
+		
+		if (lhs.first < rhs.first)
+			return (true);
+		else if (lhs.first > rhs.first)
+			return (false);
+		else if (lhs.second < rhs.second)
+			return (true);
+		else
+			return (false);
+	}
+
+	template< class T1, class T2 >
+	bool operator<=( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ) {
+		
+		return (!(rhs < lhs));
+	}
+
+	template< class T1, class T2 >
+	bool operator>( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ) {
+		
+		return (rhs < lhs);
+	}
+
+	template< class T1, class T2 >
+	bool operator>=( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ) {
+
+		return (!(lhs < rhs));
+	}
+
+
+//------------FT_BINARY_FUNCTION--------------------------------------
+
+	template< typename Arg1, typename Arg2, typename Result >
+	struct binary_function {
+		typedef Arg1				first_argument_type;
+		typedef Arg2				second_argument_type;
+		typedef Result				result_type;
+	};
+
+//------------FT_LESS-------------------------------------------------
+
+
+	template< typename T>
+	struct less : binary_function<T, T, bool> {
+		bool operator()(T x, T y) const { (return x < y) }
+	};
+
 
 //------------INTEGRAL_CONSTANT--------------------------------------
 

@@ -4,6 +4,7 @@
 
 # include "../inc/vector.hpp"
 # include "tester.hpp"
+# include "../inc/map.hpp"
 
 int main()
 {
