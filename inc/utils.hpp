@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:13:41 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/24 16:05:41 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/25 18:35:26 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,10 @@ namespace ft {
 //------------FT_LESS-------------------------------------------------
 
 
-	template< typename T>
-	struct less : binary_function<T, T, bool> {
-		bool operator()(T x, T y) const { (return x < y) }
-	};
+	// template< typename T>
+	// struct less : binary_function<T, T, bool> {
+	// 	bool operator()(T x, T y) const { (return x < y) }
+	// };
 
 
 //------------INTEGRAL_CONSTANT--------------------------------------
@@ -159,7 +159,7 @@ namespace ft {
 
 //--------------COMPARE EQUALITY OF TYPES-------------------------
 
-	
+
 	template<typename, typename>
 	struct are_same : public false_type {};
 	

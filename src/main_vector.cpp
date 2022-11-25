@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   main_vector.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/24 14:38:57 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/25 18:27:33 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,6 @@ int main(void) {
 	print_values(v1);
 	usleep(500000);
 
-	
 
 	usleep(500000);
 	std::cout << COLOR_RED <<  "TESTS FOR RELATIONAL OPERATORS" << COLOR_DEFAULT << std::endl;
@@ -277,6 +276,8 @@ int main(void) {
 
 	return (0);
 }
+
+
 
 // add constructor tests and non-member-functions!
 // test change of dereferenced pointer (is overload dauerhaft modifying ?)

@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/23 18:15:17 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/25 18:41:23 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 namespace ft {
 	
 //######################################################################
-//######################## ITERATOR TRAITS ####################################
+//######################## ITERATOR TRAITS #############################
 //######################################################################
 
 	struct input_iterator_tag {};
@@ -31,15 +31,17 @@ namespace ft {
 	struct random_access_iterator_tag : public forward_iterator_tag {};
 	struct output_iterator_tag : public bidirectional_iterator_tag {};
 
-	template <typename Iterator>
+	// generic
+	template <typename T>
 	struct iterator_traits {
-		typedef typename Iterator::difference_type		difference_type;
-		typedef typename Iterator::iterator_category	iterator_category;
-		typedef typename Iterator::value_type			value_type;
-		typedef typename Iterator::pointer				pointer;
-		typedef typename Iterator::reference			reference;	
+		typedef typename T::difference_type		difference_type;
+		typedef typename T::iterator_category	iterator_category;
+		typedef typename T::value_type			value_type;
+		typedef typename T::pointer				pointer;
+		typedef typename T::reference			reference;	
 	};
 
+	// spezialization pointer
 	template <typename T>
 	struct iterator_traits<T*> {
 		typedef ptrdiff_t					difference_type;
@@ -49,6 +51,7 @@ namespace ft {
 		typedef T&							reference;	
 	};
 
+	// spezialization const pointer
 	template <typename T>
 	struct iterator_traits<const T*> {
 		typedef ptrdiff_t					difference_type;

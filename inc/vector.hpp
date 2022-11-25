@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/24 16:23:40 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/25 18:44:35 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ namespace ft
 			
 			iterator begin(void) { return( iterator(_vec_ptr) ); }
 
-			const_iterator begin(void) const { return( const_iterator(_vec_ptr)); }
+			const_iterator begin(void) const { std::cout << COLOR_RED << "WARNING: CONST ITERATOR BEGIN CALLED! " << std::endl; return( const_iterator(_vec_ptr)); }
 
 			iterator end(void) { return(iterator(_vec_ptr + _size)); }
 			
