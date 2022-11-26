@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/26 18:33:19 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/26 18:57:28 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,10 @@ namespace ft {
 
 		public: // make private?
 			void mapInsertNode(value_type content) {
-				m_tree.insertNode(content);
+				m_tree.insertNode(m_tree.root, content);
+			}
+			void printRoot(void) {
+				std::cout << m_tree.root->content.first << std::endl;
 			}
 			
 		private:

@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:13:41 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/26 18:36:22 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/26 18:43:06 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,19 @@ namespace ft {
 	}
 
 	template< class T1, class T2 >
-	bool operator==( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ) {
+	bool operator==( const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs ) {
 		
 		return ((lhs.first == rhs.first) && (lhs.second == rhs.second));
 	}
 
 	template< class T1, class T2 >
-	bool operator!=( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ) {
+	bool operator!=( const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs ) {
 		
 		return (!(lhs == rhs));
 	}
 
 	template< class T1, class T2 >
-	bool operator<( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ) {
+	bool operator<( const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs ) {
 		
 		if (lhs.first < rhs.first)
 			return (true);
@@ -87,66 +87,66 @@ namespace ft {
 	}
 
 	template< class T1, class T2 >
-	bool operator<=( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ) {
+	bool operator<=( const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs ) {
 		
 		return (!(rhs < lhs));
 	}
 
 	template< class T1, class T2 >
-	bool operator>( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ) {
+	bool operator>( const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs ) {
 		
 		return (rhs < lhs);
 	}
 
 	template< class T1, class T2 >
-	bool operator>=( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ) {
+	bool operator>=( const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs ) {
 
 		return (!(lhs < rhs));
 	}
 
 //##########NEW_NON_CONST
-	template< class T1, class T2 >
-	bool operator==(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
+	// template< class T1, class T2 >
+	// bool operator==(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
 		
-		return ((lhs.first == rhs.first) && (lhs.second == rhs.second));
-	}
+	// 	return ((lhs.first == rhs.first) && (lhs.second == rhs.second));
+	// }
 
-	template< class T1, class T2 >
-	bool operator!=(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
+	// template< class T1, class T2 >
+	// bool operator!=(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
 		
-		return (!(lhs == rhs));
-	}
+	// 	return (!(lhs == rhs));
+	// }
 
-	template< class T1, class T2 >
-	bool operator<(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
+	// template< class T1, class T2 >
+	// bool operator<(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
 		
-		if (lhs.first < rhs.first)
-			return (true);
-		else if (lhs.first > rhs.first)
-			return (false);
-		else if (lhs.second < rhs.second)
-			return (true);
-		else
-			return (false);
-	}
+	// 	if (lhs.first < rhs.first)
+	// 		return (true);
+	// 	else if (lhs.first > rhs.first)
+	// 		return (false);
+	// 	else if (lhs.second < rhs.second)
+	// 		return (true);
+	// 	else
+	// 		return (false);
+	// }
 
-	template< class T1, class T2 >
-	bool operator<=(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
+	// template< class T1, class T2 >
+	// bool operator<=(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
 		
-		return (!(rhs < lhs));
-	}
+	// 	return (!(rhs < lhs));
+	// }
 
-	template< class T1, class T2 >
-	bool operator>(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
+	// template< class T1, class T2 >
+	// bool operator>(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
 		
-		return (rhs < lhs);
-	}
+	// 	return (rhs < lhs);
+	// }
 
-	template< class T1, class T2 >
-	bool operator>=(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
+	// template< class T1, class T2 >
+	// bool operator>=(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
 
-		return (!(lhs < rhs));
-	}
+	// 	return (!(lhs < rhs));
+	// }
 //##########NEW_NON_CONST
 	
 //------------FT_BINARY_FUNCTION--------------------------------------

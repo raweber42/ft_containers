@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/26 18:28:21 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/26 18:54:29 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ int main(void) {
 	std::cout << COLOR_BLUE << "Initializing empty map m1" << COLOR_DEFAULT << std::endl;
 	ft::map<std::string, std::string> m1;
 	// m1.mapInsertNode();
+	std::cout << "still works" << std::endl;
 	m1.mapInsertNode(ft::pair<std::string, std::string>("TEST", "TEST"));
-	std::cout << "WORKED!" << std::endl;
+	std::cout << "still works" << std::endl;
+	m1.printRoot();
 	// print_values(m1);
 	
 	// std::cout << COLOR_BLUE << "Inserting three key->value pairs into m1 via 'm2.insert(std::pair<key_type, value_type>(key, value))'" << COLOR_DEFAULT  << std::endl;

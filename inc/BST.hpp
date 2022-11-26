@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/26 18:39:13 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/26 18:56:57 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@ namespace ft
 			
 			Node<Key, T> *createNewNode(pair<Key, T> new_content) {
 				
-				Node<Key, T> *newNode = new Node<Key, T>();
+				Node<Key, T> *newNode = new Node<Key, T>;
 				newNode->content = new_content;
 				newNode->left = NULL;
 				newNode->right = NULL;
 				return (newNode);
 			}
 
-			void insertNode(pair<Key, T> data) {
+			// HERE!!! DOUBLE OR SINGLE POINTER???
+			Node<Key, T> *insertNode(Node<Key, T> *root, pair<Key, T> data) {
 				
 				if (root == NULL)
 					root = createNewNode(data);
@@ -47,9 +48,10 @@ namespace ft
 					root->left = insertNode(root->left, data);
 				else
 					root->right = insertNode(root->right, data);
+				return (root);
 			}
 
-			bool searchNode(pair<Key, T> data) {
+			bool searchNode(Node<Key, T> *root, pair<Key, T> data) {
 				
 				if (root == NULL)
 					return false;
@@ -62,7 +64,7 @@ namespace ft
 			}
 
 		
-		private:
+		public:
 			Node<Key, T> *root;
 		
 	};
