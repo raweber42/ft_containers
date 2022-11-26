@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:13:41 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/25 18:35:26 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/26 16:47:26 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ namespace ft {
 //------------FT::PAIR NON-MEMBER FUNCTIONS------------------------------------
 
 	template< class T1, class T2 >
-	std::pair<T1, T2> make_pair( T1 t, T2 u ) {
+	pair<T1, T2> make_pair( T1 t, T2 u ) {
 		return (pair<T1, T2>(t, u));
 	}
 
@@ -115,10 +115,10 @@ namespace ft {
 //------------FT_LESS-------------------------------------------------
 
 
-	// template< typename T>
-	// struct less : binary_function<T, T, bool> {
-	// 	bool operator()(T x, T y) const { (return x < y) }
-	// };
+	template< typename T>
+	struct less : binary_function<T, T, bool> {
+		bool operator()(T x, T y) const { return x < y; }
+	};
 
 
 //------------INTEGRAL_CONSTANT--------------------------------------
