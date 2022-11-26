@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/26 17:07:53 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/26 18:33:19 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,8 @@ namespace ft {
 
 
 //---------------------------CONSTRUCTORS---------------------------------------//
-
-
-			map(void) {
-				m_tree
-			}
 			
-			explicit map( const Compare& comp, const Alloc& alloc = Alloc() );
+			explicit map( const Compare& comp = Compare(), const Alloc& alloc = Alloc()) : m_comp(comp), m_alloc(alloc) {}
 			
 			template< class InputIt >
 			map( InputIt first, InputIt last, const Compare& comp = Compare(), const Alloc& alloc = Alloc() );
@@ -173,8 +168,18 @@ namespace ft {
 
 //---------------------------PRIVATE MEMBERS----------------------------------------//
 
+		public: // make private?
+			void mapInsertNode(value_type content) {
+				m_tree.insertNode(content);
+			}
+			
 		private:
-			BinarySearchTree	m_tree;
+			BinarySearchTree<Key, T>		m_tree;
+			key_compare						m_comp;
+			alloc_type						m_alloc;
+		
+			
+			
 			
 	};
 

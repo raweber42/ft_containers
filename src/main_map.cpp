@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/26 16:32:28 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/26 18:28:21 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@
 #include <stdlib.h>
 #include "../inc/colors.hpp"
 
-#if STD //CREATE A REAL STL EXAMPLE
-	#include <map>
-	#include <stack>
-	#include <vector>
-	namespace ft = std;
-#else
+// #if STD //CREATE A REAL STL EXAMPLE
+// 	#include <map>
+// 	#include <stack>
+// 	#include <vector>
+// 	namespace ft = std;
+// #else
 	#include "../inc/vector.hpp"
 	#include "../inc/map.hpp"
 	#include "../inc/stack.hpp"
-#endif
+// #endif
 
 #define MAX_RAM 4294967296
 #define BUFFER_SIZE 4096
@@ -68,6 +68,8 @@ int main(void) {
 	std::cout << COLOR_RED <<  "CONSTRUCTOR TESTS" << COLOR_DEFAULT << std::endl;
 	std::cout << COLOR_BLUE << "Initializing empty map m1" << COLOR_DEFAULT << std::endl;
 	ft::map<std::string, std::string> m1;
+	// m1.mapInsertNode();
+	m1.mapInsertNode(ft::pair<std::string, std::string>("TEST", "TEST"));
 	std::cout << "WORKED!" << std::endl;
 	// print_values(m1);
 	

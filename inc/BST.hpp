@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/26 17:06:53 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/26 18:39:13 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,47 +23,47 @@ namespace ft
 		Node			*right;
 	};
 
-	template<typename T>
+	template<typename Key, typename T>
 	class BinarySearchTree {
 
-		BinarySearchTree() : root(NULL) {}
-		~BinarySearchTree() {} // destroy stuff here!
-		
-		Node *createNewNode(T new_content) {
+		public:
+			BinarySearchTree() : root(NULL) {}
+			~BinarySearchTree() {} // destroy stuff here!
 			
-			Node *newNode = new Node();
-			newNode->content = new_content;
-			newNode->left = NULL;
-			newNode->right = NULL;
-			return (newNode);
-		}
+			Node<Key, T> *createNewNode(pair<Key, T> new_content) {
+				
+				Node<Key, T> *newNode = new Node<Key, T>();
+				newNode->content = new_content;
+				newNode->left = NULL;
+				newNode->right = NULL;
+				return (newNode);
+			}
 
-		void insertNode(T data) {
-			
-			if (root == NULL)
-				root = createNewNode(data);
-			else if (data <= root->data)
-				root->left = insertNode(root->left, data);
-			else
-				root->right = insertNode(root->right, data);
-			return (root);
-		}
+			void insertNode(pair<Key, T> data) {
+				
+				if (root == NULL)
+					root = createNewNode(data);
+				else if (data <= root->content)
+					root->left = insertNode(root->left, data);
+				else
+					root->right = insertNode(root->right, data);
+			}
 
-		bool searchNode(T data) {
-			
-			if (root == NULL)
-				return false;
-			if (root->data == data)
-				return true;
-			else if (root->data <= data)
-				return searchNode(root->left);
-			else
-				return searchNode(root->right);
-		}
+			bool searchNode(pair<Key, T> data) {
+				
+				if (root == NULL)
+					return false;
+				if (root->content == data)
+					return true;
+				else if (root->content <= data)
+					return searchNode(root->left);
+				else
+					return searchNode(root->right);
+			}
 
 		
 		private:
-			Node *root;
+			Node<Key, T> *root;
 		
 	};
 	
