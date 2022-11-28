@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/26 18:57:28 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/28 07:37:53 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,16 @@ namespace ft {
 
 //---------------------------CONSTRUCTORS---------------------------------------//
 			
-			explicit map( const Compare& comp = Compare(), const Alloc& alloc = Alloc()) : m_comp(comp), m_alloc(alloc) {}
+			explicit map(const Compare& comp = Compare(), const Alloc& alloc = Alloc()) : m_comp(comp), m_alloc(alloc) {}
 			
-			template< class InputIt >
-			map( InputIt first, InputIt last, const Compare& comp = Compare(), const Alloc& alloc = Alloc() );
+			// template< class InputIt >
+			// map(InputIt first, InputIt last, const Compare& comp = Compare(), const Alloc& alloc = Alloc()) : m_comp(comp), m_alloc(alloc) {
+				
+			// }
 
-			map( const map& other );
+			map( const map& other ) : m_comp(other.m_comp), m_alloc(other.m_alloc) {
+				// make proper tree copy here with m_alloc !
+			}
 
 
 //---------------------------------------DESTRUCTOR-------------------------------------------//
@@ -69,7 +73,16 @@ namespace ft {
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
 
-			map& operator=( const map& other );
+			map& operator=( const map& rhs ) {
+				
+				if (m_tree != rhs.m_tree)
+				{
+					m_alloc = rhs.m_alloc;
+					m_comp = rhs.m_comp;
+					// something like assign here
+				}
+				return (*this);
+			}
 
 
 //-------------------------------GET ALLOC-----------------------------------------------//
@@ -81,11 +94,11 @@ namespace ft {
 //---------------------------ELEMENT ACCESS----------------------------------------//
 			
 
-			T& at( const Key& key );
+			T& at( const Key& key ); //use find
 
-			const T& at( const Key& key ) const;
+			const T& at( const Key& key ) const; //use find
 
-			T& operator[]( const Key& key );
+			T& operator[]( const Key& key ); //use find
 
 
 //---------------------------ITERATOR FUNCTIONS----------------------------------------//
@@ -111,11 +124,15 @@ namespace ft {
 //---------------------------CAPACITY----------------------------------------//
 			
 
-			bool empty() const;
+			bool empty() const { return m_tree.root; }
 
-			size_type size() const;
+			size_type size() const { return m_tree.m_size; }
 
-			size_type max_size() const;
+			size_type max_size() const {
+				
+				std::allocator<BinarySearchTree<Key, T> > tmp;
+				return tmp.max_size();
+			} // CHECK THIS THOROUGHLY!
 
 
 //---------------------------MODIFIERS----------------------------------------//
@@ -136,12 +153,26 @@ namespace ft {
 
 			// size_type erase( const Key& key );
 
-			// void swap( map& other );
+			void swap( map& other ) {
+
+				BinarySearchTree<Key, T> tmp_tree = m_tree;
+				key_compare tmp_comp = m_comp;
+				alloc_type tmp_alloc = m_alloc;
+				
+				m_tree = other.m_tree;
+				m_comp = other.m_comp;
+				m_alloc = other.m_alloc;
+
+				other.m_tree = tmp_tree;
+				other.m_comp = tmp_comp;
+				other.m_alloc = tmp_alloc;
+			}
 
 		
 //---------------------------LOOKUP----------------------------------------//
 
 			// size_type count( const Key& key ) const;
+				// if find -> return 1, else -> return 0;
 
 			// iterator find( const Key& key );
 
@@ -170,10 +201,18 @@ namespace ft {
 
 		public: // make private?
 			void mapInsertNode(value_type content) {
-				m_tree.insertNode(m_tree.root, content);
+				
+				m_tree.insertNode(&(m_tree.m_root), content);
 			}
+			
 			void printRoot(void) {
-				std::cout << m_tree.root->content.first << std::endl;
+			
+				std::cout << m_tree.m_root->content.first << std::endl;
+			}
+
+			void printTree(void) {
+			
+				m_tree.printTree("", m_tree.m_root, false);
 			}
 			
 		private:

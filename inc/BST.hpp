@@ -6,12 +6,13 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/26 18:56:57 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/28 07:44:51 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "utils.hpp"
+#include <memory>
 
 namespace ft
 {
@@ -23,16 +24,17 @@ namespace ft
 		Node			*right;
 	};
 
-	template<typename Key, typename T>
+	template<typename Key, typename T, typename Alloc = std::allocator<Node<Key, T> > >
 	class BinarySearchTree {
 
 		public:
-			BinarySearchTree() : root(NULL) {}
+			BinarySearchTree() : m_root(NULL), m_size(0) {}
 			~BinarySearchTree() {} // destroy stuff here!
 			
 			Node<Key, T> *createNewNode(pair<Key, T> new_content) {
 				
-				Node<Key, T> *newNode = new Node<Key, T>;
+				Node<Key, T> *newNode = m_alloc.allocate(1);
+				m_alloc.construct(newNode);
 				newNode->content = new_content;
 				newNode->left = NULL;
 				newNode->right = NULL;
@@ -40,33 +42,49 @@ namespace ft
 			}
 
 			// HERE!!! DOUBLE OR SINGLE POINTER???
-			Node<Key, T> *insertNode(Node<Key, T> *root, pair<Key, T> data) {
+			Node<Key, T> *insertNode(Node<Key, T> **m_root, pair<Key, T> data) {
 				
-				if (root == NULL)
-					root = createNewNode(data);
-				else if (data <= root->content)
-					root->left = insertNode(root->left, data);
+				if (*m_root == NULL)
+					*m_root = createNewNode(data);
+				else if (data <= (*m_root)->content)
+					(*m_root)->left = insertNode(&(*m_root)->left, data);
 				else
-					root->right = insertNode(root->right, data);
-				return (root);
+					(*m_root)->right = insertNode(&(*m_root)->right, data);
+				m_size++;
+				return (*m_root);
 			}
 
-			bool searchNode(Node<Key, T> *root, pair<Key, T> data) {
+			// bool searchNode(Node<Key, T> *m_root, pair<Key, T> data) {
 				
-				if (root == NULL)
-					return false;
-				if (root->content == data)
-					return true;
-				else if (root->content <= data)
-					return searchNode(root->left);
-				else
-					return searchNode(root->right);
+			// 	if (m_root == NULL)
+			// 		return false;
+			// 	if (m_root->content == data)
+			// 		return true;
+			// 	else if (m_root->content <= data)
+			// 		return searchNode(m_root->left);
+			// 	else
+			// 		return searchNode(m_root->right);
+			// }
+
+			void printTree(const std::string& prefix, Node<Key, T> *m_root, bool isLeft) {
+				
+				if (m_root)
+				{
+					std::cout << prefix;
+					std::cout << (isLeft ? "├──" : "└──");
+					std::cout << "(" << m_root->content.first << ")>[" << m_root->content.second << "] " << std::endl;
+					// if (m_root->left)
+					printTree(prefix + (isLeft ? "│   " : "    "), m_root->left, true);
+					// if (m_root->right)
+					printTree(prefix + (isLeft ? "│   " : "    "), m_root->right, false);	
+				}
 			}
 
 		
 		public:
-			Node<Key, T> *root;
-		
+			Node<Key, T>	*m_root;
+			size_t			m_size;
+			Alloc			m_alloc;
 	};
 	
 } // namespace ft
