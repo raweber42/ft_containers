@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/28 11:32:48 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/28 15:41:46 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <iostream>
 #include "utils.hpp"
 #include "BST.hpp"
+#include "map.hpp"
 #include <iterator>
 
 namespace ft {
@@ -402,138 +403,134 @@ namespace ft {
 //######################## MAP ITERATOR ################################
 //######################################################################
 
-	template<typename T, typename BST>
-	class map_iterator {
-
-//---------------MY HELPER TYPEDEFS ----------------------------------------------
-
-		// public:
-			typedef typename BST::node_pointer								node_pointer;
+	template<typename Key, typename T>
+	class map_iter {
 
 //---------------MAP ITERATOR TYPEDEFS (iterator traits)---------------------------------
 		public:
 			typedef bidirectional_iterator_tag								iterator_category;
-			typedef typename ft::iterator_traits<T>::value_type				value_type;
-			typedef typename ft::iterator_traits<T>::difference_type		difference_type;
-			typedef typename ft::iterator_traits<T>::pointer				pointer;
-			typedef typename ft::iterator_traits<T>::reference				reference;
+			typedef ft::pair<const Key, T>									value_type;
+			typedef typename ft::map<Key, T>::Node*								node_pointer;
 
 //---------------MAP ITERATOR CONSTRUCTORS-----------------------------------------------
 
 		public:
-			map_iterator(void) : m_ptr(NULL), m_current(NULL) {}
-			map_iterator(node_pointer ptr) : m_ptr(ptr), m_current(m_ptr->getRoot()) {}
+		
+			map_iter(void) : m_current_ptr(NULL) {}
+			
+			map_iter(node_pointer ptr) : m_current_ptr(ptr) {}
+			
 			// //below added for const/non-const
 			// template<typename _T>
-			// map_iterator(const map_iterator<_T, typename ft::enable_if<ft::are_same<_T, typename Node::pointer>::value, Node>::type>& copy) : m_ptr(copy.base()) , m_current(m_ptr.getRoot()) {}
+			// map_iter(const map_iter<_T, typename ft::enable_if<ft::are_same<_T, typename Node::pointer>::value, Node>::type>& copy) : m_ptr(copy.base()) , m_current(m_ptr.getRoot()) {}
 			// //end addition
-			// map_iterator(const map_iterator &src) : m_ptr(src.m_ptr), m_current(m_ptr->getRoot()) {}
-			~map_iterator() {}
+			
+			map_iter(const map_iter &src) : m_current_ptr(src.m_current_ptr) {}
+			
+			~map_iter() {}
 	
 //---------------BASE FUNCTION (HELPER)--------------------------------------------------------------
 			
-			pointer base() const { return (m_ptr); }
+			// pointer base() const { return (m_ptr); }
 
 //---------------MAP ITERATOR OPERATOR OVERLOADS----------------------------------------
 
-			map_iterator& operator=(map_iterator const &rhs) {
-				m_ptr = rhs.m_ptr;
-				m_current = rhs.m_current;
+			map_iter& operator=(map_iter const &rhs) {
+				m_current_ptr = rhs.m_current_ptr;
 				return (*this);
 			}
 			
-			reference operator*(void) const { return (*m_ptr); }
+			value_type &operator*(void) const { return (*m_current_ptr); }
 
-			pointer operator->(void) const { return (m_ptr); }
+			value_type *operator->(void) const { return (m_current_ptr); }
 			
-			// map_iterator &operator++(void) {
+			// map_iter &operator++(void) {
 			// 	m_ptr++;
 			// 	return (*this);
 			// }
 			
-			// map_iterator operator++(int) {
-			// 	map_iterator ret(*this);
+			// map_iter operator++(int) {
+			// 	map_iter ret(*this);
 			// 	m_ptr++;
 			// 	return (ret);
 			// }
 
-			// map_iterator &operator--(void) {
+			// map_iter &operator--(void) {
 			// 	m_ptr--;
 			// 	return (*this);
 			// }
 			
-			// map_iterator operator--(int) {
-			// 	map_iterator ret(*this);
+			// map_iter operator--(int) {
+			// 	map_iter ret(*this);
 			// 	m_ptr--;
 			// 	return (ret);
 			// }
 
 		protected:
-			node_pointer	m_ptr;
-			node_pointer	m_current;
+			node_pointer	m_current_ptr;
 	};
 
 	//---------------MAP ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> DIFFERENT ITERATOR TYPE----------------------------------------
 
 	template<typename T1, typename T2, typename Node>
-	bool operator==(const map_iterator<T1, Node> &lhs, const map_iterator<T2, Node> &rhs) {
+	bool operator==(const map_iter<T1, Node> &lhs, const map_iter<T2, Node> &rhs) {
 				return (lhs.base() == rhs.base());	
 	}
 
 	template<typename T1, typename T2, typename Node>
-	bool operator!=(const map_iterator<T1, Node> &lhs, const map_iterator<T2, Node> &rhs) {
+	bool operator!=(const map_iter<T1, Node> &lhs, const map_iter<T2, Node> &rhs) {
 		return (lhs.base() != rhs.base());
 	}
 
 	template<typename T1, typename T2, typename Node>
-	bool operator<(const map_iterator<T1, Node> &lhs, const map_iterator<T2, Node> &rhs) {
+	bool operator<(const map_iter<T1, Node> &lhs, const map_iter<T2, Node> &rhs) {
 		return (lhs.base() < rhs.base());
 	}
 
 	template<typename T1, typename T2, typename Node>
-	bool operator<=(const map_iterator<T1, Node> &lhs, const map_iterator<T2, Node> &rhs) {
+	bool operator<=(const map_iter<T1, Node> &lhs, const map_iter<T2, Node> &rhs) {
 		return (lhs.base() <= rhs.base());
 	}
 
 	template<typename T1, typename T2, typename Node>
-	bool operator>(const map_iterator<T1, Node> &lhs, const map_iterator<T2, Node> &rhs) {
+	bool operator>(const map_iter<T1, Node> &lhs, const map_iter<T2, Node> &rhs) {
 		return (lhs.base() > rhs.base());
 	}
 
 	template<typename T1, typename T2, typename Node>
-	bool operator>=(const map_iterator<T1, Node> &lhs, const map_iterator<T2, Node> &rhs) {
+	bool operator>=(const map_iter<T1, Node> &lhs, const map_iter<T2, Node> &rhs) {
 		return (lhs.base() >= rhs.base());
 	}
 
 //---------------MAP ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> SAME ITERATOR TYPE----------------------------------------
 
 	template<typename T, typename Node>
-	bool operator==(const map_iterator<T, Node> &lhs, const map_iterator<T, Node> &rhs) {
+	bool operator==(const map_iter<T, Node> &lhs, const map_iter<T, Node> &rhs) {
 		return (lhs.base() == rhs.base());	
 	}
 
 	template<typename T, typename Node>
-	bool operator!=(const map_iterator<T, Node> &lhs, const map_iterator<T, Node> &rhs) {
+	bool operator!=(const map_iter<T, Node> &lhs, const map_iter<T, Node> &rhs) {
 		return (lhs.base() != rhs.base());
 	}
 
 	template<typename T, typename Node>
-	bool operator<(const map_iterator<T, Node> &lhs, const map_iterator<T, Node> &rhs) {
+	bool operator<(const map_iter<T, Node> &lhs, const map_iter<T, Node> &rhs) {
 		return (lhs.base() < rhs.base());
 	}
 
 	template<typename T, typename Node>
-	bool operator<=(const map_iterator<T, Node> &lhs, const map_iterator<T, Node> &rhs) {
+	bool operator<=(const map_iter<T, Node> &lhs, const map_iter<T, Node> &rhs) {
 		return (lhs.base() <= rhs.base());
 	}
 
 	template<typename T, typename Node>
-	bool operator>(const map_iterator<T, Node> &lhs, const map_iterator<T, Node> &rhs) {
+	bool operator>(const map_iter<T, Node> &lhs, const map_iter<T, Node> &rhs) {
 		return (lhs.base() > rhs.base());
 	}
 
 	template<typename T, typename Node>
-	bool operator>=(const map_iterator<T, Node> &lhs, const map_iterator<T, Node> &rhs) {
+	bool operator>=(const map_iter<T, Node> &lhs, const map_iter<T, Node> &rhs) {
 		return (lhs.base() >= rhs.base());
 	}
 

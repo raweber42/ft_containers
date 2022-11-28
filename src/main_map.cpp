@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/28 11:01:24 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/28 15:09:43 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,21 @@ int main(void) {
 	std::cout << COLOR_RED <<  "CONSTRUCTOR TESTS" << COLOR_DEFAULT << std::endl;
 	std::cout << COLOR_BLUE << "Initializing empty map m1" << COLOR_DEFAULT << std::endl;
 	ft::map<std::string, std::string> m1;
-	m1.mapInsertNode(ft::pair<std::string, std::string>("4", "VALUE"));
-	m1.mapInsertNode(ft::pair<std::string, std::string>("2", "VALUE"));
-	m1.mapInsertNode(ft::pair<std::string, std::string>("6", "VALUE"));
-	m1.mapInsertNode(ft::pair<std::string, std::string>("1", "VALUE"));
-	m1.mapInsertNode(ft::pair<std::string, std::string>("3", "VALUE"));
-	m1.mapInsertNode(ft::pair<std::string, std::string>("5", "VALUE"));
+	// m1.insertNode(&(m1.m_tree_root), ft::pair<const std::string, std::string>("4", "VALUE"));
+	
+	m1.insertNode(&(m1.m_tree_root), ft::pair<const std::string, std::string>("1", "VALUE"));
+	m1.insertNode(&(m1.m_tree_root), ft::pair<const std::string, std::string>("2", "VALUE"));
+	// m1.mapInsertNode(ft::pair<std::string, std::string>("2", "VALUE"));
+	// m1.mapInsertNode(ft::pair<std::string, std::string>("6", "VALUE"));
+	// m1.mapInsertNode(ft::pair<std::string, std::string>("1", "VALUE"));
+	// m1.mapInsertNode(ft::pair<std::string, std::string>("3", "VALUE"));
+	// m1.mapInsertNode(ft::pair<std::string, std::string>("5", "VALUE"));
 	m1.printTree();
+	std::cout << ((m1.sameNodeExists(m1.m_tree_root, ft::pair<const std::string, std::string>("1", "VALUE")) ? "YES" : "NO")) << std::endl;
+	std::cout << ((m1.sameKeyExists(m1.m_tree_root, "5")) ? "YES" : "NO") << std::endl;
 
 	
-	ft::map<std::string, std::string>::iterator it = m1.begin();
+	// ft::map<std::string, std::string>::iterator it = m1.begin();
 	// std::cout << *it << std::endl;
 	// print_values(m1);
 	

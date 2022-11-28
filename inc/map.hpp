@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/28 11:22:42 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/28 15:42:05 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@
 #include "BST.hpp"
 
 namespace ft {
-	
 
-	template< typename Key, typename T, typename Compare = ft::less<Key>, typename Alloc = std::allocator<std::pair<const Key, T> > >
+	template< typename Key, typename T, typename Compare = ft::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
 	class map {
 
 		public:
@@ -38,8 +37,7 @@ namespace ft {
 			typedef typename Alloc::const_reference						const_reference;
 			typedef typename Alloc::pointer								pointer;
 			typedef typename Alloc::const_pointer						const_pointer;
-			// typedef map_iterator<pointer, map<T, Alloc>	>				iterator;
-			typedef map_iterator<pointer, BinarySearchTree<Key, T>	>				iterator;
+			typedef map_iter<Key, T>									iterator;
 			// typedef map_iterator<const_pointer, map<T, Alloc> >			const_iterator;
 			// typedef reverse_map_iterator<???>		reverse_iterator;
 			// typedef const_reverse_map_iterator<???>	const_reverse_iterator;
@@ -50,26 +48,37 @@ namespace ft {
 			// 	typedef value_type		first_argument_type;
 			// 	typedef value_type		second_argument_type;
 			// }
+		
 
+//---------------------------NODE DECLARATION---------------------------------------//
+
+		struct Node {
+			value_type	content;
+			Node*		left;
+			Node*		right;
+		};
 
 //---------------------------CONSTRUCTORS---------------------------------------//
 			
-			explicit map(const Compare& comp = Compare(), const Alloc& alloc = Alloc()) : m_comp(comp), m_alloc(alloc) {}
+			explicit map(const Compare& comp = Compare(), const Alloc& alloc = Alloc())
+				: m_tree_root(NULL), m_tree_size(0), m_comp(comp), m_alloc(alloc) {}
 			
 			// template< class InputIt >
-			// map(InputIt first, InputIt last, const Compare& comp = Compare(), const Alloc& alloc = Alloc()) : m_comp(comp), m_alloc(alloc) {
+			// map(InputIt first, InputIt last, const Compare& comp = Compare(), const Alloc& alloc = Alloc()) 
+				// : m_comp(comp), m_alloc(alloc) { // set m_tree_root & _size!
 				
 			// }
 
 			// map( const map& other ) : m_comp(other.m_comp), m_alloc(other.m_alloc) {
 			// 	// make proper tree copy here with m_alloc !
+			//	// set m_tree_root & _size!
 			// }
 
 
 //---------------------------------------DESTRUCTOR-------------------------------------------//
 
 
-			~map(void) {}
+			~map(void) {} // destroy tree!
 
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
@@ -106,10 +115,10 @@ namespace ft {
 //---------------------------ITERATOR FUNCTIONS----------------------------------------//
 
 
-			iterator begin() {
+			// iterator begin() {
 				
-				return iterator(m_tree.m_root);
-			}
+			// 	return iterator(m_tree.m_root);
+			// }
 
 			// const_iterator begin() const;
 
@@ -129,15 +138,15 @@ namespace ft {
 //---------------------------CAPACITY----------------------------------------//
 			
 
-			bool empty() const { return m_tree.root; }
+			bool empty() const { return !m_tree_size; }
 
-			size_type size() const { return m_tree.m_size; }
+			size_type size() const { return m_tree_size; }
 
-			size_type max_size() const {
+			// size_type max_size() const {
 				
-				std::allocator<BinarySearchTree<Key, T> > tmp;
-				return tmp.max_size();
-			} // CHECK THIS THOROUGHLY!
+			// 	std::allocator<Node<Key, T> > tmp;
+			// 	return tmp.max_size();
+			// } // CHECK THIS THOROUGHLY!
 
 
 //---------------------------MODIFIERS----------------------------------------//
@@ -145,7 +154,12 @@ namespace ft {
 
 			// void clear();
 			
-			// std::pair<iterator, bool> insert( const value_type& value );
+			// std::pair<iterator, bool> insert( const value_type& value ) {
+				
+			// 	// if same key not found in tree->
+			// 	insertNode(m_tree_root, value);
+			// 	// Returns a pair consisting of an iterator to the inserted element (or to the element that prevented the insertion) and a bool denoting whether the insertion took place.
+			// }
 
 			// iterator insert( iterator pos, const value_type& value );
 
@@ -158,20 +172,20 @@ namespace ft {
 
 			// size_type erase( const Key& key );
 
-			void swap( map& other ) {
+			// void swap( map& other ) {
 
-				BinarySearchTree<Key, T> tmp_tree = m_tree;
-				key_compare tmp_comp = m_comp;
-				alloc_type tmp_alloc = m_alloc;
+			// 	BinarySearchTree<Key, T> tmp_tree = m_tree;
+			// 	key_compare tmp_comp = m_comp;
+			// 	alloc_type tmp_alloc = m_alloc;
 				
-				m_tree = other.m_tree;
-				m_comp = other.m_comp;
-				m_alloc = other.m_alloc;
+			// 	m_tree = other.m_tree;
+			// 	m_comp = other.m_comp;
+			// 	m_alloc = other.m_alloc;
 
-				other.m_tree = tmp_tree;
-				other.m_comp = tmp_comp;
-				other.m_alloc = tmp_alloc;
-			}
+			// 	other.m_tree = tmp_tree;
+			// 	other.m_comp = tmp_comp;
+			// 	other.m_alloc = tmp_alloc;
+			// }
 
 		
 //---------------------------LOOKUP----------------------------------------//
@@ -203,31 +217,93 @@ namespace ft {
 			// ft::map::value_compare value_comp() const;
 
 //---------------------------PRIVATE MEMBERS----------------------------------------//
-
-		public: // make private?
-			void mapInsertNode(value_type content) {
-				
-				m_tree.insertNode(&(m_tree.m_root), content);
-			}
 			
-			void printRoot(void) {
-			
-				std::cout << m_tree.m_root->content.first << std::endl;
-			}
-
-			void printTree(void) {
-			
-				m_tree.printTree("", m_tree.m_root, false);
-			}
-			
-		private:
-			BinarySearchTree<Key, T>		m_tree;
+		public:
+			Node							*m_tree_root;
+			size_type						m_tree_size;
 			key_compare						m_comp;
 			alloc_type						m_alloc;
-		
+			std::allocator<Node>			m_node_alloc;
+
+//---------------------------***BST MAGIC***----------------------------------------//
+
+
+		private: // make private?
+
+			Node *createNewNode(const value_type &new_content) {
+				
+				Node *newNode = m_node_alloc.allocate(1);
+				m_alloc.construct(&(newNode->content), new_content);
+				newNode->left = NULL;
+				newNode->right = NULL;
+				return (newNode);
+			}
+
+			void printTreeRecursive(const std::string& prefix, Node *m_root, bool isLeft) const {
+				
+				if (m_root)
+				{
+					std::cout << prefix;
+					std::cout << (isLeft ? "├──" : "└──");
+					std::cout << "(" << m_root->content.first << ")>[" << m_root->content.second << "] " << std::endl;
+					// if (m_root->left)
+					printTreeRecursive(prefix + (isLeft ? "│   " : "    "), m_root->left, true);
+					// if (m_root->right)
+					printTreeRecursive(prefix + (isLeft ? "│   " : "    "), m_root->right, false);	
+				}
+			}
+
+		public:
 			
+			Node *insertNode(Node **m_root, const value_type &data) {
+				
+				if (*m_root == NULL)
+					*m_root = createNewNode(data);
+				else if (data <= (*m_root)->content)
+					(*m_root)->left = insertNode(&(*m_root)->left, data);
+				else
+					(*m_root)->right = insertNode(&(*m_root)->right, data);
+				m_tree_size++;
+				return (*m_root);
+			}
+
+			void printTree(void) const {
 			
+				printTreeRecursive("", m_tree_root, false);
+			}
+
+			bool sameNodeExists(Node *m_root, const value_type &data) {
+				
+				if (m_root == NULL)
+					return false;
+				if (m_root->content == data)
+					return true;
+				else if (m_root->content <= data)
+					return sameNodeExists(m_root->left, data);
+				else
+					return sameNodeExists(m_root->right, data);
+			}
+
+			bool sameKeyExists(Node *m_root, const key_type &data) {
+				
+				if (m_root == NULL)
+					return false;
+				if (m_root->content.first == data)
+					return true;
+				else if (m_root->content.first <= data)
+					return sameKeyExists(m_root->left, data);
+				else
+					return sameKeyExists(m_root->right, data);
+			}
+
+			iterator begin(void) {
+				
+				return iterator(m_tree_root);
+			}
+
 			
+		public: 
+			Node *getRoot(void) { return m_tree_root; }
 	};
 
 //---------------------------RELATIONAL OPERATORS (non-member)--------------------------------//
