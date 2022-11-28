@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/28 07:37:53 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/28 11:22:42 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <iostream>
 #include <stdexcept>
 #include "utils.hpp"
+#include "iterator.hpp"
 #include "BST.hpp"
 
 namespace ft {
@@ -26,19 +27,20 @@ namespace ft {
 	class map {
 
 		public:
-			typedef Key								key_type;
-			typedef T								mapped_type;
-			typedef ft::pair<const Key, T>			value_type;
-			typedef std::size_t						size_type;
-			typedef std::ptrdiff_t					difference_type;
-			typedef Compare							key_compare;
-			typedef Alloc							alloc_type;
-			typedef T&								reference;
-			typedef const T&						const_reference;
-			typedef T*								pointer;
-			typedef const T*						const_pointer;
-			// typedef map_iterator<???>				iterator;
-			// typedef const_map_iterator<???>			const_iterator;
+			typedef Key													key_type;
+			typedef T													mapped_type;
+			typedef ft::pair<const Key, T>								value_type;
+			typedef std::size_t											size_type;
+			typedef std::ptrdiff_t										difference_type;
+			typedef Compare												key_compare;
+			typedef Alloc												alloc_type;
+			typedef typename Alloc::reference							reference;
+			typedef typename Alloc::const_reference						const_reference;
+			typedef typename Alloc::pointer								pointer;
+			typedef typename Alloc::const_pointer						const_pointer;
+			// typedef map_iterator<pointer, map<T, Alloc>	>				iterator;
+			typedef map_iterator<pointer, BinarySearchTree<Key, T>	>				iterator;
+			// typedef map_iterator<const_pointer, map<T, Alloc> >			const_iterator;
 			// typedef reverse_map_iterator<???>		reverse_iterator;
 			// typedef const_reverse_map_iterator<???>	const_reverse_iterator;
 
@@ -59,9 +61,9 @@ namespace ft {
 				
 			// }
 
-			map( const map& other ) : m_comp(other.m_comp), m_alloc(other.m_alloc) {
-				// make proper tree copy here with m_alloc !
-			}
+			// map( const map& other ) : m_comp(other.m_comp), m_alloc(other.m_alloc) {
+			// 	// make proper tree copy here with m_alloc !
+			// }
 
 
 //---------------------------------------DESTRUCTOR-------------------------------------------//
@@ -73,38 +75,41 @@ namespace ft {
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
 
-			map& operator=( const map& rhs ) {
+			// map& operator=( const map& rhs ) {
 				
-				if (m_tree != rhs.m_tree)
-				{
-					m_alloc = rhs.m_alloc;
-					m_comp = rhs.m_comp;
-					// something like assign here
-				}
-				return (*this);
-			}
+			// 	if (m_tree != rhs.m_tree)
+			// 	{
+			// 		m_alloc = rhs.m_alloc;
+			// 		m_comp = rhs.m_comp;
+			// 		// something like assign here
+			// 	}
+			// 	return (*this);
+			// }
 
 
 //-------------------------------GET ALLOC-----------------------------------------------//
 
 
-			alloc_type get_alloc() const;
+			// alloc_type get_alloc() const;
 
 
 //---------------------------ELEMENT ACCESS----------------------------------------//
 			
 
-			T& at( const Key& key ); //use find
+			// T& at( const Key& key ); //use find
 
-			const T& at( const Key& key ) const; //use find
+			// const T& at( const Key& key ) const; //use find
 
-			T& operator[]( const Key& key ); //use find
+			// T& operator[]( const Key& key ); //use find
 
 
 //---------------------------ITERATOR FUNCTIONS----------------------------------------//
 
 
-			// iterator begin();
+			iterator begin() {
+				
+				return iterator(m_tree.m_root);
+			}
 
 			// const_iterator begin() const;
 

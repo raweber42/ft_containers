@@ -6,30 +6,36 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/28 07:44:51 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/28 11:44:11 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "utils.hpp"
+#include "iterator.hpp"
 #include <memory>
 
 namespace ft
 {
 	
-	template<typename Key, typename T>
+	template<typename T>
 	struct Node {
-		pair<Key, T>	content;
-		Node			*left;
-		Node			*right;
+		T		content;
+		Node*	left;
+		Node*	right;
 	};
 
 	template<typename Key, typename T, typename Alloc = std::allocator<Node<Key, T> > >
 	class BinarySearchTree {
 
+//---------------------------END MAP MEMBER FUNCTION TRANSLATIONS----------------------------------------//
+	
 		public:
 			BinarySearchTree() : m_root(NULL), m_size(0) {}
 			~BinarySearchTree() {} // destroy stuff here!
+			
+			
+
 			
 			Node<Key, T> *createNewNode(pair<Key, T> new_content) {
 				
@@ -54,17 +60,17 @@ namespace ft
 				return (*m_root);
 			}
 
-			// bool searchNode(Node<Key, T> *m_root, pair<Key, T> data) {
+			bool searchNode(Node<Key, T> *m_root, pair<Key, T> data) {
 				
-			// 	if (m_root == NULL)
-			// 		return false;
-			// 	if (m_root->content == data)
-			// 		return true;
-			// 	else if (m_root->content <= data)
-			// 		return searchNode(m_root->left);
-			// 	else
-			// 		return searchNode(m_root->right);
-			// }
+				if (m_root == NULL)
+					return false;
+				if (m_root->content == data)
+					return true;
+				else if (m_root->content <= data)
+					return searchNode(m_root->left);
+				else
+					return searchNode(m_root->right);
+			}
 
 			void printTree(const std::string& prefix, Node<Key, T> *m_root, bool isLeft) {
 				
@@ -79,6 +85,8 @@ namespace ft
 					printTree(prefix + (isLeft ? "│   " : "    "), m_root->right, false);	
 				}
 			}
+
+			Node<Key, T> *getRoot(void) { return m_root; }
 
 		
 		public:

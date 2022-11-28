@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/28 07:44:06 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/28 11:01:24 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 #include "../inc/colors.hpp"
 
 // #if STD //CREATE A REAL STL EXAMPLE
-// 	#include <map>
+	#include <map>
 // 	#include <stack>
 // 	#include <vector>
 // 	namespace ft = std;
+
 // #else
 	#include "../inc/vector.hpp"
 	#include "../inc/map.hpp"
@@ -75,7 +76,10 @@ int main(void) {
 	m1.mapInsertNode(ft::pair<std::string, std::string>("3", "VALUE"));
 	m1.mapInsertNode(ft::pair<std::string, std::string>("5", "VALUE"));
 	m1.printTree();
+
 	
+	ft::map<std::string, std::string>::iterator it = m1.begin();
+	// std::cout << *it << std::endl;
 	// print_values(m1);
 	
 	// std::cout << COLOR_BLUE << "Inserting three key->value pairs into m1 via 'm2.insert(std::pair<key_type, value_type>(key, value))'" << COLOR_DEFAULT  << std::endl;
