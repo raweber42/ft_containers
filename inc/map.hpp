@@ -6,29 +6,28 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/28 15:42:05 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/29 08:38:22 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_HPP
-#define MAP_HPP
+#pragma once
 
 #include <memory>
 #include <iostream>
 #include <stdexcept>
 #include "utils.hpp"
-#include "iterator.hpp"
-#include "BST.hpp"
+#include "map_iterator.hpp"
+
 
 namespace ft {
-
-	template< typename Key, typename T, typename Compare = ft::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
+	
+	template< typename Key, typename T, typename Compare = less<Key>, typename Alloc = std::allocator<pair<const Key, T> > >
 	class map {
 
 		public:
 			typedef Key													key_type;
 			typedef T													mapped_type;
-			typedef ft::pair<const Key, T>								value_type;
+			typedef pair<const Key, T>									value_type;
 			typedef std::size_t											size_type;
 			typedef std::ptrdiff_t										difference_type;
 			typedef Compare												key_compare;
@@ -37,7 +36,11 @@ namespace ft {
 			typedef typename Alloc::const_reference						const_reference;
 			typedef typename Alloc::pointer								pointer;
 			typedef typename Alloc::const_pointer						const_pointer;
+			//####### HEEEEREEEEE #######//typedef map_iter<Key, T>									iterator;
 			typedef map_iter<Key, T>									iterator;
+			
+			
+			
 			// typedef map_iterator<const_pointer, map<T, Alloc> >			const_iterator;
 			// typedef reverse_map_iterator<???>		reverse_iterator;
 			// typedef const_reverse_map_iterator<???>	const_reverse_iterator;
@@ -219,6 +222,8 @@ namespace ft {
 //---------------------------PRIVATE MEMBERS----------------------------------------//
 			
 		public:
+			
+			BST<Key, T> BST; // NEWWWWWWWWWWW
 			Node							*m_tree_root;
 			size_type						m_tree_size;
 			key_compare						m_comp;
@@ -298,7 +303,7 @@ namespace ft {
 
 			iterator begin(void) {
 				
-				return iterator(m_tree_root);
+				return iterator(BST.begin());
 			}
 
 			
@@ -326,4 +331,3 @@ namespace ft {
 	template< class Key, class T, class Compare, class Alloc >
 	bool operator>=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs );
 }
-#endif

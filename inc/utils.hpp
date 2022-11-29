@@ -6,12 +6,11 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:13:41 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/28 14:29:20 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/29 07:38:39 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_HPP
-#define UTILS_HPP
+#pragma once
 
 namespace ft {
 
@@ -244,5 +243,3 @@ namespace ft {
 		return (true);
 	}
 } // end namespace ft
-
-#endif

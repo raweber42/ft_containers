@@ -6,12 +6,11 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/28 09:10:04 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/29 07:36:35 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_HPP
-#define VECTOR_HPP
+#pragma once
 
 #include <memory>
 #include <iostream>
@@ -505,5 +504,3 @@ namespace ft
 } // namespace ft
 
 // see bookmark page 484
-
-#endif

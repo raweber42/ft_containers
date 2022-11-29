@@ -10,90 +10,139 @@
 // /*                                                                            */
 // /* ************************************************************************** */
 
-// #pragma once
-// #include "utils.hpp"
-// #include "iterator.hpp"
-// #include <memory>
+#pragma once
+#include "utils.hpp"
+#include "iterator.hpp"
+#include <memory>
 
-// namespace ft
-// {
+namespace ft
+{
 	
-// 	template<typename T>
-// 	struct Node {
-// 		T		content;
-// 		Node*	left;
-// 		Node*	right;
-// 	};
+	template< typename Key, typename T, typename Compare = less<Key>, typename Alloc = std::allocator<pair<const Key, T> > >
+	class BST {
 
-// 	template<typename Key, typename T, typename Alloc = std::allocator<Node<Key, T> > >
-// 	class BinarySearchTree {
-
-// //---------------------------END MAP MEMBER FUNCTION TRANSLATIONS----------------------------------------//
-	
-// 		public:
-// 			BinarySearchTree() : m_root(NULL), m_size(0) {}
-// 			~BinarySearchTree() {} // destroy stuff here!
-			
-			
-
-			
-// 			Node<Key, T> *createNewNode(pair<Key, T> new_content) {
-				
-// 				Node<Key, T> *newNode = m_alloc.allocate(1);
-// 				m_alloc.construct(newNode);
-// 				newNode->content = new_content;
-// 				newNode->left = NULL;
-// 				newNode->right = NULL;
-// 				return (newNode);
-// 			}
-
-// 			// HERE!!! DOUBLE OR SINGLE POINTER???
-// 			Node<Key, T> *insertNode(Node<Key, T> **m_root, pair<Key, T> data) {
-				
-// 				if (*m_root == NULL)
-// 					*m_root = createNewNode(data);
-// 				else if (data <= (*m_root)->content)
-// 					(*m_root)->left = insertNode(&(*m_root)->left, data);
-// 				else
-// 					(*m_root)->right = insertNode(&(*m_root)->right, data);
-// 				m_size++;
-// 				return (*m_root);
-// 			}
-
-// 			bool searchNode(Node<Key, T> *m_root, pair<Key, T> data) {
-				
-// 				if (m_root == NULL)
-// 					return false;
-// 				if (m_root->content == data)
-// 					return true;
-// 				else if (m_root->content <= data)
-// 					return searchNode(m_root->left);
-// 				else
-// 					return searchNode(m_root->right);
-// 			}
-
-// 			void printTree(const std::string& prefix, Node<Key, T> *m_root, bool isLeft) {
-				
-// 				if (m_root)
-// 				{
-// 					std::cout << prefix;
-// 					std::cout << (isLeft ? "├──" : "└──");
-// 					std::cout << "(" << m_root->content.first << ")>[" << m_root->content.second << "] " << std::endl;
-// 					// if (m_root->left)
-// 					printTree(prefix + (isLeft ? "│   " : "    "), m_root->left, true);
-// 					// if (m_root->right)
-// 					printTree(prefix + (isLeft ? "│   " : "    "), m_root->right, false);	
-// 				}
-// 			}
-
-// 			Node<Key, T> *getRoot(void) { return m_root; }
-
+		public:
+			typedef Key													key_type;
+			typedef T													mapped_type;
+			typedef pair<const Key, T>									value_type;
+			typedef std::size_t											size_type;
+			typedef std::ptrdiff_t										difference_type;
+			typedef Compare												key_compare;
+			typedef Alloc												alloc_type;
+			typedef typename Alloc::reference							reference;
+			typedef typename Alloc::const_reference						const_reference;
+			typedef typename Alloc::pointer								pointer;
+			typedef typename Alloc::const_pointer						const_pointer;
 		
-// 		public:
-// 			Node<Key, T>	*m_root;
-// 			size_t			m_size;
-// 			Alloc			m_alloc;
-// 	};
-	
-// } // namespace ft
 
+//---------------------------NODE DECLARATION---------------------------------------//
+
+			struct Node {
+				value_type	content;
+				Node*		left;
+				Node*		right;
+			};
+
+//---------------------------MEMBER VARIABLES---------------------------------------//
+
+		private: //make public?
+			size_type				m_tree_size;
+			alloc_type				m_alloc;
+			std::allocator<Node>	m_node_alloc;
+
+
+		public:
+			Node	*m_tree_root;
+
+//---------------------------CONSTRUCTORS---------------------------------------//
+
+		public:
+
+			BST() : m_tree_size(0), m_tree_root(NULL) {}
+			~BST() {} // clear() will be called from map class
+			
+			
+
+			
+			Node *createNewNode(const value_type &new_content) {
+				
+				Node *newNode = m_node_alloc.allocate(1);
+				m_alloc.construct(&(newNode->content), new_content);
+				newNode->left = NULL;
+				newNode->right = NULL;
+				return (newNode);
+			}
+
+			Node *insertNode(Node **m_root, const value_type &data) {
+				
+				if (*m_root == NULL)
+					*m_root = createNewNode(data);
+				else if (data <= (*m_root)->content)
+					(*m_root)->left = insertNode(&(*m_root)->left, data);
+				else
+					(*m_root)->right = insertNode(&(*m_root)->right, data);
+				m_tree_size++;
+				return (*m_root);
+			}
+
+
+			bool sameNodeExists(Node *m_root, const value_type &data) {
+				
+				if (m_root == NULL)
+					return false;
+				if (m_root->content == data)
+					return true;
+				else if (m_root->content <= data)
+					return sameNodeExists(m_root->left, data);
+				else
+					return sameNodeExists(m_root->right, data);
+			}
+
+
+			bool sameKeyExists(Node *m_root, const key_type &data) {
+				
+				if (m_root == NULL)
+					return false;
+				if (m_root->content.first == data)
+					return true;
+				else if (m_root->content.first <= data)
+					return sameKeyExists(m_root->left, data);
+				else
+					return sameKeyExists(m_root->right, data);
+			}
+
+
+			void printTreeRecursive(const std::string& prefix, Node *m_root, bool isLeft) const {
+				
+				if (m_root)
+				{
+					std::cout << prefix;
+					std::cout << (isLeft ? "├──" : "└──");
+					std::cout << "(" << m_root->content.first << ")>[" << m_root->content.second << "] " << std::endl;
+					// if (m_root->left)
+					printTreeRecursive(prefix + (isLeft ? "│   " : "    "), m_root->left, true);
+					// if (m_root->right)
+					printTreeRecursive(prefix + (isLeft ? "│   " : "    "), m_root->right, false);	
+				}
+			}
+
+
+			void printTree(void) const {
+			
+				printTreeRecursive("", m_tree_root, false);
+			}
+
+
+			Node *getRoot(void) { return m_tree_root; }
+
+			Node *begin(void) const {
+				
+				Node *tmp = m_tree_root;
+				while (tmp && tmp->left)
+					tmp = tmp->left;
+				return (tmp);
+			}
+
+	};
+	
+} // namespace ft

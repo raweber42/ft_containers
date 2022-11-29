@@ -6,12 +6,12 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 07:55:35 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/10 08:29:28 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/29 07:37:46 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_HPP
-# define COLORS_HPP
+# pragma once
+
 # define COLOR_DEFAULT "\033[0m"
 # define COLOR_RED "\033[31;1m"
 # define COLOR_GREEN "\033[32;1m"
@@ -23,4 +23,3 @@
 # ifndef DEBUG
 #  define DEBUG 0
 # endif
-#endif

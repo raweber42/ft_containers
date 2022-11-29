@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/28 15:09:43 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/29 08:30:29 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 #include <cstdio>
 #include <stdlib.h>
 #include "../inc/colors.hpp"
+
+//temporary
+#include "../inc/BST.hpp"
+//temporary end
 
 // #if STD //CREATE A REAL STL EXAMPLE
 	#include <map>
@@ -71,17 +75,19 @@ int main(void) {
 	ft::map<std::string, std::string> m1;
 	// m1.insertNode(&(m1.m_tree_root), ft::pair<const std::string, std::string>("4", "VALUE"));
 	
-	m1.insertNode(&(m1.m_tree_root), ft::pair<const std::string, std::string>("1", "VALUE"));
-	m1.insertNode(&(m1.m_tree_root), ft::pair<const std::string, std::string>("2", "VALUE"));
+	// m1.insertNode(&(m1.m_tree_root), ft::pair<const std::string, std::string>("1", "VALUE"));
+	// m1.insertNode(&(m1.m_tree_root), ft::pair<const std::string, std::string>("2", "VALUE"));
 	// m1.mapInsertNode(ft::pair<std::string, std::string>("2", "VALUE"));
 	// m1.mapInsertNode(ft::pair<std::string, std::string>("6", "VALUE"));
 	// m1.mapInsertNode(ft::pair<std::string, std::string>("1", "VALUE"));
 	// m1.mapInsertNode(ft::pair<std::string, std::string>("3", "VALUE"));
 	// m1.mapInsertNode(ft::pair<std::string, std::string>("5", "VALUE"));
-	m1.printTree();
-	std::cout << ((m1.sameNodeExists(m1.m_tree_root, ft::pair<const std::string, std::string>("1", "VALUE")) ? "YES" : "NO")) << std::endl;
-	std::cout << ((m1.sameKeyExists(m1.m_tree_root, "5")) ? "YES" : "NO") << std::endl;
+	// m1.printTree();
+	// std::cout << ((m1.sameNodeExists(m1.m_tree_root, ft::pair<const std::string, std::string>("1", "VALUE")) ? "YES" : "NO")) << std::endl;
+	// std::cout << ((m1.sameKeyExists(m1.m_tree_root, "5")) ? "YES" : "NO") << std::endl;
 
+	ft::BST<std::string, std::string> treeee;
+	
 	
 	// ft::map<std::string, std::string>::iterator it = m1.begin();
 	// std::cout << *it << std::endl;
