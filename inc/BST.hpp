@@ -12,7 +12,7 @@
 
 #pragma once
 #include "utils.hpp"
-#include "iterator.hpp"
+// #include "map_iterator.hpp"
 #include <memory>
 
 namespace ft
@@ -59,11 +59,49 @@ namespace ft
 		public:
 
 			BST() : m_tree_size(0), m_tree_root(NULL) {}
+
+
+//---------------------------------------DESTRUCTOR-------------------------------------------//
+
+
 			~BST() {} // clear() will be called from map class
 			
 			
+//---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
-			
+
+//-------------------------------GET ALLOC-----------------------------------------------//
+
+
+//---------------------------ELEMENT ACCESS----------------------------------------//
+
+
+//---------------------------ITERATOR FUNCTIONS----------------------------------------//
+
+			Node *begin(void) const {
+				
+				Node *tmp = m_tree_root;
+				while (tmp && tmp->left)
+					tmp = tmp->left;
+				return (tmp);
+			}
+
+			Node *end(void) const {
+				
+				Node *tmp = m_tree_root;
+				while (tmp && tmp->right)
+					tmp = tmp->right;
+				return (tmp);
+			}
+
+//---------------------------CAPACITY----------------------------------------//
+
+			bool empty() const { return !m_tree_size; }
+
+			size_type size() const { return m_tree_size; }
+
+//---------------------------MODIFIERS----------------------------------------//
+
 			Node *createNewNode(const value_type &new_content) {
 				
 				Node *newNode = m_node_alloc.allocate(1);
@@ -84,6 +122,11 @@ namespace ft
 				m_tree_size++;
 				return (*m_root);
 			}
+
+//---------------------------LOOKUP----------------------------------------//
+
+
+//---------------------------OBSERVERS----------------------------------------//
 
 
 			bool sameNodeExists(Node *m_root, const value_type &data) {
@@ -135,13 +178,7 @@ namespace ft
 
 			Node *getRoot(void) { return m_tree_root; }
 
-			Node *begin(void) const {
-				
-				Node *tmp = m_tree_root;
-				while (tmp && tmp->left)
-					tmp = tmp->left;
-				return (tmp);
-			}
+			
 
 	};
 	
