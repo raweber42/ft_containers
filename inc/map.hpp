@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/29 10:41:00 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/29 14:45:39 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 #include <memory>
 #include <iostream>
 #include <stdexcept>
+#include <functional>
 #include "utils.hpp"
 #include "map_iterator.hpp"
 
 
 namespace ft {
 	
-	template< typename Key, typename T, typename Compare = less<Key>, typename Alloc = std::allocator<pair<const Key, T> > >
+	template< typename Key, typename T, typename Compare = std::less<Key>, typename Alloc = std::allocator<pair<const Key, T> > >
 	class map {
 
 		public:
@@ -232,7 +233,7 @@ namespace ft {
 			
 		public:
 			
-			BST<Key, T>						BST;
+			BST<Key, T, Compare, Alloc>		BST;
 			// Node							*m_tree_root;
 			// size_type						m_tree_size;
 			// std::allocator<Node>			m_node_alloc;

@@ -14,11 +14,12 @@
 #include "utils.hpp"
 // #include "map_iterator.hpp"
 #include <memory>
+#include <functional>
 
 namespace ft
 {
 	
-	template< typename Key, typename T, typename Compare = less<Key>, typename Alloc = std::allocator<pair<const Key, T> > >
+	template< typename Key, typename T, typename Compare = std::less<Key>, typename Alloc = std::allocator<pair<const Key, T> > >
 	class BST {
 
 		public:
@@ -46,9 +47,10 @@ namespace ft
 //---------------------------MEMBER VARIABLES---------------------------------------//
 
 		private: //make public?
+			key_compare				m_comp;
 			size_type				m_tree_size;
-			alloc_type				m_alloc;
 			std::allocator<Node>	m_node_alloc;
+			alloc_type				m_alloc;
 
 
 		public:
@@ -58,7 +60,7 @@ namespace ft
 
 		public:
 
-			BST() : m_tree_size(0), m_tree_root(NULL) {}
+			BST(const Compare& comp = Compare()) : m_comp(comp), m_tree_size(0), m_tree_root(NULL) {}
 
 
 //---------------------------------------DESTRUCTOR-------------------------------------------//
@@ -118,17 +120,21 @@ namespace ft
 				return (newNode);
 			}
 
+
 			Node *insertNode(Node **m_root, const value_type &data) {
 				
 				if (*m_root == NULL)
 					*m_root = createNewNode(data);
-				else if (data == (*m_root)->content)
-					return (*m_root);
-				else if (data <= (*m_root)->content)
+				else if (this->m_comp(data, (*m_root)->content))
+				{
 					(*m_root)->left = insertNode(&(*m_root)->left, data);
-				else
+					m_tree_size++;
+				}
+				else if (this->m_comp((*m_root)->content, data))
+				{
 					(*m_root)->right = insertNode(&(*m_root)->right, data);
-				m_tree_size++;
+					m_tree_size++;
+				}
 				return (*m_root);
 			}
 
