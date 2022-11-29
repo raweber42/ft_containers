@@ -91,7 +91,14 @@ namespace ft
 				Node *tmp = m_tree_root;
 				while (tmp && tmp->right)
 					tmp = tmp->right;
-				return (tmp);
+				return (tmp->right);
+			}
+
+			Node *plusPlus(Node *current) {
+
+				Node *tmp = m_tree_root;
+				while (tmp->content < current->content)
+					tmp = tmp->right;
 			}
 
 //---------------------------CAPACITY----------------------------------------//
@@ -115,6 +122,8 @@ namespace ft
 				
 				if (*m_root == NULL)
 					*m_root = createNewNode(data);
+				else if (data == (*m_root)->content)
+					return (*m_root);
 				else if (data <= (*m_root)->content)
 					(*m_root)->left = insertNode(&(*m_root)->left, data);
 				else

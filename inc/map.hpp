@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/29 10:13:13 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/29 10:41:00 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,10 @@ namespace ft {
 
 			// const_iterator begin() const;
 
-			// iterator end();
+			iterator end() {
+				
+				return iterator(BST.end());
+			}
 
 			// const_iterator end() const;
 
@@ -152,22 +155,18 @@ namespace ft {
 			ft::pair<iterator, bool> insert( const value_type& value ) {
 			
 				ft::pair<iterator,bool> tmp;
+				
 				if (BST.sameKeyExists(BST.m_tree_root, value.first))
 				{
-					tmp.first = iterator(BST.end());
 					tmp.second = false;
 				}
 				else
 				{
-					tmp.first = iterator(BST.insertNode(&(BST.m_tree_root), value));
 					tmp.second = true;
 				}
-				return tmp;
-
-				// 	// if same key not found in tree->
-				// 	insertNode(m_tree_root, value);
-				// 	// Returns a pair consisting of an iterator to the inserted element (or to the element that prevented the insertion) and a bool denoting whether the insertion took place.
-				// }
+				tmp.first = iterator(BST.insertNode(&(BST.m_tree_root), value));
+				
+				return (tmp);
 			}
 
 			// iterator insert( iterator pos, const value_type& value );

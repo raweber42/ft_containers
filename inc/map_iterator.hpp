@@ -41,16 +41,16 @@ namespace ft {
 
 		public:
 		
-			map_iterator(void) : m_current_ptr(NULL) {}
+			map_iterator(void) : m_current_ptr(NULL), m_root_ptr(NULL) {}
 			
-			map_iterator(node_pointer ptr) : m_current_ptr(ptr) {}
+			map_iterator(node_pointer ptr) : m_current_ptr(ptr), m_root_ptr(ptr->getRoot()) {}
 			
 			// //below added for const/non-const
 			// template<typename _T>
 			// map_iterator(const map_iterator<_T, typename ft::enable_if<ft::are_same<_T, typename Node::pointer>::value, Node>::type>& copy) : m_ptr(copy.base()) , m_current(m_ptr.getRoot()) {}
 			// //end addition
 			
-			map_iterator(const map_iterator &src) : m_current_ptr(src.m_current_ptr) {}
+			map_iterator(const map_iterator &src) : m_current_ptr(src.m_current_ptr), m_root_ptr(src.m_root_ptr) {}
 			
 			~map_iterator() {}
 	
@@ -62,20 +62,20 @@ namespace ft {
 
 			map_iterator& operator=(map_iterator const &rhs) {
 				m_current_ptr = rhs.m_current_ptr;
+				m_root_ptr = rhs.m_root_ptr;
 				return (*this);
 			}
 			
-			value_type &operator*(void) const {
-				return (m_current_ptr->content);
-				//return (static_cast<node_pointer>(m_current_ptr)->content);
-			}
+			value_type &operator*(void) const { return (m_current_ptr->content); }
 
 			value_type *operator->(void) const { return (m_current_ptr); }
 			
-			// map_iterator &operator++(void) {
-			// 	m_ptr++;
-			// 	return (*this);
-			// }
+			map_iterator &operator++(void) {
+				
+				m_current_ptr = m_current_ptr->plusPlus();
+				// m_ptr++;
+				return (*this);
+			}
 			
 			// map_iterator operator++(int) {
 			// 	map_iterator ret(*this);
@@ -96,6 +96,7 @@ namespace ft {
 
 		protected:
 			node_pointer	m_current_ptr;
+			node_pointer	m_root_ptr;
 	};
 
 	//---------------MAP ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> DIFFERENT ITERATOR TYPE----------------------------------------

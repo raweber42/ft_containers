@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/29 10:07:25 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/29 10:39:25 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ struct Buffer
 	char buff[BUFFER_SIZE];
 };
 
-// void print_values(ft::map<std::string, std::string> &m1) {
+void print_values(ft::map<std::string, std::string> &m1) {
 	
-// 	std::cout << "The values held by the map are (accessed via iterator): [ ";
-// 	for (ft::map<std::string, std::string>::const_iterator it = m1.begin(); it != m1.end(); it++)
-// 	{
-// 		std::cout << " (" << it->first << ")->[" << it->second << "] ";
-// 		fflush(stdout);
-// 		usleep(80000);
-// 	}
-// 	std::cout << "]" << std::endl << std::endl;
-// }
+	std::cout << "The values held by the map are (accessed via iterator): [ ";
+	for (ft::map<std::string, std::string>::iterator it = m1.begin(); it != m1.end(); it++)
+	{
+		std::cout << " (" << it->first << ")->[" << it->second << "] ";
+		fflush(stdout);
+		usleep(80000);
+	}
+	std::cout << "]" << std::endl << std::endl;
+}
 
 // void print_values_reversed(ft::map<std::string, std::string> m1) {
 	
@@ -73,34 +73,24 @@ int main(void) {
 	std::cout << COLOR_RED <<  "CONSTRUCTOR TESTS" << COLOR_DEFAULT << std::endl;
 	std::cout << COLOR_BLUE << "Initializing empty map m1" << COLOR_DEFAULT << std::endl;
 	ft::map<std::string, std::string> m1;
-	m1.insert(ft::pair<std::string, std::string>("TEST_KEY", "TEST_VALUE"));
-	std::cout << (*(m1.begin())).first << std::endl;
 	
-	// m1.insertNode(&(m1.m_tree_root), ft::pair<const std::string, std::string>("4", "VALUE"));
+	// ft::pair<ft::map<std::string, std::string>::iterator, bool> tmp;
+	// tmp = m1.insert(ft::pair<std::string, std::string>("BLA1", "BLA1"));
+	// tmp = m1.insert(ft::pair<std::string, std::string>("BLA2", "BLA2"));
+	// tmp = m1.insert(ft::pair<std::string, std::string>("TEST_KEY3", "TEST_VALUE3"));
+	// std::cout << "return first: " << (*(tmp.first)).first << " return second: " << tmp.second << std::endl;
 	
-	// m1.insertNode(&(m1.m_tree_root), ft::pair<const std::string, std::string>("1", "VALUE"));
-	// m1.insertNode(&(m1.m_tree_root), ft::pair<const std::string, std::string>("2", "VALUE"));
-	// m1.mapInsertNode(ft::pair<std::string, std::string>("2", "VALUE"));
-	// m1.mapInsertNode(ft::pair<std::string, std::string>("6", "VALUE"));
-	// m1.mapInsertNode(ft::pair<std::string, std::string>("1", "VALUE"));
-	// m1.mapInsertNode(ft::pair<std::string, std::string>("3", "VALUE"));
-	// m1.mapInsertNode(ft::pair<std::string, std::string>("5", "VALUE"));
-	// m1.printTree();
-	// std::cout << ((m1.sameNodeExists(m1.m_tree_root, ft::pair<const std::string, std::string>("1", "VALUE")) ? "YES" : "NO")) << std::endl;
-	// std::cout << ((m1.sameKeyExists(m1.m_tree_root, "5")) ? "YES" : "NO") << std::endl;
+	// tmp = m1.insert(ft::pair<std::string, std::string>("TEST_KEY", "TEST_VALUE"));
+	// std::cout << "return first: " << (*(tmp.first)).first << " return second: " << tmp.second << std::endl;
 
-	// ft::BST<std::string, std::string> treeee;
+
+
 	
-	
-	// ft::map<std::string, std::string>::iterator it = m1.begin();
-	// std::cout << *it << std::endl;
-	// print_values(m1);
-	
-	// std::cout << COLOR_BLUE << "Inserting three key->value pairs into m1 via 'm2.insert(std::pair<key_type, value_type>(key, value))'" << COLOR_DEFAULT  << std::endl;
-	// m1.insert(std::pair<std::string, std::string>("1", "ABC"));
-	// m1.insert(std::pair<std::string, std::string>("2", "DEF"));
-	// m1.insert(std::pair<std::string, std::string>("3", "GHI"));
-	// print_values(m1);
+	std::cout << COLOR_BLUE << "Inserting three key->value pairs into m1 via 'm1.insert(ft::pair<key_type, value_type>(key, value))'" << COLOR_DEFAULT  << std::endl;
+	m1.insert(ft::pair<std::string, std::string>("1", "ABC"));
+	m1.insert(ft::pair<std::string, std::string>("2", "DEF"));
+	m1.insert(ft::pair<std::string, std::string>("3", "GHI"));
+	print_values(m1);
 
 	// std::cout << COLOR_BLUE << "Initializing map m2 with iterator range via 'm2(m1.begin(), m1.end())'" << COLOR_DEFAULT  << std::endl;
 	// ft::map<std::string, std::string> m2(m1.begin(), m1.end());
@@ -124,27 +114,27 @@ int main(void) {
 	// std::cout << COLOR_RED <<  "INSERTING TEST ELEMENTS INTO/FROM V1" << COLOR_DEFAULT << std::endl;
 	// std::cout << "Current size is: " << m1.size() << std::endl;
 	// std::cout << COLOR_BLUE << "Pushing alphabetic key->value pairs to m1" << COLOR_DEFAULT;
-	// m1.insert(std::pair<std::string, std::string>("4", "JKL"));
+	// m1.insert(ft::pair<std::string, std::string>("4", "JKL"));
 	// std::cout << " .";
 	// fflush(stdout);
 	// usleep(200000);
-	// m1.insert(std::pair<std::string, std::string>("5", "MNO"));
+	// m1.insert(ft::pair<std::string, std::string>("5", "MNO"));
 	// std::cout << " .";
 	// fflush(stdout);
 	// usleep(200000);
-	// m1.insert(std::pair<std::string, std::string>("6", "PQR"));
+	// m1.insert(ft::pair<std::string, std::string>("6", "PQR"));
 	// std::cout << " .";
 	// fflush(stdout);
 	// usleep(200000);
-	// m1.insert(std::pair<std::string, std::string>("7", "STU"));
+	// m1.insert(ft::pair<std::string, std::string>("7", "STU"));
 	// std::cout << " .";
 	// fflush(stdout);
 	// usleep(200000);
-	// m1.insert(std::pair<std::string, std::string>("8", "VWX"));
+	// m1.insert(ft::pair<std::string, std::string>("8", "VWX"));
 	// std::cout << " .";
 	// fflush(stdout);
 	// usleep(200000);
-	// m1.insert(std::pair<std::string, std::string>("9", "YZ"));
+	// m1.insert(ft::pair<std::string, std::string>("9", "YZ"));
 	// std::cout << " .";
 	// fflush(stdout);
 	// usleep(200000);
@@ -180,11 +170,11 @@ int main(void) {
 	// // m1.clear();
 	// std::cout << "Current size is is: " << m1.size() << std::endl;
 	// print_values(m1);
-	// std::cout << COLOR_BLUE << "Insert one elements of value 'XXX' into the map via 'm1.insert(std::pair<std::string, std::string>(\"X\", \"XXX\"))'" << COLOR_DEFAULT << std::endl;
-	// m1.insert(std::pair<std::string, std::string>("X", "XXX"));
+	// std::cout << COLOR_BLUE << "Insert one elements of value 'XXX' into the map via 'm1.insert(ft::pair<std::string, std::string>(\"X\", \"XXX\"))'" << COLOR_DEFAULT << std::endl;
+	// m1.insert(ft::pair<std::string, std::string>("X", "XXX"));
 	// print_values(m1);
-	// std::cout << COLOR_BLUE << "Insert value of '\?\?\?' as close as possible to the position just prior to m1.begin() via 'm1.insert(std::pair<std::string, std::string>(\"?\", \"???\"))'" << COLOR_DEFAULT << std::endl;
-	// m1.insert(std::pair<std::string, std::string>("?", "???"));
+	// std::cout << COLOR_BLUE << "Insert value of '\?\?\?' as close as possible to the position just prior to m1.begin() via 'm1.insert(ft::pair<std::string, std::string>(\"?\", \"???\"))'" << COLOR_DEFAULT << std::endl;
+	// m1.insert(ft::pair<std::string, std::string>("?", "???"));
 	// print_values(m1);
 	// // std::cout << COLOR_BLUE << "Insert the first three elements of value m2 at the beginning of the map via 'm1.insert(m2.begin(), m2.begin() + 3)'" << COLOR_DEFAULT << std::endl;
 	// // m1.insert(m2.begin(), m2.begin() + 3);
@@ -220,7 +210,7 @@ int main(void) {
 	// std::cout << COLOR_BLUE << "Finds an element with key equivalent to *4* via 'm1.find(\"4\")' (returns iterator) //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;
 	// std::cout << "Function returns iterator with value: " << (m1.find("4"))->second << std::endl;
 	// std::cout <<  COLOR_BLUE << "Find the range containing all elements with key *4* (-> only one element, because unique) via 'm1.equal_range(\"4\")'" << COLOR_DEFAULT << std::endl;
-	// std::pair<ft::map<std::string, std::string>::iterator, ft::map<std::string, std::string>::iterator> ret = m1.equal_range("4");
+	// ft::pair<ft::map<std::string, std::string>::iterator, ft::map<std::string, std::string>::iterator> ret = m1.equal_range("4");
 	// std::cout << "Function returns pair of iterators pointing to: " << ret.first->second << " and " << ret.second->second << std::endl;
 	// std::cout << COLOR_BLUE << "Find lower_bound with the key *4* via 'm1.lower_bound(\"4\")' //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;
 	// std::cout << "Function returns iterator pointing to: " << (m1.lower_bound("4"))->second << std::endl;
