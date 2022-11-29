@@ -19,7 +19,7 @@
 namespace ft
 {
 	
-	template< typename Key, typename T, typename Compare = std::less<Key>, typename Alloc = std::allocator<pair<const Key, T> > >
+	template< typename Key, typename T, typename Compare = std::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
 	class BST {
 
 		public:
@@ -96,12 +96,12 @@ namespace ft
 				return (tmp->right);
 			}
 
-			Node *plusPlus(Node *current) {
+			// Node *plusPlus(Node *current) {
 
-				Node *tmp = m_tree_root;
-				while (tmp->content < current->content)
-					tmp = tmp->right;
-			}
+			// 	Node *tmp = m_tree_root;
+			// 	while (tmp->content < current->content)
+			// 		tmp = tmp->right;
+			// }
 
 //---------------------------CAPACITY----------------------------------------//
 

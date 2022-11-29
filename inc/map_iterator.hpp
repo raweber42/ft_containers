@@ -40,10 +40,14 @@ namespace ft {
 //---------------MAP ITERATOR CONSTRUCTORS-----------------------------------------------
 
 		public:
-		
+
 			map_iterator(void) : m_current_ptr(NULL), m_root_ptr(NULL) {}
 			
-			map_iterator(node_pointer ptr) : m_current_ptr(ptr), m_root_ptr(ptr->getRoot()) {}
+			map_iterator(node_pointer ptr, node_pointer root_ptr) : m_current_ptr(ptr), m_root_ptr(root_ptr) {
+
+				if (m_root_ptr == NULL)
+					m_root_ptr = m_current_ptr;
+			}
 			
 			// //below added for const/non-const
 			// template<typename _T>

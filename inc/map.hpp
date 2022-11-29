@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/29 14:45:39 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/29 18:23:48 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ namespace ft {
 			typedef typename Alloc::pointer								pointer;
 			typedef typename Alloc::const_pointer						const_pointer;
 			//####### HEEEEREEEEE #######//typedef map_iter<Key, T>									iterator;
-			typedef map_iterator<Key, T>									iterator;
+			typedef map_iterator<Key, T>								iterator;
 			
 			
 			
@@ -57,7 +57,7 @@ namespace ft {
 //---------------------------CONSTRUCTORS---------------------------------------//
 			
 			explicit map(const Compare& comp = Compare(), const Alloc& alloc = Alloc())
-				:  m_comp(comp), m_alloc(alloc) {}
+				:  m_comp(comp), m_alloc(alloc) {std::cout << "map constructor called" << std::endl; }
 			
 			// template< class InputIt >
 			// map(InputIt first, InputIt last, const Compare& comp = Compare(), const Alloc& alloc = Alloc()) 
@@ -113,14 +113,14 @@ namespace ft {
 
 			iterator begin() {
 				
-				return iterator(BST.begin());
+				return iterator(BST.begin(), BST.m_tree_root);
 			}
 
 			// const_iterator begin() const;
 
 			iterator end() {
 				
-				return iterator(BST.end());
+				return iterator(BST.end(), BST.m_tree_root);
 			}
 
 			// const_iterator end() const;
@@ -165,7 +165,7 @@ namespace ft {
 				{
 					tmp.second = true;
 				}
-				tmp.first = iterator(BST.insertNode(&(BST.m_tree_root), value));
+				tmp.first = iterator(BST.insertNode(&(BST.m_tree_root), value), BST.m_tree_root);
 				
 				return (tmp);
 			}
@@ -233,12 +233,12 @@ namespace ft {
 			
 		public:
 			
+			key_compare						m_comp;
+			alloc_type						m_alloc;
 			BST<Key, T, Compare, Alloc>		BST;
 			// Node							*m_tree_root;
 			// size_type						m_tree_size;
 			// std::allocator<Node>			m_node_alloc;
-			key_compare						m_comp;
-			alloc_type						m_alloc;
 	};
 
 //---------------------------RELATIONAL OPERATORS (non-member)--------------------------------//
