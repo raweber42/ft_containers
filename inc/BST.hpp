@@ -44,6 +44,7 @@ namespace ft
 				value_type	content;
 				Node*		left;
 				Node*		right;
+				Node*		parent;
 			};
 
 //---------------------------MEMBER VARIABLES---------------------------------------//
@@ -98,12 +99,28 @@ namespace ft
 				return (tmp->right);
 			}
 
-			// Node *plusPlus(Node *current) {
+			Node *plusPlus(Node *current) {
 
-			// 	Node *tmp = m_tree_root;
-			// 	while (tmp->content < current->content)
-			// 		tmp = tmp->right;
-			// }
+				Node *tmp;
+
+				if (current->right) // if right exists, go right once and left as long as possible
+				{
+					tmp = current->right;
+					while (tmp->left)
+						tmp = tmp->left;
+				}
+				else // go to parent: while parent is bigger -> go further up
+				{
+					tmp = current->parent;
+					while (tmp != NULL && current == tmp->right)
+					{
+						current = tmp;
+						tmp = tmp->parent;
+					}
+				}
+				return (tmp);
+			}
+
 
 //---------------------------CAPACITY----------------------------------------//
 
@@ -113,28 +130,30 @@ namespace ft
 
 //---------------------------MODIFIERS----------------------------------------//
 
-			Node *createNewNode(const value_type &new_content) {
+			Node *createNewNode(const value_type &new_content, Node *parent = NULL) {
 				
 				Node *newNode = m_node_alloc.allocate(1);
 				m_alloc.construct(&(newNode->content), new_content);
 				newNode->left = NULL;
 				newNode->right = NULL;
+				newNode->parent = parent;
 				return (newNode);
 			}
 
 
-			Node *insertNode(Node **m_root, const value_type &data) {
+			Node *insertNode(Node **m_root, const value_type &data, Node *parent = NULL) {
 				
-				if (*m_root == NULL)
-					*m_root = createNewNode(data);
-				else if (this->m_comp(data.first, ((*m_root)->content).first))
+				if (*m_root == NULL) //here parent is set to NULL
+					*m_root = createNewNode(data, parent);
+
+				else if (m_comp(data.first, ((*m_root)->content).first))
 				{
-					(*m_root)->left = insertNode(&(*m_root)->left, data);
+					(*m_root)->left = insertNode(&(*m_root)->left, data, *m_root);
 					m_tree_size++;
 				}
-				else if (this->m_comp(((*m_root)->content).first, data.first))
+				else if (m_comp(((*m_root)->content).first, data.first))
 				{
-					(*m_root)->right = insertNode(&(*m_root)->right, data);
+					(*m_root)->right = insertNode(&(*m_root)->right, data, *m_root);
 					m_tree_size++;
 				}
 				return (*m_root);

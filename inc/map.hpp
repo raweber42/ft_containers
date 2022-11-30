@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/30 07:51:34 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/30 08:15:34 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ namespace ft {
 //---------------------------CONSTRUCTORS---------------------------------------//
 			
 			explicit map(const Compare& comp = Compare(), const Alloc& alloc = Alloc())
-				:  m_comp(comp), m_alloc(alloc) {std::cout << "map constructor called" << std::endl; }
+				:  m_comp(comp), m_alloc(alloc) {}
 			
 			// template< class InputIt >
 			// map(InputIt first, InputIt last, const Compare& comp = Compare(), const Alloc& alloc = Alloc()) 
