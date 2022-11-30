@@ -127,12 +127,12 @@ namespace ft
 				
 				if (*m_root == NULL)
 					*m_root = createNewNode(data);
-				else if (this->m_comp(data, (*m_root)->content))
+				else if (this->m_comp(data.first, ((*m_root)->content).first))
 				{
 					(*m_root)->left = insertNode(&(*m_root)->left, data);
 					m_tree_size++;
 				}
-				else if (this->m_comp((*m_root)->content, data))
+				else if (this->m_comp(((*m_root)->content).first, data.first))
 				{
 					(*m_root)->right = insertNode(&(*m_root)->right, data);
 					m_tree_size++;
