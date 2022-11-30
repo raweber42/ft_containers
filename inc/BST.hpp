@@ -24,7 +24,17 @@ namespace ft
 	template< typename Key, typename T, typename Compare = std::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
 	class BST {
 
+//---------------------------NODE DECLARATION---------------------------------------//
+
 		public:
+
+			struct Node {
+				ft::pair<const Key, T>	content;
+				Node*					left;
+				Node*					right;
+				Node*					parent;
+			};
+			
 			typedef Key													key_type;
 			typedef T													mapped_type;
 			typedef pair<const Key, T>									value_type;
@@ -36,16 +46,10 @@ namespace ft
 			typedef typename Alloc::const_reference						const_reference;
 			typedef typename Alloc::pointer								pointer;
 			typedef typename Alloc::const_pointer						const_pointer;
+			typedef Node*												node_pointer;
+			typedef const Node*											const_node_pointer;
 		
 
-//---------------------------NODE DECLARATION---------------------------------------//
-
-			struct Node {
-				value_type	content;
-				Node*		left;
-				Node*		right;
-				Node*		parent;
-			};
 
 //---------------------------MEMBER VARIABLES---------------------------------------//
 

@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/30 12:15:38 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/30 16:30:53 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ namespace ft {
 			typedef Key													key_type;
 			typedef T													mapped_type;
 			typedef pair<const Key, T>									value_type;
+			typedef const pair<const Key, T>							const_value_type;
 			typedef std::size_t											size_type;
 			typedef std::ptrdiff_t										difference_type;
 			typedef Compare												key_compare;
@@ -39,8 +40,13 @@ namespace ft {
 			typedef typename Alloc::const_reference						const_reference;
 			typedef typename Alloc::pointer								pointer;
 			typedef typename Alloc::const_pointer						const_pointer;
-			//####### HEEEEREEEEE #######//typedef map_iter<Key, T>									iterator;
-			typedef map_iterator<Key, T>								iterator;
+			typedef BST<Key, T, Compare, Alloc>							binary_tree;
+			typedef typename binary_tree::node_pointer					node_pointer;
+			typedef typename binary_tree::const_node_pointer			const_node_pointer;
+
+			// typedef map_iterator<Key, T>								iterator;
+			typedef map_iterator<node_pointer, value_type>				iterator;
+			typedef map_iterator<const_node_pointer, const_value_type>	const_iterator;
 			
 			
 			
@@ -118,14 +124,20 @@ namespace ft {
 				return iterator(m_tree.begin(), m_tree.m_tree_root);
 			}
 
-			// const_iterator begin() const;
+			const_iterator begin() const {
+				
+				return const_iterator(m_tree.begin(), m_tree.m_tree_root);
+			}
 
 			iterator end() {
 				
 				return iterator(m_tree.end(), m_tree.m_tree_root);
 			}
 
-			// const_iterator end() const;
+			const_iterator end() const {
+				
+				return const_iterator(m_tree.end(), m_tree.m_tree_root);
+			}
 
 			// reverse_iterator rbegin();
 
@@ -154,7 +166,6 @@ namespace ft {
 
 
 			// void clear();
-			
 			ft::pair<iterator, bool> insert( const value_type& value ) {
 			
 				ft::pair<iterator,bool> tmp;
@@ -237,7 +248,7 @@ namespace ft {
 			
 			key_compare						m_comp;
 			alloc_type						m_alloc;
-			BST<Key, T, Compare, Alloc>		m_tree;
+			binary_tree						m_tree;
 			// Node							*m_tree_root;
 			// size_type						m_tree_size;
 			// std::allocator<Node>			m_node_alloc;

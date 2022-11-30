@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/30 14:43:56 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/30 16:38:59 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ struct Buffer
 void print_values(ft::map<std::string, std::string> &m1) {
 	
 	std::cout << "The values held by the map are (accessed via iterator): [ ";
-	for (ft::map<std::string, std::string>::iterator it = m1.begin(); it != m1.end(); it++)
+	for (ft::map<std::string, std::string>::const_iterator it = m1.begin(); it != m1.end(); it++)
 	{
 		std::cout << " (" << (*it).first << ")->[" << (*it).second << "] ";
 		fflush(stdout);
@@ -73,14 +73,12 @@ int main(void) {
 	std::cout << COLOR_RED <<  "CONSTRUCTOR TESTS" << COLOR_DEFAULT << std::endl;
 	std::cout << COLOR_BLUE << "Initializing empty map m1" << COLOR_DEFAULT << std::endl;
 	ft::map<std::string, std::string> m1;
-	// ft::map<int, int> m1_int;
-	// m1_int.insert(ft::pair<int, int>(1, 123));
 	
 	std::cout << COLOR_BLUE << "Inserting three key->value pairs into m1 via 'm1.insert(ft::pair<key_type, value_type>(key, value))'" << COLOR_DEFAULT  << std::endl;
 	m1.insert(ft::pair<std::string, std::string>("1", "ABC"));
 	m1.insert(ft::pair<std::string, std::string>("2", "DEF"));
 	m1.insert(ft::pair<std::string, std::string>("3", "GHI"));
-	// ft::map<std::string, std::string>::iterator it = m1.begin();
+	// ft::map<std::string, std::string>::const_iterator it = m1.begin();
 	// std::cout << "first: " << (*it).first << " second: " << (*it).second<< std::endl;
 	print_values(m1);
 	
