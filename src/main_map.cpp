@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/30 09:09:03 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/30 11:45:08 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void print_values(ft::map<std::string, std::string> &m1) {
 	std::cout << "The values held by the map are (accessed via iterator): [ ";
 	for (ft::map<std::string, std::string>::iterator it = m1.begin(); it != m1.end(); it++)
 	{
-		std::cout << " (" << it->first << ")->[" << it->second << "] ";
+		std::cout << " (" << (*it).first << ")->[" << (*it).second << "] ";
 		fflush(stdout);
 		usleep(80000);
 	}
@@ -80,9 +80,9 @@ int main(void) {
 	m1.insert(ft::pair<std::string, std::string>("1", "ABC"));
 	m1.insert(ft::pair<std::string, std::string>("2", "DEF"));
 	m1.insert(ft::pair<std::string, std::string>("3", "GHI"));
-	ft::map<std::string, std::string>::iterator it = m1.begin();
-	std::cout << "first: " << (*it).first << " second: " << (*it).second<< std::endl;
-	// print_values(m1);
+	// ft::map<std::string, std::string>::iterator it = m1.begin();
+	// std::cout << "first: " << (*it).first << " second: " << (*it).second<< std::endl;
+	print_values(m1);
 
 	// std::cout << COLOR_BLUE << "Initializing map m2 with iterator range via 'm2(m1.begin(), m1.end())'" << COLOR_DEFAULT  << std::endl;
 	// ft::map<std::string, std::string> m2(m1.begin(), m1.end());

@@ -99,27 +99,7 @@ namespace ft
 				return (tmp->right);
 			}
 
-			Node *plusPlus(Node *current) {
-
-				Node *tmp;
-
-				if (current->right) // if right exists, go right once and left as long as possible
-				{
-					tmp = current->right;
-					while (tmp->left)
-						tmp = tmp->left;
-				}
-				else // go to parent: while parent is bigger -> go further up
-				{
-					tmp = current->parent;
-					while (tmp != NULL && current == tmp->right)
-					{
-						current = tmp;
-						tmp = tmp->parent;
-					}
-				}
-				return (tmp);
-			}
+			
 
 
 //---------------------------CAPACITY----------------------------------------//

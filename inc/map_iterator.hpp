@@ -61,7 +61,7 @@ namespace ft {
 	
 //---------------BASE FUNCTION (HELPER)--------------------------------------------------------------
 			
-			// pointer base() const { return (m_ptr); }
+			node_pointer base() const { return (m_current_ptr); }
 
 //---------------MAP ITERATOR OPERATOR OVERLOADS----------------------------------------
 
@@ -77,16 +77,39 @@ namespace ft {
 			
 			map_iterator &operator++(void) {
 				
-				m_current_ptr = m_current_ptr->plusPlus();
+				m_current_ptr = plusPlus(m_current_ptr);
 				// m_ptr++;
 				return (*this);
 			}
 			
-			// map_iterator operator++(int) {
-			// 	map_iterator ret(*this);
-			// 	m_ptr++;
-			// 	return (ret);
-			// }
+			map_iterator operator++(int) {
+				
+				map_iterator ret(*this);
+				m_current_ptr = plusPlus(m_current_ptr);
+				return (ret);
+			}
+
+			node_pointer plusPlus(node_pointer current) {
+
+				node_pointer tmp;
+
+				if (current->right) // if right exists, go right once and left as long as possible
+				{
+					tmp = current->right;
+					while (tmp->left)
+						tmp = tmp->left;
+				}
+				else // go to parent: while parent is bigger -> go further up
+				{
+					tmp = current->parent;
+					while (tmp != NULL && current == tmp->right)
+					{
+						current = tmp;
+						tmp = tmp->parent;
+					}
+				}
+				return (tmp);
+			}
 
 			// map_iterator &operator--(void) {
 			// 	m_ptr--;
@@ -108,7 +131,7 @@ namespace ft {
 
 	template<typename T1, typename T2, typename Node>
 	bool operator==(const map_iterator<T1, Node> &lhs, const map_iterator<T2, Node> &rhs) {
-				return (lhs.base() == rhs.base());	
+		return (lhs.base() == rhs.base());	
 	}
 
 	template<typename T1, typename T2, typename Node>
