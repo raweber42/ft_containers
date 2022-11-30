@@ -6,11 +6,14 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 09:38:16 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/29 09:43:35 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/30 07:52:05 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef ITERATOR_TRAITS_HPP
+#define ITERATOR_TRAITS_HPP
+
+#include <cstddef>
 
 namespace ft {
 	
@@ -37,7 +40,7 @@ namespace ft {
 	// spezialization pointer
 	template <typename T>
 	struct iterator_traits<T*> {
-		typedef ptrdiff_t					difference_type;
+		typedef std::ptrdiff_t					difference_type;
 		typedef random_access_iterator_tag	iterator_category;
 		typedef T							value_type;
 		typedef T*							pointer;
@@ -47,10 +50,12 @@ namespace ft {
 	// spezialization const pointer
 	template <typename T>
 	struct iterator_traits<const T*> {
-		typedef ptrdiff_t					difference_type;
+		typedef std::ptrdiff_t					difference_type;
 		typedef random_access_iterator_tag	iterator_category;
 		typedef T							value_type;
 		typedef const T*					pointer;
 		typedef const T&					reference;	
 	};
 }
+
+#endif

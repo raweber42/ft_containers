@@ -10,15 +10,17 @@
 // /*                                                                            */
 // /* ************************************************************************** */
 
-#pragma once
+#ifndef BST_HPP
+#define BST_HPP
+
 #include "utils.hpp"
+#include <iostream>
 // #include "map_iterator.hpp"
 #include <memory>
 #include <functional>
 
 namespace ft
 {
-	
 	template< typename Key, typename T, typename Compare = std::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
 	class BST {
 
@@ -198,3 +200,5 @@ namespace ft
 	};
 	
 } // namespace ft
+
+#endif

@@ -6,11 +6,12 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:13:41 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/29 14:22:55 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/30 07:52:25 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef UTILS_HPP
+#define UTILS_HPP
 
 namespace ft {
 
@@ -105,19 +106,19 @@ namespace ft {
 
 //##########NEW_NON_CONST
 	template< class T1, class T2 >
-	bool operator==(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
+	bool operator==(  ft::pair<T1,T2>& lhs,  ft::pair<T1,T2>& rhs ) {
 		
 		return ((lhs.first == rhs.first) && (lhs.second == rhs.second));
 	}
 
 	template< class T1, class T2 >
-	bool operator!=(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
+	bool operator!=(  ft::pair<T1,T2>& lhs,  ft::pair<T1,T2>& rhs ) {
 		
 		return (!(lhs == rhs));
 	}
 
 	template< class T1, class T2 >
-	bool operator<(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
+	bool operator<(  ft::pair<T1,T2>& lhs,  ft::pair<T1,T2>& rhs ) {
 		
 		if (lhs.first < rhs.first)
 			return (true);
@@ -130,19 +131,19 @@ namespace ft {
 	}
 
 	template< class T1, class T2 >
-	bool operator<=(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
+	bool operator<=(  ft::pair<T1,T2>& lhs,  ft::pair<T1,T2>& rhs ) {
 		
 		return (!(rhs < lhs));
 	}
 
 	template< class T1, class T2 >
-	bool operator>(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
+	bool operator>(  ft::pair<T1,T2>& lhs,  ft::pair<T1,T2>& rhs ) {
 		
 		return (rhs < lhs);
 	}
 
 	template< class T1, class T2 >
-	bool operator>=(  std::pair<T1,T2>& lhs,  std::pair<T1,T2>& rhs ) {
+	bool operator>=(  ft::pair<T1,T2>& lhs,  ft::pair<T1,T2>& rhs ) {
 
 		return (!(lhs < rhs));
 	}
@@ -243,3 +244,5 @@ namespace ft {
 		return (true);
 	}
 } // end namespace ft
+
+#endif

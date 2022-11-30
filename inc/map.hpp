@@ -6,12 +6,14 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/29 18:23:48 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/30 07:51:34 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef MAP_HPP
+#define MAP_HPP
 
+#include <iterator>
 #include <memory>
 #include <iostream>
 #include <stdexcept>
@@ -113,14 +115,14 @@ namespace ft {
 
 			iterator begin() {
 				
-				return iterator(BST.begin(), BST.m_tree_root);
+				return iterator(m_tree.begin(), m_tree.m_tree_root);
 			}
 
 			// const_iterator begin() const;
 
 			iterator end() {
 				
-				return iterator(BST.end(), BST.m_tree_root);
+				return iterator(m_tree.end(), m_tree.m_tree_root);
 			}
 
 			// const_iterator end() const;
@@ -137,9 +139,9 @@ namespace ft {
 //---------------------------CAPACITY----------------------------------------//
 			
 
-			bool empty() const { return (BST.empty()); }
+			bool empty() const { return (m_tree.empty()); }
 
-			size_type size() const { return (BST.empty()); }
+			size_type size() const { return (m_tree.empty()); }
 
 			// size_type max_size() const {
 				
@@ -157,7 +159,7 @@ namespace ft {
 			
 				ft::pair<iterator,bool> tmp;
 				
-				if (BST.sameKeyExists(BST.m_tree_root, value.first))
+				if (m_tree.sameKeyExists(m_tree.m_tree_root, value.first))
 				{
 					tmp.second = false;
 				}
@@ -165,7 +167,7 @@ namespace ft {
 				{
 					tmp.second = true;
 				}
-				tmp.first = iterator(BST.insertNode(&(BST.m_tree_root), value), BST.m_tree_root);
+				tmp.first = iterator(m_tree.insertNode(&(m_tree.m_tree_root), value), m_tree.m_tree_root);
 				
 				return (tmp);
 			}
@@ -235,7 +237,7 @@ namespace ft {
 			
 			key_compare						m_comp;
 			alloc_type						m_alloc;
-			BST<Key, T, Compare, Alloc>		BST;
+			BST<Key, T, Compare, Alloc>		m_tree;
 			// Node							*m_tree_root;
 			// size_type						m_tree_size;
 			// std::allocator<Node>			m_node_alloc;
@@ -261,3 +263,10 @@ namespace ft {
 	template< class Key, class T, class Compare, class Alloc >
 	bool operator>=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs );
 }
+
+
+#endif
+
+
+// src/../inc/map.hpp:239:65: error: declaration of ‘ft::BST<Key, T, Compare, Alloc> ft::map<Key, T, Compare, Alloc>::BST’ changes meaning of ‘BST’ [-fpermissive]
+// src/../inc/map.hpp:239:49: error: declaration of ‘ft::BST<Key, T> ft::map<Key, T, Compare, Alloc>::BST’ changes meaning of ‘BST’ [-fpermissive]
