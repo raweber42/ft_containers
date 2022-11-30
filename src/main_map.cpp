@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/30 11:45:08 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/30 11:58:47 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ struct Buffer
 void print_values(ft::map<std::string, std::string> &m1) {
 	
 	std::cout << "The values held by the map are (accessed via iterator): [ ";
-	for (ft::map<std::string, std::string>::iterator it = m1.begin(); it != m1.end(); it++)
+	for (ft::map<std::string, std::string>::iterator it = m1.end(); it != m1.begin(); it--)
 	{
+		std::cout << "HERE ALIVE" << std::endl;
 		std::cout << " (" << (*it).first << ")->[" << (*it).second << "] ";
 		fflush(stdout);
 		usleep(80000);
@@ -60,7 +61,7 @@ void print_values(ft::map<std::string, std::string> &m1) {
 // 	for (ft::map<std::string, std::string>::const_reverse_iterator it = m1.rbegin(); it != m1.rend(); it++)
 // 	{
 // 		std::cout << " (" << it->first << ")->[" << it->second << "] ";
-// 		fflush(stdout);
+//		fflush(stdout);
 // 		usleep(80000);
 // 	}
 // 	std::cout << "]" << std::endl << std::endl;

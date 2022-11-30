@@ -32,11 +32,18 @@ namespace ft {
 	class map_iterator {
 
 //---------------MAP ITERATOR TYPEDEFS (iterator traits)---------------------------------
+		
 		public:
 			typedef bidirectional_iterator_tag			iterator_category;
 			typedef pair<const Key, T>					value_type;
 			//###### HEEEREEEEE // typedef typename map<Key, T>::Node*				node_pointer;
 			typedef typename BST<Key, T>::Node*			node_pointer;
+
+//---------------PROTECTED MEBER FUNCTION------------------------------------------------
+
+		protected:
+			node_pointer	m_current_ptr;
+			node_pointer	m_root_ptr;
 
 //---------------MAP ITERATOR CONSTRUCTORS-----------------------------------------------
 
@@ -46,8 +53,8 @@ namespace ft {
 			
 			map_iterator(node_pointer ptr, node_pointer root_ptr) : m_current_ptr(ptr), m_root_ptr(root_ptr) {
 
-				if (m_root_ptr == NULL)
-					m_root_ptr = m_current_ptr;
+				// if (m_root_ptr == NULL)
+				// 	m_root_ptr = m_current_ptr;
 			}
 			
 			// //below added for const/non-const
@@ -78,17 +85,31 @@ namespace ft {
 			map_iterator &operator++(void) {
 				
 				m_current_ptr = plusPlus(m_current_ptr);
-				// m_ptr++;
 				return (*this);
 			}
 			
 			map_iterator operator++(int) {
 				
 				map_iterator ret(*this);
-				m_current_ptr = plusPlus(m_current_ptr);
+				++(*this);
 				return (ret);
 			}
 
+			map_iterator &operator--(void) {
+				
+				m_current_ptr = minusMinus(m_current_ptr);
+				return (*this);
+			}
+			
+			map_iterator operator--(int) {
+				
+				map_iterator ret(*this);
+				--(*this);
+				return (ret);
+			}		
+		
+		private:
+			
 			node_pointer plusPlus(node_pointer current) {
 
 				node_pointer tmp;
@@ -111,20 +132,27 @@ namespace ft {
 				return (tmp);
 			}
 
-			// map_iterator &operator--(void) {
-			// 	m_ptr--;
-			// 	return (*this);
-			// }
-			
-			// map_iterator operator--(int) {
-			// 	map_iterator ret(*this);
-			// 	m_ptr--;
-			// 	return (ret);
-			// }
+			node_pointer minusMinus(node_pointer current) {
 
-		protected:
-			node_pointer	m_current_ptr;
-			node_pointer	m_root_ptr;
+				node_pointer tmp;
+
+				if (current->left) // if left exists, go left once and right as long as possible
+				{
+					tmp = current->left;
+					while (tmp->right)
+						tmp = tmp->right;
+				}
+				else // go to parent: while parent is smaller -> go further up
+				{
+					tmp = current->parent;
+					while (tmp != NULL && current == tmp->left)
+					{
+						current = tmp;
+						tmp = tmp->parent;
+					}
+				}
+				return (tmp);
+			}
 	};
 
 	//---------------MAP ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> DIFFERENT ITERATOR TYPE----------------------------------------
