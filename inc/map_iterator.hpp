@@ -113,8 +113,13 @@ namespace ft {
 			node_pointer plusPlus(node_pointer current) {
 
 				node_pointer tmp;
-
-				if (current->right) // if right exists, go right once and left as long as possible
+				if (current == NULL)
+				{
+					tmp = m_root_ptr;
+					while (tmp->left)
+						tmp = tmp->left;
+				}
+				else if (current->right) // if right exists, go right once and left as long as possible
 				{
 					tmp = current->right;
 					while (tmp->left)
@@ -135,8 +140,13 @@ namespace ft {
 			node_pointer minusMinus(node_pointer current) {
 
 				node_pointer tmp;
-
-				if (current->left) // if left exists, go left once and right as long as possible
+				if (current == NULL)
+				{
+					tmp = m_root_ptr;
+					while (tmp->right)
+						tmp = tmp->right;
+				}
+				else if (current->left) // if left exists, go left once and right as long as possible
 				{
 					tmp = current->left;
 					while (tmp->right)

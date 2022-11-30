@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/30 12:31:45 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/30 14:43:56 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ struct Buffer
 void print_values(ft::map<std::string, std::string> &m1) {
 	
 	std::cout << "The values held by the map are (accessed via iterator): [ ";
-	for (ft::map<std::string, std::string>::iterator it = m1.end(); it != m1.begin(); it--)
+	for (ft::map<std::string, std::string>::iterator it = m1.begin(); it != m1.end(); it++)
 	{
-		std::cout << "HERE ALIVE" << std::endl;
 		std::cout << " (" << (*it).first << ")->[" << (*it).second << "] ";
 		fflush(stdout);
 		usleep(80000);
@@ -83,14 +82,14 @@ int main(void) {
 	m1.insert(ft::pair<std::string, std::string>("3", "GHI"));
 	// ft::map<std::string, std::string>::iterator it = m1.begin();
 	// std::cout << "first: " << (*it).first << " second: " << (*it).second<< std::endl;
-	// print_values(m1);
+	print_values(m1);
 	
-	std::map<int,int> map_test;
-	map_test[1] = 3;
-	map_test[2] = 4;
-	map_test[3] = 5;
-	for (std::map<int, int>::iterator it_map = map_test.end(); it_map != map_test.begin(); it_map--)
-		std::cout << (*it_map).second << std::endl;
+	// std::map<int,int> map_test;
+	// map_test[1] = 3;
+	// map_test[2] = 4;
+	// map_test[3] = 5;
+	// for (std::map<int, int>::iterator it_map = map_test.end(); it_map != map_test.begin(); it_map--)
+	// 	std::cout << (*it_map).second << std::endl;
 
 
 	// std::cout << COLOR_BLUE << "Initializing map m2 with iterator range via 'm2(m1.begin(), m1.end())'" << COLOR_DEFAULT  << std::endl;
