@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/30 16:30:53 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/30 18:07:51 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ namespace ft {
 			// typedef map_iterator<Key, T>								iterator;
 			typedef map_iterator<node_pointer, value_type>				iterator;
 			typedef map_iterator<const_node_pointer, const_value_type>	const_iterator;
+			typedef reverse_vector_iterator<iterator>					reverse_iterator;
+			typedef reverse_vector_iterator<const_iterator>				const_reverse_iterator;
 			
 			
 			
@@ -139,13 +141,25 @@ namespace ft {
 				return const_iterator(m_tree.end(), m_tree.m_tree_root);
 			}
 
-			// reverse_iterator rbegin();
+			reverse_iterator rbegin() {
+				
+				return reverse_iterator(m_tree.end(), m_tree_root);
+			}
 
-			// const_reverse_iterator rbegin() const;
+			const_reverse_iterator rbegin() const {
+				
+				return const_reverse_iterator(m_tree.end(), m_tree_root);
+			}
 
-			// reverse_iterator rend();
+			reverse_iterator rend() {
+				
+				return reverse_iterator(m_tree.begin(), m_tree_root);
+			}
 
-			// const_reverse_iterator rend() const;
+			const_reverse_iterator rend() const {
+				
+				return const_reverse_iterator(m_tree.begin(), m_tree_root);
+			}
 
 
 //---------------------------CAPACITY----------------------------------------//

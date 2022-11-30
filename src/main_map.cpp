@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/30 16:38:59 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/30 17:19:33 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ struct Buffer
 void print_values(ft::map<std::string, std::string> &m1) {
 	
 	std::cout << "The values held by the map are (accessed via iterator): [ ";
+	
 	for (ft::map<std::string, std::string>::const_iterator it = m1.begin(); it != m1.end(); it++)
 	{
 		std::cout << " (" << (*it).first << ")->[" << (*it).second << "] ";

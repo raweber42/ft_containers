@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/29 18:11:00 by raweber          ###   ########.fr       */
+/*   Updated: 2022/11/30 18:06:01 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,11 @@ namespace ft
 			
 			reverse_iterator rbegin(void) { return(reverse_iterator(_vec_ptr + _size)); }
 
-			const_reverse_iterator rbegin(void) const { return(reverse_iterator(_vec_ptr + _size)); }
+			const_reverse_iterator rbegin(void) const { return(const_reverse_iterator(_vec_ptr + _size)); }
 
 			reverse_iterator rend(void) { return(reverse_iterator(_vec_ptr)); }
 			
-			const_reverse_iterator rend(void) const { return(reverse_iterator(_vec_ptr)); }
+			const_reverse_iterator rend(void) const { return(const_reverse_iterator(_vec_ptr)); }
 
 
 //---------------------------CAPACITY----------------------------------------//
