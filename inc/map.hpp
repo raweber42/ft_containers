@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 11:08:19 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/01 11:35:00 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ namespace ft {
 //-------------------------------GET ALLOC-----------------------------------------------//
 
 
-			// alloc_type get_alloc() const;
+			alloc_type get_allocator(void) const { return m_alloc; }
 
 
 //---------------------------ELEMENT ACCESS----------------------------------------//
@@ -183,7 +183,7 @@ namespace ft {
 			
 				ft::pair<iterator,bool> tmp;
 				
-				if (m_tree.sameKeyExists(m_tree.m_tree_root, value.first))
+				if (m_tree.sameKeyExists(value.first, m_tree.m_tree_root))
 				{
 					tmp.second = false;
 				}
@@ -226,8 +226,15 @@ namespace ft {
 //---------------------------LOOKUP----------------------------------------//
 
 
-			// size_type count( const Key& key ) const;
+			size_type count( const Key& key ) const {
+				
+				if (m_tree.sameKeyExists(key, m_tree.getRoot()))
+					return (1);
+				else
+					return (0);
+
 				// if find -> return 1, else -> return 0;
+			}
 
 			// iterator find( const Key& key );
 

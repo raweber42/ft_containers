@@ -189,26 +189,26 @@ namespace ft
 //---------------------------OBSERVERS----------------------------------------//
 
 
-			bool sameNodeExists(Node *m_root, const value_type &data) {
+			bool sameNodeExists(const value_type &data, Node *m_root) {
 				
 				if (m_root == NULL)
 					return false;
-				if (m_root->content == data)
+				if (m_root->content == data) // user COMP here! ASK MAGGI!
 					return true;
-				else if (m_root->content <= data)
+				else if (m_root->content <= data) // user COMP here! ASK MAGGI!
 					return sameNodeExists(m_root->left, data);
 				else
 					return sameNodeExists(m_root->right, data);
 			}
 
 
-			bool sameKeyExists(Node *m_root, const key_type &data) {
+			bool sameKeyExists(const key_type &data, Node *m_root) {
 				
 				if (m_root == NULL)
 					return false;
-				if (m_root->content.first == data)
+				if (m_root->content.first == data) // user COMP here! ASK MAGGI!
 					return true;
-				else if (m_root->content.first <= data)
+				else if (m_root->content.first <= data) // user COMP here! ASK MAGGI!
 					return sameKeyExists(m_root->left, data);
 				else
 					return sameKeyExists(m_root->right, data);
