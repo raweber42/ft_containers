@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 08:09:12 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/01 08:28:41 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void print_values(ft::map<std::string, std::string> &m1) {
 	
 	std::cout << "The values held by the map are (accessed via iterator): [ ";
 	
-	for (ft::map<std::string, std::string>::const_reverse_iterator it = m1.rbegin(); it != m1.rend(); it++)
+	for (ft::map<std::string, std::string>::const_iterator it = m1.begin(); it != m1.end(); it++)
 	{
 		std::cout << " (" << (*it).first << ")->[" << (*it).second << "] ";
 		fflush(stdout);
@@ -55,17 +55,17 @@ void print_values(ft::map<std::string, std::string> &m1) {
 	std::cout << "]" << std::endl << std::endl;
 }
 
-// void print_values_reversed(ft::map<std::string, std::string> m1) {
+void print_values_reversed(ft::map<std::string, std::string> m1) {
 	
-// 	std::cout << "The values held by the map are (accessed via REVERSE iterator): [ ";
-// 	for (ft::map<std::string, std::string>::const_reverse_iterator it = m1.rbegin(); it != m1.rend(); it++)
-// 	{
-// 		std::cout << " (" << it->first << ")->[" << it->second << "] ";
-//		fflush(stdout);
-// 		usleep(80000);
-// 	}
-// 	std::cout << "]" << std::endl << std::endl;
-// }
+	std::cout << "The values held by the map are (accessed via REVERSE iterator): [ ";
+	for (ft::map<std::string, std::string>::const_reverse_iterator it = m1.rbegin(); it != m1.rend(); it++)
+	{
+		std::cout << " (" << it->first << ")->[" << it->second << "] ";
+		fflush(stdout);
+		usleep(80000);
+	}
+	std::cout << "]" << std::endl << std::endl;
+}
 
 int main(void) {
 
@@ -79,26 +79,16 @@ int main(void) {
 	m1.insert(ft::pair<std::string, std::string>("1", "ABC"));
 	m1.insert(ft::pair<std::string, std::string>("2", "DEF"));
 	m1.insert(ft::pair<std::string, std::string>("3", "GHI"));
-	// ft::map<std::string, std::string>::const_iterator it = m1.begin();
-	// std::cout << "first: " << (*it).first << " second: " << (*it).second<< std::endl;
 	print_values(m1);
-	
-	// std::map<int,int> map_test;
-	// map_test[1] = 3;
-	// map_test[2] = 4;
-	// map_test[3] = 5;
-	// for (std::map<int, int>::iterator it_map = map_test.end(); it_map != map_test.begin(); it_map--)
-	// 	std::cout << (*it_map).second << std::endl;
-
 
 	// std::cout << COLOR_BLUE << "Initializing map m2 with iterator range via 'm2(m1.begin(), m1.end())'" << COLOR_DEFAULT  << std::endl;
 	// ft::map<std::string, std::string> m2(m1.begin(), m1.end());
 	// print_values(m2);
 
-	// std::cout << COLOR_BLUE << "Initializing map m3 via copy constructor via 'm3(m1)' //CHANGE TO V2!!" << COLOR_DEFAULT  << std::endl;
-	// ft::map<std::string, std::string> m3(m1);
-	// print_values(m3);
-
+	std::cout << COLOR_BLUE << "Initializing map m3 via copy constructor via 'm3(m1)' //CHANGE TO V2!!" << COLOR_DEFAULT  << std::endl;
+	ft::map<std::string, std::string> m3(m1);
+	print_values(m3);
+	
 	// std::cout << COLOR_BLUE << "Initializing map m4 via assignment 'm4 = m3'" << COLOR_DEFAULT  << std::endl;
 	// ft::map<std::string, std::string> m4 = m3;
 	// print_values(m4);

@@ -19,9 +19,6 @@
 #include "BST.hpp"
 #include "iterator_traits.hpp"
 
-// #include "map.hpp"
-// #include <iterator>
-
 namespace ft {
 
 //######################################################################
@@ -291,75 +288,19 @@ namespace ft {
 				_base++;
 				return (ret);
 			}
-		
-		// private:
-			
-		// 	node_pointer plusPlus(node_pointer current) {
-
-		// 		node_pointer tmp;
-		// 		if (current == NULL)
-		// 		{
-		// 			tmp = m_root_ptr;
-		// 			while (tmp->left)
-		// 				tmp = tmp->left;
-		// 		}
-		// 		else if (current->right) // if right exists, go right once and left as long as possible
-		// 		{
-		// 			tmp = current->right;
-		// 			while (tmp->left)
-		// 				tmp = tmp->left;
-		// 		}
-		// 		else // go to parent: while parent is bigger -> go further up
-		// 		{
-		// 			tmp = current->parent;
-		// 			while (tmp != NULL && current == tmp->right)
-		// 			{
-		// 				current = tmp;
-		// 				tmp = tmp->parent;
-		// 			}
-		// 		}
-		// 		return (tmp);
-		// 	}
-
-		// 	node_pointer minusMinus(node_pointer current) {
-
-		// 		node_pointer tmp;
-		// 		if (current == NULL)
-		// 		{
-		// 			tmp = m_root_ptr;
-		// 			while (tmp->right)
-		// 				tmp = tmp->right;
-		// 		}
-		// 		else if (current->left) // if left exists, go left once and right as long as possible
-		// 		{
-		// 			tmp = current->left;
-		// 			while (tmp->right)
-		// 				tmp = tmp->right;
-		// 		}
-		// 		else // go to parent: while parent is smaller -> go further up
-		// 		{
-		// 			tmp = current->parent;
-		// 			while (tmp != NULL && current == tmp->left)
-		// 			{
-		// 				current = tmp;
-		// 				tmp = tmp->parent;
-		// 			}
-		// 		}
-		// 		return (tmp);
-		// 	}
 	};
 
 // //---------------REVERSE MAP ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> DIFFERENT ITERATOR TYPE----------------------------------------
 
-	template<typename n_ptr>
-	bool operator==(const reverse_map_iterator<n_ptr> &lhs, const reverse_map_iterator<n_ptr> &rhs) {
-		return (lhs.base() == rhs.base());	
-	}
+	// template<typename n_ptr>
+	// bool operator==(const reverse_map_iterator<n_ptr> &lhs, const reverse_map_iterator<n_ptr> &rhs) {
+	// 	return (lhs.base() == rhs.base());	
+	// }
 
-	template<typename n_ptr>
-	bool operator!=(const reverse_map_iterator<n_ptr> &lhs, const reverse_map_iterator<n_ptr> &rhs) {
-		return (lhs.base() != rhs.base());
-	}
+	// template<typename n_ptr>
+	// bool operator!=(const reverse_map_iterator<n_ptr> &lhs, const reverse_map_iterator<n_ptr> &rhs) {
+	// 	return (lhs.base() != rhs.base());
+	// }
 
 	template<typename n_ptr1, typename n_ptr2>
 	bool operator==(const reverse_map_iterator<n_ptr1> &lhs, const reverse_map_iterator<n_ptr2> &rhs) {
@@ -370,8 +311,6 @@ namespace ft {
 	bool operator!=(const reverse_map_iterator<n_ptr1> &lhs, const reverse_map_iterator<n_ptr2> &rhs) {
 		return (lhs.base() != rhs.base());
 	}
-
-
 
 }
 

@@ -78,6 +78,14 @@ namespace ft
 			
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
+			void copyTree(Node *root = NULL) {
+				
+				if (root == NULL)
+					return;
+				insertNode(&m_tree_root, root->content);
+				copyTree(root->left);
+				copyTree(root->right);
+			}
 
 //-------------------------------GET ALLOC-----------------------------------------------//
 
@@ -196,7 +204,7 @@ namespace ft
 			}
 
 
-			Node *getRoot(void) { return m_tree_root; }
+			Node *getRoot(void) const { return m_tree_root; }
 
 			
 

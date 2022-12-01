@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 08:10:20 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/01 08:22:09 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,11 @@ namespace ft {
 			typedef typename binary_tree::node_pointer					node_pointer;
 			typedef typename binary_tree::const_node_pointer			const_node_pointer;
 
-			// typedef map_iterator<Key, T>								iterator;
 			typedef map_iterator<node_pointer, value_type>				iterator;
 			typedef map_iterator<const_node_pointer, const_value_type>	const_iterator;
-			typedef reverse_map_iterator<iterator>					reverse_iterator;
+			typedef reverse_map_iterator<iterator>						reverse_iterator;
 			typedef reverse_map_iterator<const_iterator>				const_reverse_iterator;
 			
-			
-			
-			// typedef map_iterator<const_pointer, map<T, Alloc> >			const_iterator;
-			// typedef reverse_map_iterator<???>		reverse_iterator;
-			// typedef const_reverse_map_iterator<???>	const_reverse_iterator;
-
 			// class value_compare {
 				
 			// 	typedef bool			result_type;
@@ -71,14 +64,15 @@ namespace ft {
 			
 			// template< class InputIt >
 			// map(InputIt first, InputIt last, const Compare& comp = Compare(), const Alloc& alloc = Alloc()) 
-				// : m_comp(comp), m_alloc(alloc) { // set m_tree_root & _size!
+			// 	: m_comp(comp), m_alloc(alloc) { // set m_tree_root & _size!
 				
 			// }
 
-			// map( const map& other ) : m_comp(other.m_comp), m_alloc(other.m_alloc) {
-			// 	// make proper tree copy here with m_alloc !
-			//	// set m_tree_root & _size!
-			// }
+			map( const map& other ) : m_comp(other.m_comp), m_alloc(other.m_alloc) {
+				// make proper tree copy here with m_alloc !
+				// set m_tree_root & _size!
+				m_tree.copyTree(other.m_tree.getRoot());
+			}
 
 
 //---------------------------------------DESTRUCTOR-------------------------------------------//
@@ -263,9 +257,6 @@ namespace ft {
 			key_compare						m_comp;
 			alloc_type						m_alloc;
 			binary_tree						m_tree;
-			// Node							*m_tree_root;
-			// size_type						m_tree_size;
-			// std::allocator<Node>			m_node_alloc;
 	};
 
 //---------------------------RELATIONAL OPERATORS (non-member)--------------------------------//
