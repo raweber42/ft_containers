@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 10:22:55 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/01 11:08:32 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ int main(void) {
 	
 	std::cout << COLOR_BLUE << "Inserting three key->value pairs into m1 via 'm1.insert(ft::pair<key_type, value_type>(key, value))'" << COLOR_DEFAULT  << std::endl;
 	m1.insert(ft::pair<std::string, std::string>("1", "ABC"));
-	// m1.insert(ft::pair<std::string, std::string>("2", "DEF"));
-	// m1.insert(ft::pair<std::string, std::string>("3", "GHI"));
+	m1.insert(ft::pair<std::string, std::string>("2", "DEF"));
+	m1.insert(ft::pair<std::string, std::string>("3", "GHI"));
+	print_values(m1);
 	m1.clear();
-	ft::map<std::string, std::string>::iterator m1_it = m1.begin();
-	ft::map<std::string, std::string>::iterator m1_it2 = m1.end();
+	print_values(m1);
 
-	// print_values(m1);
+
 	
 
 	// std::cout << COLOR_BLUE << "Initializing map m2 with iterator range via 'm2(m1.begin(), --m1.end())'" << COLOR_DEFAULT  << std::endl;

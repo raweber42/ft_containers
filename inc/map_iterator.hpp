@@ -49,10 +49,7 @@ namespace ft {
 
 			map_iterator(void) : m_current_ptr(NULL), m_root_ptr(NULL) {}
 			
-			map_iterator(node_pointer ptr, node_pointer root_ptr) : m_current_ptr(ptr), m_root_ptr(root_ptr) {
-
-				std::cout << "HERE" << std::endl;
-			}
+			map_iterator(node_pointer ptr, node_pointer root_ptr) : m_current_ptr(ptr), m_root_ptr(root_ptr) {}
 			
 			// //below added for const/non-const
 			template<typename n_ptr, typename v_type>

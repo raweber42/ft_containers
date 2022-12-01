@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 10:25:31 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/01 11:08:19 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ namespace ft {
 //---------------------------------------DESTRUCTOR-------------------------------------------//
 
 
-			~map(void) {} // clear tree!
+			~map(void) { clear(); }
 
 
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
@@ -128,13 +128,15 @@ namespace ft {
 			}
 
 			iterator end() {
-
-				return iterator(m_tree.end(), m_tree.m_tree_root);
+				
+				return iterator(NULL, m_tree.m_tree_root);
+				// return iterator(m_tree.end(), m_tree.m_tree_root);
 			}
 
 			const_iterator end() const {
 				
-				return const_iterator(m_tree.end(), m_tree.m_tree_root, 0);
+				return const_iterator(NULL, m_tree.m_tree_root);
+				// return const_iterator(m_tree.end(), m_tree.m_tree_root, 0);
 			}
 
 			reverse_iterator rbegin() {
