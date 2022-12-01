@@ -28,13 +28,15 @@ namespace ft {
 //######################## MAP ITERATOR ################################
 //######################################################################
 
-	template<typename node_pointer, typename value_type>
+	template<typename node_ptr, typename val_type>
 	class map_iterator {
 
 //---------------MAP ITERATOR TYPEDEFS (iterator traits)---------------------------------
 		
 		public:
 			typedef bidirectional_iterator_tag			iterator_category;
+			typedef node_ptr							node_pointer;
+			typedef val_type							value_type;
 			//maggi change // typedef pair<const Key, T>					value_type;
 			//maggi change // typedef typename node_pointer						node_pointer;
 
@@ -207,6 +209,7 @@ namespace ft {
 		
 		public:
 
+			typedef map_iterator										iterator_type;
 			typedef typename map_iterator::iterator_category			iterator_category;
 			typedef typename map_iterator::node_pointer					node_pointer;
 			typedef typename map_iterator::value_type					value_type;
@@ -225,9 +228,9 @@ namespace ft {
 		public:
 			reverse_map_iterator(void) : iterator_type() {}
 			
-			explicit reverse_iterator (iterator_type it) : _base(it) {}
+			explicit reverse_map_iterator(iterator_type it) : _base(it) {}
 
-			// reverse_map_iterator(node_pointer ptr, node_pointer root_ptr) : m_current_ptr(ptr), m_root_ptr(root_ptr) {}
+			reverse_map_iterator(node_pointer ptr, node_pointer root_ptr) : _base(iterator_type(ptr, root_ptr)) {} // CHECK THIS!
 			
 			// // //below added for const/non-const
 			// template<typename n_ptr, typename v_type>
@@ -237,7 +240,7 @@ namespace ft {
 			// reverse_map_iterator(const reverse_map_iterator &src) : m_current_ptr(src.m_current_ptr), m_root_ptr(src.m_root_ptr) {}
 			
 			template <class Iter> 
-			reverse_iterator (const reverse_iterator<Iter>& other) : _base(other.base()) {}
+			reverse_map_iterator (const reverse_map_iterator<Iter>& other) : _base(other.base()) {}
 
 
 			~reverse_map_iterator() {}
@@ -250,129 +253,121 @@ namespace ft {
 //---------------REVERSE MAP ITERATOR OPERATOR OVERLOADS---------------------------------------------
 
 			template< class U >
-			reverse_iterator& operator=( const reverse_iterator<U>& rhs ) {
+			reverse_map_iterator& operator=( const reverse_map_iterator<U>& rhs ) {
 				_base = rhs._base;
 				return (*this);
 			}
-			
-		//############## GO ON HEEEEERRREEEee
 
-			value_type &operator*(void) const { return (m_current_ptr->content); }
+			value_type &operator*(void) const {
+				
+				iterator_type tmp = _base;
+				return (*(--tmp));
+			}
 
-			value_type *operator->(void) const { return (m_current_ptr); }
+			value_type *operator->(void) const { return (&(operator*())); }
 			
 			reverse_map_iterator &operator++(void) {
 				
-				m_current_ptr = plusPlus(m_current_ptr);
+				_base.m_current_ptr = _base.minusMinus(_base.m_current_ptr);
 				return (*this);
 			}
 			
 			reverse_map_iterator operator++(int) {
 				
 				reverse_map_iterator ret(*this);
-				++(*this);
+				_base--;
 				return (ret);
 			}
 
 			reverse_map_iterator &operator--(void) {
 				
-				m_current_ptr = minusMinus(m_current_ptr);
+				_base.m_current_ptr = _base.plusPlus(_base.m_current_ptr);
 				return (*this);
 			}
 			
 			reverse_map_iterator operator--(int) {
 				
 				reverse_map_iterator ret(*this);
-				--(*this);
+				_base++;
 				return (ret);
 			}
 		
-		private:
+		// private:
 			
-			node_pointer plusPlus(node_pointer current) {
+		// 	node_pointer plusPlus(node_pointer current) {
 
-				node_pointer tmp;
-				if (current == NULL)
-				{
-					tmp = m_root_ptr;
-					while (tmp->left)
-						tmp = tmp->left;
-				}
-				else if (current->right) // if right exists, go right once and left as long as possible
-				{
-					tmp = current->right;
-					while (tmp->left)
-						tmp = tmp->left;
-				}
-				else // go to parent: while parent is bigger -> go further up
-				{
-					tmp = current->parent;
-					while (tmp != NULL && current == tmp->right)
-					{
-						current = tmp;
-						tmp = tmp->parent;
-					}
-				}
-				return (tmp);
-			}
+		// 		node_pointer tmp;
+		// 		if (current == NULL)
+		// 		{
+		// 			tmp = m_root_ptr;
+		// 			while (tmp->left)
+		// 				tmp = tmp->left;
+		// 		}
+		// 		else if (current->right) // if right exists, go right once and left as long as possible
+		// 		{
+		// 			tmp = current->right;
+		// 			while (tmp->left)
+		// 				tmp = tmp->left;
+		// 		}
+		// 		else // go to parent: while parent is bigger -> go further up
+		// 		{
+		// 			tmp = current->parent;
+		// 			while (tmp != NULL && current == tmp->right)
+		// 			{
+		// 				current = tmp;
+		// 				tmp = tmp->parent;
+		// 			}
+		// 		}
+		// 		return (tmp);
+		// 	}
 
-			node_pointer minusMinus(node_pointer current) {
+		// 	node_pointer minusMinus(node_pointer current) {
 
-				node_pointer tmp;
-				if (current == NULL)
-				{
-					tmp = m_root_ptr;
-					while (tmp->right)
-						tmp = tmp->right;
-				}
-				else if (current->left) // if left exists, go left once and right as long as possible
-				{
-					tmp = current->left;
-					while (tmp->right)
-						tmp = tmp->right;
-				}
-				else // go to parent: while parent is smaller -> go further up
-				{
-					tmp = current->parent;
-					while (tmp != NULL && current == tmp->left)
-					{
-						current = tmp;
-						tmp = tmp->parent;
-					}
-				}
-				return (tmp);
-			}
+		// 		node_pointer tmp;
+		// 		if (current == NULL)
+		// 		{
+		// 			tmp = m_root_ptr;
+		// 			while (tmp->right)
+		// 				tmp = tmp->right;
+		// 		}
+		// 		else if (current->left) // if left exists, go left once and right as long as possible
+		// 		{
+		// 			tmp = current->left;
+		// 			while (tmp->right)
+		// 				tmp = tmp->right;
+		// 		}
+		// 		else // go to parent: while parent is smaller -> go further up
+		// 		{
+		// 			tmp = current->parent;
+		// 			while (tmp != NULL && current == tmp->left)
+		// 			{
+		// 				current = tmp;
+		// 				tmp = tmp->parent;
+		// 			}
+		// 		}
+		// 		return (tmp);
+		// 	}
 	};
 
 // //---------------REVERSE MAP ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> DIFFERENT ITERATOR TYPE----------------------------------------
 
-	template<typename n_ptr, typename v_type>
-	bool operator==(const reverse_map_iterator<n_ptr, v_type> &lhs, const reverse_map_iterator<n_ptr, v_type> &rhs) {
+	template<typename n_ptr>
+	bool operator==(const reverse_map_iterator<n_ptr> &lhs, const reverse_map_iterator<n_ptr> &rhs) {
 		return (lhs.base() == rhs.base());	
 	}
 
-	template<typename n_ptr, typename v_type>
-	bool operator!=(const reverse_map_iterator<n_ptr, v_type> &lhs, const reverse_map_iterator<n_ptr, v_type> &rhs) {
+	template<typename n_ptr>
+	bool operator!=(const reverse_map_iterator<n_ptr> &lhs, const reverse_map_iterator<n_ptr> &rhs) {
 		return (lhs.base() != rhs.base());
 	}
 
-	template<typename n_ptr1, typename n_ptr2, typename v_type>
-	bool operator==(const reverse_map_iterator<n_ptr1, v_type> &lhs, const reverse_map_iterator<n_ptr2, v_type> &rhs) {
+	template<typename n_ptr1, typename n_ptr2>
+	bool operator==(const reverse_map_iterator<n_ptr1> &lhs, const reverse_map_iterator<n_ptr2> &rhs) {
 		return (lhs.base() == rhs.base());	
 	}
 
-	template<typename n_ptr1, typename n_ptr2, typename v_type>
-	bool operator!=(const reverse_map_iterator<n_ptr1, v_type> &lhs, const reverse_map_iterator<n_ptr2, v_type> &rhs) {
-		return (lhs.base() != rhs.base());
-	}
-
-	template<typename n_ptr1, typename n_ptr2, typename v_type1, typename v_type2>
-	bool operator==(const reverse_map_iterator<n_ptr1, v_type1> &lhs, const reverse_map_iterator<n_ptr2, v_type2> &rhs) {
-		return (lhs.base() == rhs.base());	
-	}
-
-	template<typename n_ptr1, typename n_ptr2, typename v_type1, typename v_type2>
-	bool operator!=(const reverse_map_iterator<n_ptr1, v_type1> &lhs, const reverse_map_iterator<n_ptr2, v_type2> &rhs) {
+	template<typename n_ptr1, typename n_ptr2>
+	bool operator!=(const reverse_map_iterator<n_ptr1> &lhs, const reverse_map_iterator<n_ptr2> &rhs) {
 		return (lhs.base() != rhs.base());
 	}
 
