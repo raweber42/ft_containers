@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 08:22:09 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/01 09:22:06 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,14 @@ namespace ft {
 			explicit map(const Compare& comp = Compare(), const Alloc& alloc = Alloc())
 				:  m_comp(comp), m_alloc(alloc) {}
 			
-			// template< class InputIt >
-			// map(InputIt first, InputIt last, const Compare& comp = Compare(), const Alloc& alloc = Alloc()) 
-			// 	: m_comp(comp), m_alloc(alloc) { // set m_tree_root & _size!
+			template< class InputIt >
+			map(InputIt first, InputIt last, const Compare& comp = Compare(), const Alloc& alloc = Alloc()) 
+				: m_comp(comp), m_alloc(alloc) { // set m_tree_root & _size!
 				
-			// }
+				InputIt tmp = first;
+				while(tmp != last)
+					insert(*tmp++);
+			}
 
 			map( const map& other ) : m_comp(other.m_comp), m_alloc(other.m_alloc) {
 				// make proper tree copy here with m_alloc !
