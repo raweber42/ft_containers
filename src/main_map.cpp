@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 17:00:14 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/01 17:47:14 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,18 @@ int main(void) {
 	print_values(m1);
 	print_values_reversed(m1);
 
-	std::cout << COLOR_BLUE << "Initializing map m2 with iterator range via 'm2(m1.begin(), --m1.end())'" << COLOR_DEFAULT  << std::endl;
-	ft::map<std::string, std::string> m2(m1.begin(), --m1.end());
-	print_values(m2);
+	// std::cout << COLOR_BLUE << "Initializing map m2 with iterator range via 'm2(m1.begin(), --m1.end())'" << COLOR_DEFAULT  << std::endl;
+	// ft::map<std::string, std::string> m2(m1.begin(), --m1.end());
+	// print_values(m2);
 
-	std::cout << COLOR_BLUE << "Initializing map m3 via copy constructor via 'm3(m1)' //CHANGE TO V2!!" << COLOR_DEFAULT  << std::endl;
-	ft::map<std::string, std::string> m3(m1);
-	print_values(m3);
+	// std::cout << COLOR_BLUE << "Initializing map m3 via copy constructor via 'm3(m1)' //CHANGE TO V2!!" << COLOR_DEFAULT  << std::endl;
+	// ft::map<std::string, std::string> m3(m1);
+	// print_values(m3);
 	
-	std::cout << COLOR_BLUE << "Initializing map m4 via assignment 'm4 = m3'" << COLOR_DEFAULT  << std::endl;
-	ft::map<std::string, std::string> m4 = m3;
-	print_values(m4);
-	usleep(500000);
+	// std::cout << COLOR_BLUE << "Initializing map m4 via assignment 'm4 = m3'" << COLOR_DEFAULT  << std::endl;
+	// ft::map<std::string, std::string> m4 = m3;
+	// print_values(m4);
+	// usleep(500000);
 	
 	// usleep(500000); // HOW TO TEST THIS????
 	// std::cout << COLOR_RED <<  "GET ALLOCATOR TYPE" << COLOR_DEFAULT << std::endl;
@@ -144,6 +144,10 @@ int main(void) {
 	// std::cout << "Value is: " << m1.at("1") << std::endl;
 	// std::cout <<  COLOR_BLUE << "Get first value via 'm1[\"1\"]'" << COLOR_DEFAULT << std::endl;
 	// std::cout << "Value is: " << m1["1"] << std::endl;
+	// std::cout << "Size before is: " << COLOR_GREEN << m1.size() << COLOR_DEFAULT << std::endl;
+	// std::cout <<  COLOR_BLUE << "Get first value via 'm1[\"INSERTED\"]' ( WILL INSERT NEW ELEMENT WITHOUT VALUE (ONLY KEY) )" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Value is: " << m1["INSERTED"] << std::endl;
+	// std::cout << "Size after is: " << COLOR_GREEN << m1.size() << COLOR_DEFAULT << std::endl << std::endl;
 	// usleep(500000);
 
 
@@ -153,23 +157,23 @@ int main(void) {
 	// std::cout << "Function returns: " << ((m1.empty()) ? "TRUE" : "FALSE") << std::endl;
 	// std::cout << COLOR_BLUE << "Get size of map via 'm1.size()'" << COLOR_DEFAULT << std::endl;
 	// std::cout << "Current size is is: " << m1.size() << std::endl;
-	// std::cout <<  COLOR_BLUE << "Get max size of map via 'max_size()'" << COLOR_DEFAULT << std::endl;
+	// std::cout <<  COLOR_BLUE << "Get max size of map via 'm1.max_size()'" << COLOR_DEFAULT << std::endl;
 	// std::cout << "Max size is: " << m1.max_size() << std::endl;
 	// usleep(500000);
 
 	
-	// usleep(500000);
-	// std::cout << COLOR_RED <<  "TESTS FOR MODIFIER FUNCTIONS" << COLOR_DEFAULT << std::endl;
-	// // std::cout << COLOR_BLUE << "Clear the map via m1.clear()" << COLOR_DEFAULT << std::endl;
-	// // m1.clear();
-	// std::cout << "Current size is is: " << m1.size() << std::endl;
-	// print_values(m1);
-	// std::cout << COLOR_BLUE << "Insert one elements of value 'XXX' into the map via 'm1.insert(ft::pair<std::string, std::string>(\"X\", \"XXX\"))'" << COLOR_DEFAULT << std::endl;
-	// m1.insert(ft::pair<std::string, std::string>("X", "XXX"));
-	// print_values(m1);
-	// std::cout << COLOR_BLUE << "Insert value of '\?\?\?' as close as possible to the position just prior to m1.begin() via 'm1.insert(ft::pair<std::string, std::string>(\"?\", \"???\"))'" << COLOR_DEFAULT << std::endl;
-	// m1.insert(ft::pair<std::string, std::string>("?", "???"));
-	// print_values(m1);
+	usleep(500000);
+	std::cout << COLOR_RED <<  "TESTS FOR MODIFIER FUNCTIONS" << COLOR_DEFAULT << std::endl;
+	std::cout << COLOR_BLUE << "Clear the map via m1.clear()" << COLOR_DEFAULT << std::endl;
+	m1.clear();
+	std::cout << "Current size is is: " << m1.size() << std::endl;
+	print_values(m1);
+	std::cout << COLOR_BLUE << "Insert one elements of value 'XXX' into the map via 'm1.insert(ft::pair<std::string, std::string>(\"X\", \"XXX\"))'" << COLOR_DEFAULT << std::endl;
+	m1.insert(ft::pair<std::string, std::string>("X", "XXX"));
+	print_values(m1);
+	std::cout << COLOR_BLUE << "Insert value of '\?\?\?' as close as possible to the position just prior to m1.begin() via 'm1.insert(ft::pair<std::string, std::string>(\"?\", \"???\"))'" << COLOR_DEFAULT << std::endl;
+	m1.insert(ft::pair<std::string, std::string>("?", "???"));
+	print_values(m1);
 	// // std::cout << COLOR_BLUE << "Insert the first three elements of value m2 at the beginning of the map via 'm1.insert(m2.begin(), m2.begin() + 3)'" << COLOR_DEFAULT << std::endl;
 	// // m1.insert(m2.begin(), m2.begin() + 3);
 	// // print_values(m1);
@@ -197,12 +201,12 @@ int main(void) {
 	// usleep(500000);
 	
 
-	usleep(500000);
-	std::cout << std::endl << COLOR_RED <<  "TESTS FOR LOOKUP FUNCTIONS" << COLOR_DEFAULT << std::endl;
-	std::cout << COLOR_BLUE << "Check the number of elements with the key *4* via 'm1.count(\"4\")' (returns 0 or 1)" << COLOR_DEFAULT << std::endl;
-	std::cout << "Function returns: " << COLOR_GREEN << m1.count("4") << COLOR_DEFAULT << std::endl;
-	std::cout << COLOR_BLUE << "Finds an element with key equivalent to *4* via 'm1.find(\"4\")' (returns iterator) //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;
-	std::cout << "Function returns iterator with value: " << COLOR_GREEN << ((*(m1.find("4"))).second) << COLOR_DEFAULT << std::endl;
+	// usleep(500000);
+	// std::cout << std::endl << COLOR_RED <<  "TESTS FOR LOOKUP FUNCTIONS" << COLOR_DEFAULT << std::endl;
+	// std::cout << COLOR_BLUE << "Check the number of elements with the key *4* via 'm1.count(\"4\")' (returns 0 or 1)" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Function returns: " << COLOR_GREEN << m1.count("4") << COLOR_DEFAULT << std::endl;
+	// std::cout << COLOR_BLUE << "Finds an element with key equivalent to *4* via 'm1.find(\"4\")' (returns iterator) //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Function returns iterator with value: " << COLOR_GREEN << ((*(m1.find("4"))).second) << COLOR_DEFAULT << std::endl;
 	// std::cout <<  COLOR_BLUE << "Find the range containing all elements with key *4* (-> only one element, because unique) via 'm1.equal_range(\"4\")'" << COLOR_DEFAULT << std::endl;
 	// ft::pair<ft::map<std::string, std::string>::iterator, ft::map<std::string, std::string>::iterator> ret = m1.equal_range("4");
 	// std::cout << "Function returns pair of iterators pointing to: " << ret.first->second << " and " << ret.second->second << std::endl;
@@ -212,7 +216,7 @@ int main(void) {
 	// std::cout << "Function returns iterator pointing to: " << (m1.upper_bound("4"))->second << std::endl;
 	// std::cout << COLOR_GREEN << "HOW TO TEST KEY_COMP??: https://en.cppreference.com/w/cpp/container/map/key_comp" << COLOR_DEFAULT << std::endl;
 	// std::cout << COLOR_GREEN << "HOW TO TEST VALUE_COMP??: https://en.cppreference.com/w/cpp/container/map/value_comp" << COLOR_DEFAULT << std::endl << std::endl;
-	usleep(500000);
+	// usleep(500000);
 
 
 	// usleep(500000);

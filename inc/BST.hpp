@@ -120,6 +120,8 @@ namespace ft
 
 			size_type size() const { return m_tree_size; }
 
+			size_type max_size() const { return m_alloc.max_size();	}
+
 //---------------------------MODIFIERS----------------------------------------//
 
 			Node *createNewNode(const value_type &new_content, Node *parent = NULL) {

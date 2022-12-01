@@ -15,6 +15,7 @@
 
 #include <cstddef>
 #include <iostream>
+#include <stdexcept>
 #include "utils.hpp"
 #include "BST.hpp"
 #include "iterator_traits.hpp"

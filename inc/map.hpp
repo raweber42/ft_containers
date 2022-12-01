@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 16:53:48 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/01 17:45:20 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <iterator>
 #include <memory>
 #include <iostream>
-#include <stdexcept>
 #include <functional>
 #include "utils.hpp"
 #include "map_iterator.hpp"
@@ -107,11 +106,34 @@ namespace ft {
 //---------------------------ELEMENT ACCESS----------------------------------------//
 			
 
-			// T& at( const Key& key ); //use find
+			mapped_type& at( const key_type& key ) {
+				
+				iterator tmp = find(key);
+				if (tmp.base())
+					return ((*tmp).second);
+				else
+					throw std::out_of_range("Invalid key for 'at()'");
+			}
 
-			// const T& at( const Key& key ) const; //use find
+			const mapped_type& at( const key_type& key ) const {
 
-			// T& operator[]( const Key& key ); //use find
+				iterator tmp = find(key);
+				if (tmp.base())
+					return ((*tmp).second);
+				else
+					throw std::out_of_range("Invalid key for 'at()'");
+			}
+
+			mapped_type& operator[](const key_type& key) {
+				
+				iterator tmp = find(key);
+				if (!tmp.base())
+				{
+					insert(value_type(key, mapped_type()));
+				}
+				tmp = find(key);
+				return ((*tmp).second);
+			}
 
 
 //---------------------------ITERATOR FUNCTIONS----------------------------------------//
@@ -167,11 +189,10 @@ namespace ft {
 
 			size_type size() const { return (m_tree.size()); }
 
-			// size_type max_size() const {
+			size_type max_size() const {
 				
-			// 	std::allocator<Node<Key, T> > tmp;
-			// 	return tmp.max_size();
-			// } // CHECK THIS THOROUGHLY!
+				return m_tree.max_size();
+			}
 
 
 //---------------------------MODIFIERS----------------------------------------//
@@ -196,7 +217,14 @@ namespace ft {
 				return (tmp);
 			}
 
-			// iterator insert( iterator pos, const value_type& value );
+			iterator insert( iterator hint, const value_type& value ) {
+				
+				(void) hint; // does not make much sense to use in map
+				iterator it = find(value.first);
+				if (it != end())
+					return (it);
+				return (iterator(m_tree.insertNode(&(m_tree.m_tree_root), value), m_tree.m_tree_root));
+			}
 
 			// template< class InputIt >
 			// void insert( InputIt first, InputIt last );
