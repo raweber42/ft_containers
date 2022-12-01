@@ -76,7 +76,7 @@ namespace ft {
 			
 			value_type &operator*(void) const { return (m_current_ptr->content); }
 
-			value_type *operator->(void) const { return (m_current_ptr); }
+			value_type *operator->(void) const { return &(m_current_ptr->content); }
 			
 			map_iterator &operator++(void) {
 				

@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 11:28:44 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/01 17:00:14 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int main(void) {
 	// usleep(500000);
 	
 	usleep(500000);
-	std::cout << COLOR_RED <<  "INSERTING TEST ELEMENTS INTO/FROM V1" << COLOR_DEFAULT << std::endl;
+	std::cout << COLOR_RED <<  "INSERTING TEST ELEMENTS INTO/FROM M1" << COLOR_DEFAULT << std::endl;
 	std::cout << "Size before is: " << COLOR_GREEN << m1.size() << COLOR_DEFAULT << std::endl;
 	std::cout << COLOR_BLUE << "Pushing alphabetic key->value pairs to m1" << COLOR_DEFAULT;
 	m1.insert(ft::pair<std::string, std::string>("4", "JKL"));
@@ -199,10 +199,10 @@ int main(void) {
 
 	usleep(500000);
 	std::cout << std::endl << COLOR_RED <<  "TESTS FOR LOOKUP FUNCTIONS" << COLOR_DEFAULT << std::endl;
-	std::cout << COLOR_BLUE << "Check the number of elements with the key *4* via 'm1.count(\"4\")' (returns 0 or 1)  //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;
-	std::cout << "Function returns: " << m1.count("4") << std::endl;
-	// std::cout << COLOR_BLUE << "Finds an element with key equivalent to *4* via 'm1.find(\"4\")' (returns iterator) //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;
-	// std::cout << "Function returns iterator with value: " << (m1.find("4"))->second << std::endl;
+	std::cout << COLOR_BLUE << "Check the number of elements with the key *4* via 'm1.count(\"4\")' (returns 0 or 1)" << COLOR_DEFAULT << std::endl;
+	std::cout << "Function returns: " << COLOR_GREEN << m1.count("4") << COLOR_DEFAULT << std::endl;
+	std::cout << COLOR_BLUE << "Finds an element with key equivalent to *4* via 'm1.find(\"4\")' (returns iterator) //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;
+	std::cout << "Function returns iterator with value: " << COLOR_GREEN << ((*(m1.find("4"))).second) << COLOR_DEFAULT << std::endl;
 	// std::cout <<  COLOR_BLUE << "Find the range containing all elements with key *4* (-> only one element, because unique) via 'm1.equal_range(\"4\")'" << COLOR_DEFAULT << std::endl;
 	// ft::pair<ft::map<std::string, std::string>::iterator, ft::map<std::string, std::string>::iterator> ret = m1.equal_range("4");
 	// std::cout << "Function returns pair of iterators pointing to: " << ret.first->second << " and " << ret.second->second << std::endl;

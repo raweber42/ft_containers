@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 11:35:00 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/01 16:53:48 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,17 +226,22 @@ namespace ft {
 //---------------------------LOOKUP----------------------------------------//
 
 
-			size_type count( const Key& key ) const {
+			size_type count(const key_type& key) const {
 				
 				if (m_tree.sameKeyExists(key, m_tree.getRoot()))
 					return (1);
 				else
 					return (0);
-
-				// if find -> return 1, else -> return 0;
 			}
 
-			// iterator find( const Key& key );
+			iterator find(const key_type& key) const {
+
+				node_pointer tmp = m_tree.findKey(key, m_tree.m_tree_root);
+				if (tmp)
+					return iterator(tmp, m_tree.m_tree_root);
+				else
+					return iterator(NULL, m_tree.m_tree_root);
+			}
 
 			// const_iterator find( const Key& key ) const;
 
