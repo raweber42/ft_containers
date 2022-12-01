@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 09:22:06 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/01 10:25:31 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ namespace ft {
 			
 			template< class InputIt >
 			map(InputIt first, InputIt last, const Compare& comp = Compare(), const Alloc& alloc = Alloc()) 
-				: m_comp(comp), m_alloc(alloc) { // set m_tree_root & _size!
+				: m_comp(comp), m_alloc(alloc) {
 				
 				InputIt tmp = first;
 				while(tmp != last)
@@ -72,8 +72,7 @@ namespace ft {
 			}
 
 			map( const map& other ) : m_comp(other.m_comp), m_alloc(other.m_alloc) {
-				// make proper tree copy here with m_alloc !
-				// set m_tree_root & _size!
+
 				m_tree.copyTree(other.m_tree.getRoot());
 			}
 
@@ -87,16 +86,16 @@ namespace ft {
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
 
-			// map& operator=( const map& rhs ) {
+			map& operator=( const map& rhs ) {
 				
-			// 	if (m_tree != rhs.m_tree)
-			// 	{
-			// 		m_alloc = rhs.m_alloc;
-			// 		m_comp = rhs.m_comp;
-			// 		// something like assign here
-			// 	}
-			// 	return (*this);
-			// }
+				
+				m_alloc = rhs.m_alloc;
+				m_comp = rhs.m_comp;
+				m_tree.clear();
+				m_tree.copyTree(rhs.m_tree.getRoot());
+
+				return (*this);
+			}
 
 
 //-------------------------------GET ALLOC-----------------------------------------------//
@@ -129,13 +128,13 @@ namespace ft {
 			}
 
 			iterator end() {
-				
+
 				return iterator(m_tree.end(), m_tree.m_tree_root);
 			}
 
 			const_iterator end() const {
 				
-				return const_iterator(m_tree.end(), m_tree.m_tree_root);
+				return const_iterator(m_tree.end(), m_tree.m_tree_root, 0);
 			}
 
 			reverse_iterator rbegin() {
@@ -164,7 +163,7 @@ namespace ft {
 
 			bool empty() const { return (m_tree.empty()); }
 
-			size_type size() const { return (m_tree.empty()); }
+			size_type size() const { return (m_tree.size()); }
 
 			// size_type max_size() const {
 				
@@ -176,7 +175,8 @@ namespace ft {
 //---------------------------MODIFIERS----------------------------------------//
 
 
-			// void clear();
+			void clear() { m_tree.deleteAll(); }
+			
 			ft::pair<iterator, bool> insert( const value_type& value ) {
 			
 				ft::pair<iterator,bool> tmp;

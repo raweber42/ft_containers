@@ -42,7 +42,7 @@ namespace ft
 			typedef std::ptrdiff_t										difference_type;
 			typedef Compare												key_compare;
 			typedef Alloc												alloc_type;
-			typedef typename Alloc::reference							reference;
+			typedef typename Alloc::reference		 					reference;
 			typedef typename Alloc::const_reference						const_reference;
 			typedef typename Alloc::pointer								pointer;
 			typedef typename Alloc::const_pointer						const_pointer;
@@ -136,19 +136,51 @@ namespace ft
 			Node *insertNode(Node **m_root, const value_type &data, Node *parent = NULL) {
 				
 				if (*m_root == NULL) //here parent is set to NULL
+				{
 					*m_root = createNewNode(data, parent);
+					m_tree_size++;
+				}
 
 				else if (m_comp(data.first, ((*m_root)->content).first))
 				{
 					(*m_root)->left = insertNode(&(*m_root)->left, data, *m_root);
-					m_tree_size++;
 				}
 				else if (m_comp(((*m_root)->content).first, data.first))
 				{
 					(*m_root)->right = insertNode(&(*m_root)->right, data, *m_root);
-					m_tree_size++;
 				}
 				return (*m_root);
+			}
+
+			void deleteNode(node_pointer to_delete) {
+
+				if (to_delete == NULL)
+					return;
+				node_pointer parent = to_delete->parent;
+				if (parent == NULL)
+					m_tree_root = NULL;
+				else if (to_delete == parent->left)
+					parent->left = NULL;
+				else if (to_delete == parent->right)
+					parent->right = NULL;
+				m_node_alloc.destroy(to_delete);
+				m_node_alloc.deallocate(to_delete, 1);
+				m_tree_size--;
+			}
+
+			void deleteAll(Node *root = NULL) {
+				
+				if (root == NULL)
+					root = m_tree_root;
+				if (root == NULL)
+					return;
+				if (root->left != NULL)
+					deleteAll(root->left);
+				if (root->right != NULL)
+					deleteAll(root->right);
+				deleteNode(root);
+				// std::cout << "size is: " << m_tree_size << std::endl;
+				
 			}
 
 //---------------------------LOOKUP----------------------------------------//

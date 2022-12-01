@@ -49,7 +49,10 @@ namespace ft {
 
 			map_iterator(void) : m_current_ptr(NULL), m_root_ptr(NULL) {}
 			
-			map_iterator(node_pointer ptr, node_pointer root_ptr) : m_current_ptr(ptr), m_root_ptr(root_ptr) {}
+			map_iterator(node_pointer ptr, node_pointer root_ptr) : m_current_ptr(ptr), m_root_ptr(root_ptr) {
+
+				std::cout << "HERE" << std::endl;
+			}
 			
 			// //below added for const/non-const
 			template<typename n_ptr, typename v_type>
@@ -112,19 +115,19 @@ namespace ft {
 				if (current == NULL)
 				{
 					tmp = m_root_ptr;
-					while (tmp->left)
+					while (tmp && tmp->left)
 						tmp = tmp->left;
 				}
 				else if (current->right) // if right exists, go right once and left as long as possible
 				{
 					tmp = current->right;
-					while (tmp->left)
+					while (tmp && tmp->left)
 						tmp = tmp->left;
 				}
 				else // go to parent: while parent is bigger -> go further up
 				{
 					tmp = current->parent;
-					while (tmp != NULL && current == tmp->right)
+					while (tmp && current == tmp->right)
 					{
 						current = tmp;
 						tmp = tmp->parent;
@@ -139,19 +142,19 @@ namespace ft {
 				if (current == NULL)
 				{
 					tmp = m_root_ptr;
-					while (tmp->right)
+					while (tmp && tmp->right)
 						tmp = tmp->right;
 				}
 				else if (current->left) // if left exists, go left once and right as long as possible
 				{
 					tmp = current->left;
-					while (tmp->right)
+					while (tmp && tmp->right)
 						tmp = tmp->right;
 				}
 				else // go to parent: while parent is smaller -> go further up
 				{
 					tmp = current->parent;
-					while (tmp != NULL && current == tmp->left)
+					while (tmp && current == tmp->left)
 					{
 						current = tmp;
 						tmp = tmp->parent;
