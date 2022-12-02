@@ -53,7 +53,7 @@ namespace ft
 
 //---------------------------MEMBER VARIABLES---------------------------------------//
 
-		private: //make public?
+		public: //make public?
 			key_compare				m_comp;
 			size_type				m_tree_size;
 			std::allocator<Node>	m_node_alloc;
@@ -95,6 +95,7 @@ namespace ft
 
 //---------------------------ITERATOR FUNCTIONS----------------------------------------//
 
+
 			Node *begin(void) const {
 				
 				Node *tmp = m_tree_root;
@@ -111,16 +112,16 @@ namespace ft
 				return (tmp->right);
 			}
 
-			
-
 
 //---------------------------CAPACITY----------------------------------------//
+
 
 			bool empty() const { return !m_tree_size; }
 
 			size_type size() const { return m_tree_size; }
 
 			size_type max_size() const { return m_alloc.max_size();	}
+
 
 //---------------------------MODIFIERS----------------------------------------//
 
@@ -195,7 +196,6 @@ namespace ft
 						root->left = erase(root->content.first, root->left);
 					}
 				}
-				m_tree_size--;
 				return (root);
 			}
 
@@ -264,9 +264,9 @@ namespace ft
 				
 				if (m_root == NULL)
 					return end();
-				if (m_root->content.first == data) // user COMP here! ASK MAGGI!
+				if (m_root->content.first == data) // use COMP here! ASK MAGGI!
 					return m_root;
-				else if (m_root->content.first <= data) // user COMP here! ASK MAGGI!
+				else if (m_root->content.first <= data) // use COMP here! ASK MAGGI!
 					return findKey(data, m_root->right);
 				else
 					return findKey(data, m_root->left);

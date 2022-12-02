@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/02 08:31:29 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/02 17:20:01 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,11 +237,29 @@ namespace ft {
 			void erase( iterator pos ) {
 				
 				m_tree.erase((*pos).first, m_tree.getRoot());
+				m_tree.m_tree_size--;
 			}
 
-			// void erase( iterator first, iterator last );
+			void erase( iterator first, iterator last ) {
+				
+				while (first != last) {
 
-			// size_type erase( const Key& key );
+					key_type tmp = (*first).first;
+					first++;
+					erase(tmp);
+				}
+			}
+
+			size_type erase( const Key& key ) {
+				
+				node_pointer tmp = m_tree.findKey(key, m_tree.m_tree_root);
+				if (tmp)
+				{
+					erase(iterator(tmp, m_tree.getRoot()));
+					return (1);	
+				}
+				return (0);
+			}
 
 			// void swap( map& other ) {
 
@@ -270,7 +288,7 @@ namespace ft {
 					return (0);
 			}
 
-			iterator find(const key_type& key) const {
+			iterator find(const key_type& key) {
 
 				node_pointer tmp = m_tree.findKey(key, m_tree.m_tree_root);
 				if (tmp)
@@ -279,7 +297,7 @@ namespace ft {
 					return iterator(NULL, m_tree.m_tree_root);
 			}
 
-			const_iterator find( const Key& key ) const;{
+			const_iterator find( const key_type& key ) const {
 				
 				node_pointer tmp = m_tree.findKey(key, m_tree.m_tree_root);
 				if (tmp)
