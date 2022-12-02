@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/02 17:18:38 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/02 18:37:26 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,30 +183,9 @@ int main(void) {
 	std::cout << "size long before is: " << m1.size() << std::endl;
 	print_values(m1);
 	std::cout << COLOR_BLUE << "Erase the last two elements of the map via calling 'm1.erase(--(--(m1.end()))), m1.end())'" << COLOR_DEFAULT << std::endl;
-	// m1.erase(--m1.end(), m1.end());
+	m1.erase(--(--(m1.end())), m1.end()); // HEEEEREEEEE PROBLEM
 	print_values(m1);
-	ft::map<std::string, std::string>::iterator it_test = m1.end();
-	it_test--;
-	it_test--;
-	it_test--;
-	it_test--;
-	// it_test--;
-	// it_test--;
-	// it_test--;
-
-	std::cout << "size before is: " << m1.size() << std::endl;
-	m1.erase(it_test, m1.end());
-
-	// m1.erase(++m1.begin());
-	// m1.erase(it_test);
-
-	// m1.erase(m1.begin());
-	// m1.erase(m1.begin());
-	// m1.erase(m1.begin());
-	// m1.erase(m1.begin());
-	// m1.erase(m1.begin());
-	std::cout << "size after is: " << m1.size() << std::endl;
-	print_values(m1);
+	
 	// std::cout << COLOR_BLUE << "Erase the element with the key *1* via calling 'm1.erase(\"1\")' //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;
 	// m1.erase("1");
 	// print_values(m1);

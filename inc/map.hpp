@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/02 17:20:01 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/02 17:56:19 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ namespace ft {
 
 
 //---------------------------CONSTRUCTORS---------------------------------------//
+			
 			
 			explicit map(const Compare& comp = Compare(), const Alloc& alloc = Alloc())
 				:  m_comp(comp), m_alloc(alloc) {}
@@ -261,20 +262,20 @@ namespace ft {
 				return (0);
 			}
 
-			// void swap( map& other ) {
+			void swap( map& other ) {
 
-			// 	BinarySearchTree<Key, T> tmp_tree = m_tree;
-			// 	key_compare tmp_comp = m_comp;
-			// 	alloc_type tmp_alloc = m_alloc;
-				
-			// 	m_tree = other.m_tree;
-			// 	m_comp = other.m_comp;
-			// 	m_alloc = other.m_alloc;
+				key_compare	tmp_comp = m_comp;
+				alloc_type	tmp_alloc =	m_alloc;
+				binary_tree	tmp_tree = m_tree;
 
-			// 	other.m_tree = tmp_tree;
-			// 	other.m_comp = tmp_comp;
-			// 	other.m_alloc = tmp_alloc;
-			// }
+				m_comp = other.m_comp;
+				m_alloc = other.m_alloc;
+				m_tree = other.m_tree;
+
+				other.m_comp = tmp_comp;
+				other.m_alloc = tmp_alloc;
+				other.m_tree = tmp_tree;
+			}
 
 		
 //---------------------------LOOKUP----------------------------------------//
