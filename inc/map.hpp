@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/02 07:47:43 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/02 08:31:29 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,14 @@ namespace ft {
 					return iterator(NULL, m_tree.m_tree_root);
 			}
 
-			// const_iterator find( const Key& key ) const;
+			const_iterator find( const Key& key ) const;{
+				
+				node_pointer tmp = m_tree.findKey(key, m_tree.m_tree_root);
+				if (tmp)
+					return const_iterator(tmp, m_tree.m_tree_root);
+				else
+					return const_iterator(NULL, m_tree.m_tree_root);
+			}
 
 			// std::pair<iterator,iterator> equal_range( const Key& key );
 
