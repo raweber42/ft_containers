@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 17:47:14 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/02 08:26:58 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ int main(void) {
 	print_values(m1);
 	print_values_reversed(m1);
 
-	// std::cout << COLOR_BLUE << "Initializing map m2 with iterator range via 'm2(m1.begin(), --m1.end())'" << COLOR_DEFAULT  << std::endl;
-	// ft::map<std::string, std::string> m2(m1.begin(), --m1.end());
-	// print_values(m2);
+	std::cout << COLOR_BLUE << "Initializing map m2 with iterator range via 'm2(m1.begin(), --m1.end())'" << COLOR_DEFAULT  << std::endl;
+	ft::map<std::string, std::string> m2(m1.begin(), --m1.end());
+	print_values(m2);
 
 	// std::cout << COLOR_BLUE << "Initializing map m3 via copy constructor via 'm3(m1)' //CHANGE TO V2!!" << COLOR_DEFAULT  << std::endl;
 	// ft::map<std::string, std::string> m3(m1);
@@ -164,22 +164,22 @@ int main(void) {
 	
 	usleep(500000);
 	std::cout << COLOR_RED <<  "TESTS FOR MODIFIER FUNCTIONS" << COLOR_DEFAULT << std::endl;
-	std::cout << COLOR_BLUE << "Clear the map via m1.clear()" << COLOR_DEFAULT << std::endl;
-	m1.clear();
-	std::cout << "Current size is is: " << m1.size() << std::endl;
-	print_values(m1);
-	std::cout << COLOR_BLUE << "Insert one elements of value 'XXX' into the map via 'm1.insert(ft::pair<std::string, std::string>(\"X\", \"XXX\"))'" << COLOR_DEFAULT << std::endl;
-	m1.insert(ft::pair<std::string, std::string>("X", "XXX"));
-	print_values(m1);
-	std::cout << COLOR_BLUE << "Insert value of '\?\?\?' as close as possible to the position just prior to m1.begin() via 'm1.insert(ft::pair<std::string, std::string>(\"?\", \"???\"))'" << COLOR_DEFAULT << std::endl;
-	m1.insert(ft::pair<std::string, std::string>("?", "???"));
-	print_values(m1);
-	// // std::cout << COLOR_BLUE << "Insert the first three elements of value m2 at the beginning of the map via 'm1.insert(m2.begin(), m2.begin() + 3)'" << COLOR_DEFAULT << std::endl;
-	// // m1.insert(m2.begin(), m2.begin() + 3);
-	// // print_values(m1);
-	// std::cout << COLOR_BLUE << "Erase the first element at the beginning of the map via calling 'm1.erase(m1.begin())'" << COLOR_DEFAULT << std::endl;
-	// m1.erase(m1.begin());
+	// std::cout << COLOR_BLUE << "Clear the map via m1.clear()" << COLOR_DEFAULT << std::endl;
+	// m1.clear();
+	// std::cout << "Current size is is: " << m1.size() << std::endl;
 	// print_values(m1);
+	// std::cout << COLOR_BLUE << "Insert one elements of value 'XXX' into the map via 'm1.insert(ft::pair<std::string, std::string>(\"X\", \"XXX\"))'" << COLOR_DEFAULT << std::endl;
+	// m1.insert(ft::pair<std::string, std::string>("X", "XXX"));
+	// print_values(m1);
+	// std::cout << COLOR_BLUE << "Insert value of '\?\?\?' as close as possible to the position just prior to m1.begin() via 'm1.insert(ft::pair<std::string, std::string>(\"?\", \"???\"))'" << COLOR_DEFAULT << std::endl;
+	// m1.insert(ft::pair<std::string, std::string>("?", "???"));
+	// print_values(m1);
+	// std::cout << COLOR_BLUE << "Insert the first two elements of value m2 at the beginning of the map via 'm1.insert(m2.begin(), ++(++m2.begin()))'" << COLOR_DEFAULT << std::endl;
+	// m1.insert(m2.begin(), ++(++m2.begin()));
+	// print_values(m1);
+	std::cout << COLOR_BLUE << "Erase the first element at the beginning of the map via calling 'm1.erase(m1.begin())'" << COLOR_DEFAULT << std::endl;
+	m1.erase(m1.begin());
+	print_values(m1);
 	// // std::cout << COLOR_BLUE << "Erase the last two elements of the map via calling 'm1.erase(m1.end() - 3, m1.end() - 1)'" << COLOR_DEFAULT << std::endl;
 	// // m1.erase(m1.end() - 3, m1.end() - 1);
 	// // print_values(m1);

@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/01 17:45:20 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/02 07:47:43 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ namespace ft {
 
 			map( const map& other ) : m_comp(other.m_comp), m_alloc(other.m_alloc) {
 
+				m_tree.deleteAll(m_tree.getRoot());
 				m_tree.copyTree(other.m_tree.getRoot());
 			}
 
@@ -226,12 +227,19 @@ namespace ft {
 				return (iterator(m_tree.insertNode(&(m_tree.m_tree_root), value), m_tree.m_tree_root));
 			}
 
-			// template< class InputIt >
-			// void insert( InputIt first, InputIt last );
+			template< class InputIt >
+			void insert( InputIt first, InputIt last ) {
+				
+				while(first != last)
+					insert(*first++);
+			}
 
-			// iterator erase( iterator pos );
+			void erase( iterator pos ) {
+				
+				m_tree.erase((*pos).first, m_tree.getRoot());
+			}
 
-			// iterator erase( iterator first, iterator last );
+			// void erase( iterator first, iterator last );
 
 			// size_type erase( const Key& key );
 

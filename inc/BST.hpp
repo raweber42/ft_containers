@@ -124,6 +124,7 @@ namespace ft
 
 //---------------------------MODIFIERS----------------------------------------//
 
+
 			Node *createNewNode(const value_type &new_content, Node *parent = NULL) {
 				
 				Node *newNode = m_node_alloc.allocate(1);
@@ -133,7 +134,6 @@ namespace ft
 				newNode->parent = parent;
 				return (newNode);
 			}
-
 
 			Node *insertNode(Node **m_root, const value_type &data, Node *parent = NULL) {
 				
@@ -154,7 +154,53 @@ namespace ft
 				return (*m_root);
 			}
 
-			void deleteNode(node_pointer to_delete) {
+			value_type successor(node_pointer root) {
+
+				root = root->right;
+				while (root->left)
+					root = root->left;
+				return (root->content);
+			}
+
+			value_type predecessor(node_pointer root) {
+
+				root = root->left;
+				while (root->right)
+					root = root->right;
+				return (root->content);
+			}
+
+			node_pointer erase(key_type key, node_pointer root) {
+
+				if (root == NULL)
+					return (NULL);
+				if (m_comp(key, root->content.first))
+					root->left = erase(key, root->left);
+				else if (m_comp(root->content.first, key))
+					root->right = erase(key, root->right);
+				else {
+					if (root->left == NULL && root->right == NULL) {
+						m_node_alloc.destroy(root);
+						m_node_alloc.deallocate(root, 1);
+						root = NULL;
+					}
+					else if (root->right != NULL) { // check with ->left 
+						m_alloc.destroy(&(root->content));
+						m_alloc.construct(&(root->content), successor(root));
+						root->right = erase(root->content.first, root->right);
+					}
+					else {
+						m_alloc.destroy(&(root->content));
+						m_alloc.construct(&(root->content), predecessor(root));
+						root->left = erase(root->content.first, root->left);
+					}
+				}
+				m_tree_size--;
+				return (root);
+			}
+
+
+			void deleteSingle(node_pointer to_delete) {
 
 				if (to_delete == NULL)
 					return;
@@ -180,9 +226,7 @@ namespace ft
 					deleteAll(root->left);
 				if (root->right != NULL)
 					deleteAll(root->right);
-				deleteNode(root);
-				// std::cout << "size is: " << m_tree_size << std::endl;
-				
+				deleteSingle(root);				
 			}
 
 //---------------------------LOOKUP----------------------------------------//
