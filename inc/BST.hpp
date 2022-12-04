@@ -171,36 +171,87 @@ namespace ft
 				return (root->content);
 			}
 
-			node_pointer erase(key_type key, node_pointer root) {
+			
+			// MY OLD VERSION
+			// node_pointer erase(key_type key, node_pointer root) {
 
-				if (root == NULL)
-					return (NULL);
-				if (m_comp(key, root->content.first))
-					root->left = erase(key, root->left);
-				else if (m_comp(root->content.first, key))
-					root->right = erase(key, root->right);
+			// 	if (root == NULL)
+			// 		return (NULL);
+			// 	if (m_comp(key, root->content.first))
+			// 		root->left = erase(key, root->left);
+			// 	else if (m_comp(root->content.first, key))
+			// 		root->right = erase(key, root->right);
+			// 	else {
+			// 		if (root->left == NULL && root->right == NULL) {
+			// 			m_node_alloc.destroy(root);
+			// 			m_node_alloc.deallocate(root, 1);
+			// 			root = NULL;
+			// 		}
+			// 		else if (root->right != NULL) { // check with ->left 
+			// 			m_alloc.destroy(&(root->content));
+			// 			m_alloc.construct(&(root->content), successor(root));
+			// 			root->right = erase(root->content.first, root->right);
+			// 		}
+			// 		else {
+			// 			m_alloc.destroy(&(root->content));
+			// 			m_alloc.construct(&(root->content), predecessor(root));
+			// 			root->left = erase(root->content.first, root->left);
+			// 		}
+			// 	}
+			// 	return (root);
+			// }
+
+//++++++++++++++++++++EDGARS STYLE BEGIN+++++++++++++++++++++++++++
+		
+			node_pointer maxNode(node_pointer curr) {
+				
+				while (curr && curr->right)
+					curr = curr->right;
+				return (curr);
+			}
+
+			node_pointer minNode(node_pointer curr) {
+				
+				while (curr && curr->left)
+					curr = curr->left;
+				return (curr);
+			}
+
+			void deleteNode(node_pointer to_delete) {
+
+				node_pointer tmp = NULL;
+				if (!m_tree_root)
+					return;
+				if (!to_delete->left && !to_delete->right)
+					deleteLeaf(to_delete);
 				else {
-					if (root->left == NULL && root->right == NULL) {
-						m_node_alloc.destroy(root);
-						m_node_alloc.deallocate(root, 1);
-						root = NULL;
+					if (to_delete->left) {
+						tmp = maxNode(to_delete->left);
 					}
-					else if (root->right != NULL) { // check with ->left 
-						m_alloc.destroy(&(root->content));
-						m_alloc.construct(&(root->content), successor(root));
-						root->right = erase(root->content.first, root->right);
+					else if (to_delete->right) {
+						tmp = minNode(to_delete->right);
 					}
-					else {
-						m_alloc.destroy(&(root->content));
-						m_alloc.construct(&(root->content), predecessor(root));
-						root->left = erase(root->content.first, root->left);
-					}
+					m_alloc.construct(&(to_delete->content), tmp->content);
+					deleteNode(tmp);
 				}
-				return (root);
 			}
 
 
-			void deleteSingle(node_pointer to_delete) {
+			size_type erase(const key_type &key) {
+
+				node_pointer found = findKey(key, m_tree_root);
+
+				if (!m_tree_root || !found)
+					return (0);
+				deleteNode(found);
+				return (1);
+			}
+
+
+//++++++++++++++++++++EDGARS STYLE END+++++++++++++++++++++++++++++
+
+
+			void deleteLeaf(node_pointer to_delete) {
 
 				if (to_delete == NULL)
 					return;
@@ -226,7 +277,7 @@ namespace ft
 					deleteAll(root->left);
 				if (root->right != NULL)
 					deleteAll(root->right);
-				deleteSingle(root);				
+				deleteLeaf(root);				
 			}
 
 //---------------------------LOOKUP----------------------------------------//

@@ -7,8 +7,8 @@ CC = c++
 CFLAGS = -Wall -Werror -Wextra -std=c++98 -g3 
 # -fsanitize=address
 STD = 0
-GREEN = \033[0;32m
-RED = \033[0;31m
+GREEN = \033[32;1m
+RED = \033[31;1m
 UNDO_COL = \033[0m
 
 

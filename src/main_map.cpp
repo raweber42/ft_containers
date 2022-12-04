@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/02 18:37:26 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/04 12:46:34 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,12 @@ int main(void) {
 	std::cout << "size long before is: " << m1.size() << std::endl;
 	print_values(m1);
 	std::cout << COLOR_BLUE << "Erase the last two elements of the map via calling 'm1.erase(--(--(m1.end()))), m1.end())'" << COLOR_DEFAULT << std::endl;
-	m1.erase(--(--(m1.end())), m1.end()); // HEEEEREEEEE PROBLEM
+	ft::map<std::string, std::string>::iterator it = m1.begin();
+	it++;
+	it++; // error for ++ and -- !!
+	// it--;
+	// it--;
+	m1.erase((it), m1.end()); // HEEEEREEEEE PROBLEM
 	print_values(m1);
 	
 	// std::cout << COLOR_BLUE << "Erase the element with the key *1* via calling 'm1.erase(\"1\")' //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;

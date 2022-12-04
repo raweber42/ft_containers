@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/02 17:56:19 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/04 12:42:39 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,13 +153,13 @@ namespace ft {
 
 			iterator end() {
 				
-				return iterator(NULL, m_tree.m_tree_root);
+				return iterator(m_tree.end(), m_tree.m_tree_root);
 				// return iterator(m_tree.end(), m_tree.m_tree_root);
 			}
 
 			const_iterator end() const {
 				
-				return const_iterator(NULL, m_tree.m_tree_root);
+				return const_iterator(m_tree.end(), m_tree.m_tree_root);
 				// return const_iterator(m_tree.end(), m_tree.m_tree_root, 0);
 			}
 
@@ -237,7 +237,7 @@ namespace ft {
 
 			void erase( iterator pos ) {
 				
-				m_tree.erase((*pos).first, m_tree.getRoot());
+				m_tree.erase((*pos).first);
 				m_tree.m_tree_size--;
 			}
 
@@ -247,7 +247,7 @@ namespace ft {
 
 					key_type tmp = (*first).first;
 					first++;
-					erase(tmp);
+					std::cout << "erase returned: " << erase(tmp) << std::endl;
 				}
 			}
 
@@ -256,7 +256,8 @@ namespace ft {
 				node_pointer tmp = m_tree.findKey(key, m_tree.m_tree_root);
 				if (tmp)
 				{
-					erase(iterator(tmp, m_tree.getRoot()));
+					// erase(key);
+					erase(iterator(tmp, m_tree.getRoot())); // HERE?
 					return (1);	
 				}
 				return (0);
