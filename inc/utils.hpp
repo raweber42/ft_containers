@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:13:41 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/30 07:52:25 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/06 16:44:18 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ namespace ft {
 
 //------------ENABLE_IF--------------------------------------
 	
+
 	template<bool, typename>
 	struct enable_if {};
 
@@ -27,6 +28,7 @@ namespace ft {
 
 
 //------------FT::PAIR MEMBER FUNCTIONS------------------------------------
+
 
 	template<typename T1, typename T2>
 	struct pair {
@@ -50,11 +52,11 @@ namespace ft {
 			second = pr.second;
 			return (*this);
 		}
-
-		//add overloads
 	};
 
+
 //------------FT::PAIR NON-MEMBER FUNCTIONS------------------------------------
+
 
 	template< class T1, class T2 >
 	pair<T1, T2> make_pair( T1 t, T2 u ) {
@@ -104,7 +106,7 @@ namespace ft {
 		return (!(lhs < rhs));
 	}
 
-//##########NEW_NON_CONST
+//########## NEW_NON_CONST ##############
 	template< class T1, class T2 >
 	bool operator==(  ft::pair<T1,T2>& lhs,  ft::pair<T1,T2>& rhs ) {
 		
@@ -147,9 +149,11 @@ namespace ft {
 
 		return (!(lhs < rhs));
 	}
-//##########NEW_NON_CONST
+//########## END NEW_NON_CONST #############
+	
 	
 //------------FT_BINARY_FUNCTION--------------------------------------
+
 
 	template< typename Arg1, typename Arg2, typename Result >
 	struct binary_function {
@@ -157,14 +161,6 @@ namespace ft {
 		typedef Arg2				second_argument_type;
 		typedef Result				result_type;
 	};
-
-//------------FT_LESS-------------------------------------------------
-
-
-	// template< typename T>
-	// struct less : binary_function<T, T, bool> {
-	// 	bool operator()(T x, T y) const { return x < y; }
-	// };
 
 
 //------------INTEGRAL_CONSTANT--------------------------------------

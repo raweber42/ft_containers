@@ -31,20 +31,23 @@ namespace ft {
 
 //---------------MAP ITERATOR TYPEDEFS (iterator traits)---------------------------------
 		
+
 		public:
 			typedef bidirectional_iterator_tag			iterator_category;
 			typedef node_ptr							node_pointer;
 			typedef val_type							value_type;
-			//maggi change // typedef pair<const Key, T>					value_type;
-			//maggi change // typedef typename node_pointer						node_pointer;
+
 
 //---------------PROTECTED MEBER FUNCTION------------------------------------------------
+
 
 		protected:
 			node_pointer	m_current_ptr;
 			node_pointer	m_root_ptr;
 
+
 //---------------MAP ITERATOR CONSTRUCTORS-----------------------------------------------
+
 
 		public:
 
@@ -52,22 +55,26 @@ namespace ft {
 			
 			map_iterator(node_pointer ptr, node_pointer root_ptr) : m_current_ptr(ptr), m_root_ptr(root_ptr) {}
 			
-			// //below added for const/non-const
+			//below added for const/non-const
 			template<typename n_ptr, typename v_type>
 			map_iterator(const map_iterator<n_ptr, v_type> &copy) : m_current_ptr(copy.base()) , m_root_ptr(copy.getRootPtr()) {}
-			// //end addition
+			//end addition
 			
 			map_iterator(const map_iterator &src) : m_current_ptr(src.m_current_ptr), m_root_ptr(src.m_root_ptr) {}
 			
 			~map_iterator() {}
 	
+
 //---------------BASE FUNCTION (HELPER)--------------------------------------------------------------
-			
+
+
 			node_pointer base() const { return (m_current_ptr); }
 
 			node_pointer getRootPtr() const { return (m_root_ptr); }
 
+
 //---------------MAP ITERATOR OPERATOR OVERLOADS----------------------------------------
+
 
 			map_iterator& operator=(map_iterator const &rhs) {
 				m_current_ptr = rhs.m_current_ptr;
@@ -81,10 +88,7 @@ namespace ft {
 			
 			map_iterator &operator++(void) {
 				
-				// std::cout << "BEFORE: current points to " << m_current_ptr->content.first << std::endl;
 				m_current_ptr = plusPlus(m_current_ptr);
-				// if (m_current_ptr)
-					// std::cout << "AFTER: current points to " << m_current_ptr->content.first << std::endl;
 				return (*this);
 			}
 			
@@ -107,7 +111,11 @@ namespace ft {
 				--(*this);
 				return (ret);
 			}
-		
+
+
+//---------------PRIVATE HELPER FUNCIONS----------------------------------------
+
+
 		private:
 			
 			node_pointer plusPlus(node_pointer current) {
@@ -167,7 +175,7 @@ namespace ft {
 	};
 
 
-// //---------------MAP ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> DIFFERENT ITERATOR TYPE----------------------------------------
+//---------------MAP ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> DIFFERENT ITERATOR TYPE----------------------------------------
 
 	template<typename n_ptr, typename v_type>
 	bool operator==(const map_iterator<n_ptr, v_type> &lhs, const map_iterator<n_ptr, v_type> &rhs) {
@@ -210,50 +218,48 @@ namespace ft {
 
 //---------------REVERSE MAP ITERATOR TYPEDEFS (iterator traits)---------------------------------
 		
+
 		public:
 
 			typedef map_iterator										iterator_type;
 			typedef typename map_iterator::iterator_category			iterator_category;
 			typedef typename map_iterator::node_pointer					node_pointer;
 			typedef typename map_iterator::value_type					value_type;
-			//maggi change // typedef pair<const Key, T>					value_type;
-			//maggi change // typedef typename node_pointer						node_pointer;
 
-// //---------------REVERSE PROTECTED MEBER FUNCTION------------------------------------------------
+
+//---------------REVERSE PROTECTED MEBER FUNCTION------------------------------------------------
+
 
 		protected:
-			iterator_type	_base; // HEEEEEEEEERREEE
-// 			node_pointer	m_current_ptr;
-// 			node_pointer	m_root_ptr;
+			iterator_type	_base;
+
 
 //---------------REVERSE MAP ITERATOR CONSTRUCTORS-----------------------------------------------
+
 
 		public:
 			reverse_map_iterator(void) : iterator_type() {}
 			
 			explicit reverse_map_iterator(iterator_type it) : _base(it) {}
 
-			reverse_map_iterator(node_pointer ptr, node_pointer root_ptr) : _base(iterator_type(ptr, root_ptr)) {} // CHECK THIS!
+			reverse_map_iterator(node_pointer ptr, node_pointer root_ptr) : _base(iterator_type(ptr, root_ptr)) {}
 			
-			// // //below added for const/non-const
-			// template<typename n_ptr, typename v_type>
-			// reverse_map_iterator(const reverse_map_iterator<n_ptr, v_type> &copy) : m_current_ptr(copy.base()) , m_root_ptr(copy.getRootPtr()) {}
-			// // //end addition
-			
-			// reverse_map_iterator(const reverse_map_iterator &src) : m_current_ptr(src.m_current_ptr), m_root_ptr(src.m_root_ptr) {}
+			reverse_map_iterator(const reverse_map_iterator &src) : _base(src.base()) {}
 			
 			template <class Iter> 
 			reverse_map_iterator (const reverse_map_iterator<Iter>& other) : _base(other.base()) {}
 
-
 			~reverse_map_iterator() {}
-	
+
+
 //---------------REVERSE BASE FUNCTION --------------------------------------------------------------
-			
+
+
 			iterator_type base() const { return (_base); }
 
 
 //---------------REVERSE MAP ITERATOR OPERATOR OVERLOADS---------------------------------------------
+
 
 			template< class U >
 			reverse_map_iterator& operator=( const reverse_map_iterator<U>& rhs ) {
@@ -296,7 +302,8 @@ namespace ft {
 			}
 	};
 
-// //---------------REVERSE MAP ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> DIFFERENT ITERATOR TYPE----------------------------------------
+
+//---------------REVERSE MAP ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> DIFFERENT ITERATOR TYPE----------------------------------------
 
 	// template<typename n_ptr>
 	// bool operator==(const reverse_map_iterator<n_ptr> &lhs, const reverse_map_iterator<n_ptr> &rhs) {
@@ -317,7 +324,6 @@ namespace ft {
 	bool operator!=(const reverse_map_iterator<n_ptr1> &lhs, const reverse_map_iterator<n_ptr2> &rhs) {
 		return (lhs.base() != rhs.base());
 	}
-
 }
 
 #endif

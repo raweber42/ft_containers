@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/06 16:26:00 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/06 16:42:54 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ namespace ft {
 			
 			
 			explicit map(const Compare& comp = Compare(), const Alloc& alloc = Alloc())
-				:  m_comp(comp), m_alloc(alloc) {}
+				: m_comp(comp), m_alloc(alloc) {}
 			
 			template< class InputIt >
 			map(InputIt first, InputIt last, const Compare& comp = Compare(), const Alloc& alloc = Alloc()) 
 				: m_comp(comp), m_alloc(alloc) {
 				
 				InputIt tmp = first;
-				while(tmp != last)
+				while (tmp != last)
 					insert(*tmp++);
 			}
 
@@ -165,13 +165,11 @@ namespace ft {
 			iterator end() {
 				
 				return iterator(m_tree.end(), m_tree.m_tree_root);
-				// return iterator(m_tree.end(), m_tree.m_tree_root);
 			}
 
 			const_iterator end() const {
 				
 				return const_iterator(m_tree.end(), m_tree.m_tree_root);
-				// return const_iterator(m_tree.end(), m_tree.m_tree_root, 0);
 			}
 
 			reverse_iterator rbegin() {
@@ -211,22 +209,21 @@ namespace ft {
 //---------------------------MODIFIERS----------------------------------------//
 
 
-			void clear() { m_tree.deleteAll(); }
+			void clear() {
+				
+				m_tree.deleteAll();
+				m_tree.m_tree_size = 0;
+			}
 			
 			ft::pair<iterator, bool> insert( const value_type& value ) {
 			
 				ft::pair<iterator,bool> tmp;
 				
 				if (m_tree.sameKeyExists(value.first, m_tree.m_tree_root))
-				{
 					tmp.second = false;
-				}
 				else
-				{
 					tmp.second = true;
-				}
 				tmp.first = iterator(m_tree.insertNode(&(m_tree.m_tree_root), value), m_tree.m_tree_root);
-				
 				return (tmp);
 			}
 
@@ -249,7 +246,7 @@ namespace ft {
 			void erase( iterator pos ) {
 				
 				m_tree.erase((*pos).first);
-				m_tree.m_tree_size--; // needed?
+				m_tree.m_tree_size--;
 			}
 
 			void erase( iterator first, iterator last ) {
@@ -265,7 +262,6 @@ namespace ft {
 				for (int i = 0; i < counter; i++) {
 
 					key_type tmp = (*last).first;
-					std::cout << "current key to be erased: " << tmp << std::endl;
 					erase(tmp);
 				}
 			}
@@ -399,6 +395,7 @@ namespace ft {
 			alloc_type						m_alloc;
 			binary_tree						m_tree;
 	};
+
 
 //---------------------------RELATIONAL OPERATORS (non-member)--------------------------------//
 

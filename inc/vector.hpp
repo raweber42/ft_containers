@@ -6,11 +6,12 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/06 15:11:04 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/06 16:47:34 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef VECTOR_HPP
+#define VECTOR_HPP
 
 #include <memory>
 #include <iostream>
@@ -200,7 +201,6 @@ namespace ft
 					_alloc.construct(&(_vec_ptr[i]), *first++);
 			}
 			
-			
 			void assign(size_type count, const T& value) {
 				
 				for (size_type i = 0; i < _size; i++)
@@ -210,27 +210,11 @@ namespace ft
 				_vec_ptr = _alloc.allocate(count);	
 				for (size_type i = 0; i < count; i++)
 					_alloc.construct(&(_vec_ptr[i]), value);
-			
-				// LATER:
-				// if (_size > _capacity)
-				// {
-				// 	this->~vector();
-				// 	*this = vector(count, value);
-				// }
-				// else
-				// {
-				// 	this->clear();
-				// 	_size = count;
-				// 	for (size_type i = 0; i < count; i++)
-				// 		_alloc.construct(&(_vec_ptr[i]), value);
-				// }
 			}
-			
-			
+				
 			void push_back (const value_type& val) {
 				this->insert(this->end(), val);
 			}
-			
 			
 			void pop_back(void) {
 				
@@ -240,7 +224,6 @@ namespace ft
 				_size--;
 			}
 			
-
 			iterator insert (iterator position, const value_type& val) {
 
 				if (!_vec_ptr) {
@@ -268,7 +251,6 @@ namespace ft
 				_size++;
 				return (iterator(&(_vec_ptr[pos_counter])));
 			}
-			
 			
 			void insert (iterator position, size_type n, const value_type& val) {
 				
@@ -300,8 +282,6 @@ namespace ft
 					_alloc.construct(&(_vec_ptr[pos_counter + i]), val);
 				_size += n;
 			}
-			// CHECK IF POSSIBLE WITH ITERATOR???
-			
 			
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last, 
@@ -336,7 +316,6 @@ namespace ft
 					_alloc.construct(&(_vec_ptr[pos_counter + i]), *first++);
 				_size += tmp_size;
 			}
-			
 
 			iterator erase (iterator position) {
 				
@@ -356,7 +335,6 @@ namespace ft
 				return (iterator(&(_vec_ptr[pos_counter])));
 			}
 			
-			
 			iterator erase (iterator first, iterator last) {
 				
 				iterator tmp = first;
@@ -374,7 +352,6 @@ namespace ft
 				_size -= tmp_size;
 				return (tmp);
 			}
-
 
 			void swap (vector& x) {
 				
@@ -394,14 +371,12 @@ namespace ft
 				x._capacity = tmp_capacity;
 			}
 
-
 			void clear(void) {
 				
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(&(_vec_ptr[i]));
 				_size = 0;
 			}
-
 
 			void resize(size_type n, value_type val = value_type()) {
 				
@@ -421,7 +396,7 @@ namespace ft
 			}
 	
 			
-		//--------------------------PRIVATE VARIABLES----------------------------------------//
+//--------------------------PRIVATE VARIABLES----------------------------------------//
 		
 		
 		private:
@@ -505,3 +480,5 @@ namespace ft
 } // namespace ft
 
 // see bookmark page 484
+
+#endif

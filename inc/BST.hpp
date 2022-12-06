@@ -1,21 +1,20 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   BST.hpp                                            :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
-// /*   Updated: 2022/11/28 11:44:11 by raweber          ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   BST.hpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
+/*   Updated: 2022/12/06 16:35:47 by raweber          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef BST_HPP
 #define BST_HPP
 
 #include "utils.hpp"
 #include <iostream>
-// #include "map_iterator.hpp"
 #include <memory>
 #include <functional>
 
@@ -53,6 +52,7 @@ namespace ft
 
 //---------------------------MEMBER VARIABLES---------------------------------------//
 
+
 		public: //make public?
 			key_compare				m_comp;
 			size_type				m_tree_size;
@@ -63,10 +63,10 @@ namespace ft
 		public:
 			Node	*m_tree_root;
 
-//---------------------------CONSTRUCTORS---------------------------------------//
+
+//---------------------------CONSTRUCTOR---------------------------------------//
 
 		public:
-
 			BST(const Compare& comp = Compare()) : m_comp(comp), m_tree_size(0), m_tree_root(NULL) {}
 
 
@@ -78,7 +78,8 @@ namespace ft
 			
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
-			void copyTree(Node *root = NULL) {
+
+			void copyTree(node_pointer root = NULL) {
 				
 				if (root == NULL)
 					return;
@@ -86,6 +87,7 @@ namespace ft
 				copyTree(root->left);
 				copyTree(root->right);
 			}
+
 
 //-------------------------------GET ALLOC-----------------------------------------------//
 
@@ -96,17 +98,17 @@ namespace ft
 //---------------------------ITERATOR FUNCTIONS----------------------------------------//
 
 
-			Node *begin(void) const {
+			node_pointer begin(void) const {
 				
-				Node *tmp = m_tree_root;
+				node_pointer tmp = m_tree_root;
 				while (tmp && tmp->left)
 					tmp = tmp->left;
 				return (tmp);
 			}
 
-			Node *end(void) const {
+			node_pointer end(void) const {
 				
-				Node *tmp = m_tree_root;
+				node_pointer tmp = m_tree_root;
 				if (!tmp)
 					return (NULL);
 				while (tmp && tmp->right)
@@ -128,9 +130,9 @@ namespace ft
 //---------------------------MODIFIERS----------------------------------------//
 
 
-			Node *createNewNode(const value_type &new_content, Node *parent = NULL) {
+			node_pointer createNewNode(const value_type &new_content, node_pointer parent = NULL) {
 				
-				Node *newNode = m_node_alloc.allocate(1);
+				node_pointer newNode = m_node_alloc.allocate(1);
 				m_alloc.construct(&(newNode->content), new_content);
 				newNode->left = NULL;
 				newNode->right = NULL;
@@ -138,9 +140,9 @@ namespace ft
 				return (newNode);
 			}
 
-			Node *insertNode(Node **m_root, const value_type &data, Node *parent = NULL) {
+			node_pointer insertNode(Node **m_root, const value_type &data, node_pointer parent = NULL) {
 				
-				if (*m_root == NULL) //here parent is set to NULL
+				if (*m_root == NULL)
 				{
 					*m_root = createNewNode(data, parent);
 					m_tree_size++;
@@ -174,37 +176,9 @@ namespace ft
 			}
 
 			
-			// MY OLD VERSION
-			// node_pointer erase(key_type key, node_pointer root) {
-
-			// 	if (root == NULL)
-			// 		return (NULL);
-			// 	if (m_comp(key, root->content.first))
-			// 		root->left = erase(key, root->left);
-			// 	else if (m_comp(root->content.first, key))
-			// 		root->right = erase(key, root->right);
-			// 	else {
-			// 		if (root->left == NULL && root->right == NULL) {
-			// 			m_node_alloc.destroy(root);
-			// 			m_node_alloc.deallocate(root, 1);
-			// 			root = NULL;
-			// 		}
-			// 		else if (root->right != NULL) { // check with ->left 
-			// 			m_alloc.destroy(&(root->content));
-			// 			m_alloc.construct(&(root->content), successor(root));
-			// 			root->right = erase(root->content.first, root->right);
-			// 		}
-			// 		else {
-			// 			m_alloc.destroy(&(root->content));
-			// 			m_alloc.construct(&(root->content), predecessor(root));
-			// 			root->left = erase(root->content.first, root->left);
-			// 		}
-			// 	}
-			// 	return (root);
-			// }
-
 //++++++++++++++++++++EDGARS STYLE BEGIN+++++++++++++++++++++++++++
 		
+
 			node_pointer maxNode(node_pointer curr) {
 				
 				while (curr && curr->right)
@@ -238,7 +212,6 @@ namespace ft
 				}
 			}
 
-
 			size_type erase(const key_type &key) {
 
 				node_pointer found = findKey(key);
@@ -266,10 +239,9 @@ namespace ft
 					parent->right = NULL;
 				m_node_alloc.destroy(to_delete);
 				m_node_alloc.deallocate(to_delete, 1);
-				// m_tree_size--; // needed?
 			}
 
-			void deleteAll(Node *root = NULL) {
+			void deleteAll(node_pointer root = NULL) {
 				
 				if (root == NULL)
 					root = m_tree_root;
@@ -291,20 +263,7 @@ namespace ft
 //---------------------------OBSERVERS----------------------------------------//
 
 
-			bool sameNodeExists(const value_type &data, Node *m_root) const {
-				
-				if (m_root == NULL)
-					return false;
-				if (m_root->content == data) // user COMP here! ASK MAGGI!
-					return true;
-				else if (m_root->content <= data) // user COMP here! ASK MAGGI!
-					return sameNodeExists(data, m_root->right);
-				else
-					return sameNodeExists(data, m_root->left);
-			}
-
-
-			bool sameKeyExists(const key_type &data, Node *m_root) const {
+			bool sameKeyExists(const key_type &data, node_pointer m_root) const {
 				
 				if (m_root == NULL)
 					return false;
@@ -328,18 +287,10 @@ namespace ft
 						tmp = tmp->right;
 				}
 				return (tmp);
-				// if (m_root == NULL)
-				// 	return end();
-				// if (m_root->content.first == data) // use COMP here! ASK MAGGI!
-				// 	return m_root;
-				// else if (m_root->content.first <= data) // use COMP here! ASK MAGGI!
-				// 	return findKey(data, m_root->right);
-				// else
-				// 	return findKey(data, m_root->left);
 			}
 
 
-			void printTreeRecursive(const std::string& prefix, Node *m_root, bool isLeft) const {
+			void printTreeRecursive(const std::string& prefix, node_pointer m_root, bool isLeft) const {
 				
 				if (m_root)
 				{
@@ -360,9 +311,8 @@ namespace ft
 			}
 
 
-			Node *getRoot(void) const { return m_tree_root; }
-
-			
+			node_pointer getRoot(void) const { return m_tree_root; }
+	
 
 	};
 	
