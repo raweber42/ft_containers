@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/04 12:42:39 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/06 15:03:05 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,23 @@ namespace ft {
 			typedef reverse_map_iterator<iterator>						reverse_iterator;
 			typedef reverse_map_iterator<const_iterator>				const_reverse_iterator;
 			
-			// class value_compare {
+			class value_compare {
 				
-			// 	typedef bool			result_type;
-			// 	typedef value_type		first_argument_type;
-			// 	typedef value_type		second_argument_type;
-			// }
+				friend class map;
+				
+				protected:
+					key_compare m_comp;
+					value_compare(Compare c) : m_comp(c) {}
+				
+				public:
+					typedef bool			result_type;
+					typedef value_type		first_argument_type;
+					typedef value_type		second_argument_type;
+					
+					bool operator()( const value_type& lhs, const value_type& rhs ) const {
+						return (m_comp(lhs.first, rhs.first));
+					}
+			};
 
 
 //---------------------------CONSTRUCTORS---------------------------------------//
@@ -238,26 +249,33 @@ namespace ft {
 			void erase( iterator pos ) {
 				
 				m_tree.erase((*pos).first);
-				m_tree.m_tree_size--;
+				m_tree.m_tree_size--; // needed?
 			}
 
 			void erase( iterator first, iterator last ) {
 				
-				while (first != last) {
+				int counter = 0;
+				iterator tmp = first;
+				while (tmp != last)
+				{
+					tmp++;
+					counter++;
+				}
+				
+				for (int i = 0; i < counter; i++ ) {
 
 					key_type tmp = (*first).first;
-					first++;
-					std::cout << "erase returned: " << erase(tmp) << std::endl;
+					erase(tmp);
 				}
 			}
 
 			size_type erase( const Key& key ) {
 				
-				node_pointer tmp = m_tree.findKey(key, m_tree.m_tree_root);
+				node_pointer tmp = m_tree.findKey(key);
 				if (tmp)
 				{
-					// erase(key);
-					erase(iterator(tmp, m_tree.getRoot())); // HERE?
+					m_tree.erase(key);
+					m_tree.m_tree_size--;
 					return (1);	
 				}
 				return (0);
@@ -292,7 +310,7 @@ namespace ft {
 
 			iterator find(const key_type& key) {
 
-				node_pointer tmp = m_tree.findKey(key, m_tree.m_tree_root);
+				node_pointer tmp = m_tree.findKey(key);
 				if (tmp)
 					return iterator(tmp, m_tree.m_tree_root);
 				else
@@ -301,32 +319,74 @@ namespace ft {
 
 			const_iterator find( const key_type& key ) const {
 				
-				node_pointer tmp = m_tree.findKey(key, m_tree.m_tree_root);
+				node_pointer tmp = m_tree.findKey(key);
 				if (tmp)
 					return const_iterator(tmp, m_tree.m_tree_root);
 				else
 					return const_iterator(NULL, m_tree.m_tree_root);
 			}
 
-			// std::pair<iterator,iterator> equal_range( const Key& key );
+			ft::pair<iterator,iterator> equal_range( const Key& key ) {
+				
+				return (ft::pair<iterator, iterator>(lower_bound(key), upper_bound(key)));
+			}
 
-			// std::pair<const_iterator,const_iterator> equal_range( const Key& key ) const;
+			ft::pair<const_iterator,const_iterator> equal_range( const Key& key ) const {
+				
+				return (ft::pair<iterator, iterator>(lower_bound(key), upper_bound(key)));
+			}
 
-			// iterator lower_bound( const Key& key );
+			iterator lower_bound(const Key& key) {
 
-			// const_iterator lower_bound( const Key& key ) const;
+				iterator it = begin();
+				for (; it != end(); it++)
+				{
+					if (!m_comp(it.base()->content.first, key))
+						break;
+				}
+				return (it);
+			}
 
-			// iterator upper_bound( const Key& key );
+			const_iterator lower_bound( const Key& key ) const {
 
-			// const_iterator upper_bound( const Key& key ) const;
+				const_iterator it = begin();
+				for (; it != end(); it++)
+				{
+					if (!m_comp(it.base()->content.first, key))
+						break;
+				}
+				return (it);
+			}
+
+			iterator upper_bound( const Key& key ) {
+				
+				iterator it = begin();
+				for (; it != end(); it++)
+				{
+					if (m_comp(key, it.base()->content.first))
+						return (it);
+				}
+				return (end());
+			}
+
+			const_iterator upper_bound( const Key& key ) const {
+				
+				const_iterator it = begin();
+				for (; it != end(); it++)
+				{
+					if (m_comp(key, it.base()->content.first))
+						return (it);
+				}
+				return (end());
+			}
 
 
 //---------------------------OBSERVERS----------------------------------------//
 
 
-			// key_compare key_comp() const;
+			key_compare key_comp() const { return (m_comp); }
 
-			// ft::map::value_compare value_comp() const;
+			value_compare value_comp() const { return (value_compare(m_comp)); }
 
 
 //---------------------------PRIVATE MEMBERS----------------------------------------//
@@ -342,27 +402,47 @@ namespace ft {
 //---------------------------RELATIONAL OPERATORS (non-member)--------------------------------//
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator==( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs );
+	bool operator==( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+		
+		if (lhs.size() != rhs.size())
+			return (false);
+		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	}
+	
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator!=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+		
+		return (!(lhs == rhs));
+	}
+	
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator<( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+		
+		if (lhs.size() < rhs.size())
+			return (true);
+		else if (lhs.size() > rhs.size())
+			return (false);
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator!=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs );
+	bool operator<=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+
+		return (!(rhs < lhs));
+	}
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator<( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs );
+	bool operator>( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+
+		return (rhs < lhs);
+	}
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator<=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs );
-
-	template< class Key, class T, class Compare, class Alloc >
-	bool operator>( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs );
-
-	template< class Key, class T, class Compare, class Alloc >
-	bool operator>=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs );
+	bool operator>=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+		
+		return (!(lhs < rhs));
+	}
 }
 
 
 #endif
-
-
-// src/../inc/map.hpp:239:65: error: declaration of ‘ft::BST<Key, T, Compare, Alloc> ft::map<Key, T, Compare, Alloc>::BST’ changes meaning of ‘BST’ [-fpermissive]
-// src/../inc/map.hpp:239:49: error: declaration of ‘ft::BST<Key, T> ft::map<Key, T, Compare, Alloc>::BST’ changes meaning of ‘BST’ [-fpermissive]

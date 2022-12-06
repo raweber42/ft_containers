@@ -220,7 +220,7 @@ namespace ft
 			void deleteNode(node_pointer to_delete) {
 
 				node_pointer tmp = NULL;
-				if (!m_tree_root)
+				if (!to_delete)
 					return;
 				if (!to_delete->left && !to_delete->right)
 					deleteLeaf(to_delete);
@@ -239,7 +239,7 @@ namespace ft
 
 			size_type erase(const key_type &key) {
 
-				node_pointer found = findKey(key, m_tree_root);
+				node_pointer found = findKey(key);
 
 				if (!m_tree_root || !found)
 					return (0);
@@ -264,7 +264,7 @@ namespace ft
 					parent->right = NULL;
 				m_node_alloc.destroy(to_delete);
 				m_node_alloc.deallocate(to_delete, 1);
-				m_tree_size--;
+				// m_tree_size--; // needed?
 			}
 
 			void deleteAll(Node *root = NULL) {
@@ -280,7 +280,10 @@ namespace ft
 				deleteLeaf(root);				
 			}
 
+
 //---------------------------LOOKUP----------------------------------------//
+
+
 
 
 //---------------------------OBSERVERS----------------------------------------//
@@ -311,16 +314,26 @@ namespace ft
 					return sameKeyExists(data, m_root->left);
 			}
 
-			Node *findKey(const key_type &data, Node *m_root) const {
+			node_pointer findKey(const key_type &key) const {
 				
-				if (m_root == NULL)
-					return end();
-				if (m_root->content.first == data) // use COMP here! ASK MAGGI!
-					return m_root;
-				else if (m_root->content.first <= data) // use COMP here! ASK MAGGI!
-					return findKey(data, m_root->right);
-				else
-					return findKey(data, m_root->left);
+				node_pointer tmp = m_tree_root;
+
+				while ( tmp != NULL && tmp->content.first != key)
+				{
+					if (m_comp(key, tmp->content.first))
+						tmp = tmp->left;
+					else
+						tmp = tmp->right;
+				}
+				return (tmp);
+				// if (m_root == NULL)
+				// 	return end();
+				// if (m_root->content.first == data) // use COMP here! ASK MAGGI!
+				// 	return m_root;
+				// else if (m_root->content.first <= data) // use COMP here! ASK MAGGI!
+				// 	return findKey(data, m_root->right);
+				// else
+				// 	return findKey(data, m_root->left);
 			}
 
 

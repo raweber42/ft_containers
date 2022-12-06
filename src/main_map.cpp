@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/04 12:46:34 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/06 15:07:32 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,18 @@ void print_values_reversed(ft::map<std::string, std::string> m1) {
 
 int main(void) {
 
+	int sleep_time = 0;
 	std::cout << std::endl << COLOR_YELLOW << "######################## MAP<STD::STRING, STD::STRING> ###############################" << COLOR_DEFAULT << std::endl;
 	usleep(500000);
 	std::cout << COLOR_RED <<  "CONSTRUCTOR TESTS" << COLOR_DEFAULT << std::endl;
 	std::cout << COLOR_BLUE << "Initializing empty map m1" << COLOR_DEFAULT << std::endl;
 	ft::map<std::string, std::string> m1;
-	for (int i = 0; i < 4; i++)
-	{
-		std::cout << ". ";
-		fflush(stdout);
-		usleep(200000);
-	}
+	// for (int i = 0; i < 4; i++)
+	// {
+	// 	std::cout << ". ";
+	// 	fflush(stdout);
+	// 	usleep(sleep_time);
+	// }
 	std::cout << std::endl << COLOR_BLUE << "Inserting three key->value pairs into m1 via 'm1.insert(ft::pair<key_type, value_type>(key, value))'" << COLOR_DEFAULT  << std::endl;
 	m1.insert(ft::pair<std::string, std::string>("1", "ABC"));
 	m1.insert(ft::pair<std::string, std::string>("2", "DEF"));
@@ -91,14 +92,14 @@ int main(void) {
 	ft::map<std::string, std::string> m2(m1.begin(), --m1.end());
 	print_values(m2);
 
-	// std::cout << COLOR_BLUE << "Initializing map m3 via copy constructor via 'm3(m1)' //CHANGE TO V2!!" << COLOR_DEFAULT  << std::endl;
-	// ft::map<std::string, std::string> m3(m1);
-	// print_values(m3);
+	std::cout << COLOR_BLUE << "Initializing map m3 via copy constructor via 'm3(m1)'" << COLOR_DEFAULT  << std::endl;
+	ft::map<std::string, std::string> m3(m1);
+	print_values(m3);
 	
-	// std::cout << COLOR_BLUE << "Initializing map m4 via assignment 'm4 = m3'" << COLOR_DEFAULT  << std::endl;
-	// ft::map<std::string, std::string> m4 = m3;
-	// print_values(m4);
-	// usleep(500000);
+	std::cout << COLOR_BLUE << "Initializing map m4 via assignment 'm4 = m3'" << COLOR_DEFAULT  << std::endl;
+	ft::map<std::string, std::string> m4 = m3;
+	print_values(m4);
+	usleep(500000);
 	
 	// usleep(500000); // HOW TO TEST THIS????
 	// std::cout << COLOR_RED <<  "GET ALLOCATOR TYPE" << COLOR_DEFAULT << std::endl;
@@ -112,27 +113,27 @@ int main(void) {
 	m1.insert(ft::pair<std::string, std::string>("4", "JKL"));
 	std::cout << " .";
 	fflush(stdout);
-	usleep(200000);
+	usleep(sleep_time);
 	m1.insert(ft::pair<std::string, std::string>("5", "MNO"));
 	std::cout << " .";
 	fflush(stdout);
-	usleep(200000);
+	usleep(sleep_time);
 	m1.insert(ft::pair<std::string, std::string>("6", "PQR"));
 	std::cout << " .";
 	fflush(stdout);
-	usleep(200000);
+	usleep(sleep_time);
 	m1.insert(ft::pair<std::string, std::string>("7", "STU"));
 	std::cout << " .";
 	fflush(stdout);
-	usleep(200000);
+	usleep(sleep_time);
 	m1.insert(ft::pair<std::string, std::string>("8", "VWX"));
 	std::cout << " .";
 	fflush(stdout);
-	usleep(200000);
+	usleep(sleep_time);
 	m1.insert(ft::pair<std::string, std::string>("9", "YZ"));
 	std::cout << " .";
 	fflush(stdout);
-	usleep(200000);
+	usleep(sleep_time);
 	std::cout << std::endl << "Size after is: " << COLOR_GREEN << m1.size() << COLOR_DEFAULT << std::endl << std::endl;
 	print_values(m1);
 	usleep(500000);
@@ -162,8 +163,8 @@ int main(void) {
 	// usleep(500000);
 
 	
-	usleep(500000);
-	std::cout << COLOR_RED <<  "TESTS FOR MODIFIER FUNCTIONS" << COLOR_DEFAULT << std::endl;
+	// usleep(500000);
+	// std::cout << COLOR_RED <<  "TESTS FOR MODIFIER FUNCTIONS" << COLOR_DEFAULT << std::endl;
 	// std::cout << COLOR_BLUE << "Clear the map via m1.clear()" << COLOR_DEFAULT << std::endl;
 	// m1.clear();
 	// std::cout << "Current size is is: " << m1.size() << std::endl;
@@ -177,81 +178,84 @@ int main(void) {
 	// std::cout << COLOR_BLUE << "Insert the first two elements of value m2 at the beginning of the map via 'm1.insert(m2.begin(), ++(++m2.begin()))'" << COLOR_DEFAULT << std::endl;
 	// m1.insert(m2.begin(), ++(++m2.begin()));
 	// print_values(m1);
-	std::cout << COLOR_BLUE << "Erase the first element at the beginning of the map via calling 'm1.erase(m1.begin())'" << COLOR_DEFAULT << std::endl;
-
-	m1.erase(m1.begin());
-	std::cout << "size long before is: " << m1.size() << std::endl;
-	print_values(m1);
-	std::cout << COLOR_BLUE << "Erase the last two elements of the map via calling 'm1.erase(--(--(m1.end()))), m1.end())'" << COLOR_DEFAULT << std::endl;
-	ft::map<std::string, std::string>::iterator it = m1.begin();
-	it++;
-	it++; // error for ++ and -- !!
-	// it--;
-	// it--;
-	m1.erase((it), m1.end()); // HEEEEREEEEE PROBLEM
+	// std::cout << COLOR_BLUE << "Erase the first element at the beginning of the map via calling 'm1.erase(m1.begin())'" << COLOR_DEFAULT << std::endl;
+	// m1.erase(m1.begin());
+	// print_values(m1);
+	std::cout << COLOR_BLUE << "Erase the last two elements of the map via calling 'm1.erase(----m1.end()))), m1.end())'" << COLOR_DEFAULT << std::endl;
+	m1.erase(----m1.end(), m1.end());
+	std::cout << "Current size is is: " << m1.size() << std::endl;
 	print_values(m1);
 	
-	// std::cout << COLOR_BLUE << "Erase the element with the key *1* via calling 'm1.erase(\"1\")' //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;
-	// m1.erase("1");
-	// print_values(m1);
-	// std::cout << COLOR_BLUE << "Swap m1 and m2 via m1.swap(m2)" << COLOR_DEFAULT << std::endl;
-	// m1.swap(m2);
-	// std::cout << "Print values of m1:" << std::endl;
-	// print_values(m1);
-	// std::cout << "Print values of m2:" << std::endl;
-	// print_values(m2);
-	// std::cout << COLOR_BLUE << "Swap them back via m2.swap(m1)" << COLOR_DEFAULT << std::endl;
-	// m2.swap(m1);
-	// std::cout << "Print values of m1:" << std::endl;
-	// print_values(m1);
-	// std::cout << "Print values of m2:" << std::endl;
-	// print_values(m2);
-	// usleep(500000);
+	std::cout << COLOR_BLUE << "Erase the element with the key *1* via calling 'm1.erase(\"1\")'" << COLOR_DEFAULT << std::endl;
+	m1.erase("1");
+	std::cout << "Current size is is: " << m1.size() << std::endl;
+	print_values(m1);
+	std::cout << COLOR_BLUE << "Swap m1 and m2 via m1.swap(m2)" << COLOR_DEFAULT << std::endl;
+	m1.swap(m2);
+	std::cout << "Print values of m1:" << std::endl;
+	print_values(m1);
+	std::cout << "Print values of m2:" << std::endl;
+	print_values(m2);
+	std::cout << COLOR_BLUE << "Swap them back via m2.swap(m1)" << COLOR_DEFAULT << std::endl;
+	m2.swap(m1);
+	std::cout << "Print values of m1:" << std::endl;
+	print_values(m1);
+	std::cout << "Print values of m2:" << std::endl;
+	print_values(m2);
+	usleep(500000);
 	
 
-	// usleep(500000);
-	// std::cout << std::endl << COLOR_RED <<  "TESTS FOR LOOKUP FUNCTIONS" << COLOR_DEFAULT << std::endl;
-	// std::cout << COLOR_BLUE << "Check the number of elements with the key *4* via 'm1.count(\"4\")' (returns 0 or 1)" << COLOR_DEFAULT << std::endl;
-	// std::cout << "Function returns: " << COLOR_GREEN << m1.count("4") << COLOR_DEFAULT << std::endl;
-	// std::cout << COLOR_BLUE << "Finds an element with key equivalent to *4* via 'm1.find(\"4\")' (returns iterator) //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;
-	// std::cout << "Function returns iterator with value: " << COLOR_GREEN << ((*(m1.find("4"))).second) << COLOR_DEFAULT << std::endl;
-	// std::cout <<  COLOR_BLUE << "Find the range containing all elements with key *4* (-> only one element, because unique) via 'm1.equal_range(\"4\")'" << COLOR_DEFAULT << std::endl;
-	// ft::pair<ft::map<std::string, std::string>::iterator, ft::map<std::string, std::string>::iterator> ret = m1.equal_range("4");
-	// std::cout << "Function returns pair of iterators pointing to: " << ret.first->second << " and " << ret.second->second << std::endl;
-	// std::cout << COLOR_BLUE << "Find lower_bound with the key *4* via 'm1.lower_bound(\"4\")' //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;
-	// std::cout << "Function returns iterator pointing to: " << (m1.lower_bound("4"))->second << std::endl;
-	// std::cout << COLOR_BLUE << "Find upper_bound with the key *4* via 'm1.upper_bound(\"4\")'  //---> CHECK THIS AGAIN!//" << COLOR_DEFAULT << std::endl;
-	// std::cout << "Function returns iterator pointing to: " << (m1.upper_bound("4"))->second << std::endl;
-	// std::cout << COLOR_GREEN << "HOW TO TEST KEY_COMP??: https://en.cppreference.com/w/cpp/container/map/key_comp" << COLOR_DEFAULT << std::endl;
-	// std::cout << COLOR_GREEN << "HOW TO TEST VALUE_COMP??: https://en.cppreference.com/w/cpp/container/map/value_comp" << COLOR_DEFAULT << std::endl << std::endl;
-	// usleep(500000);
+	usleep(500000);
+	std::cout << std::endl << COLOR_RED <<  "TESTS FOR LOOKUP FUNCTIONS" << COLOR_DEFAULT << std::endl;
+	std::cout << COLOR_BLUE << "Check the number of elements with the key *4* via 'm1.count(\"4\")' (returns 0 or 1)" << COLOR_DEFAULT << std::endl;
+	std::cout << "Function returns: " << COLOR_GREEN << m1.count("4") << COLOR_DEFAULT << std::endl;
+	std::cout << COLOR_BLUE << "Check the number of elements with the key *444* via 'm1.count(\"444\")' (returns 0 or 1)" << COLOR_DEFAULT << std::endl;
+	std::cout << "Function returns: " << COLOR_GREEN << m1.count("444") << COLOR_DEFAULT << std::endl;
+	std::cout << COLOR_BLUE << "Finds an element with key equivalent to *4* via 'm1.find(\"4\")' (returns iterator)" << COLOR_DEFAULT << std::endl;
+	std::cout << "Function returns iterator with value: " << COLOR_GREEN << ((*(m1.find("4"))).second) << COLOR_DEFAULT << std::endl;
+	std::cout <<  COLOR_BLUE << "Find the range containing all elements with key *4* (-> only one element, because unique) via 'm1.equal_range(\"4\")'" << COLOR_DEFAULT << std::endl;
+	ft::pair<ft::map<std::string, std::string>::iterator, ft::map<std::string, std::string>::iterator> ret = m1.equal_range("4");
+	std::cout << "Function returns pair of iterators pointing to: " << ret.first->second << " and " << ret.second->second << std::endl;
+	std::cout << COLOR_BLUE << "Find lower_bound with the key *4* via 'm1.lower_bound(\"4\")'" << COLOR_DEFAULT << std::endl;
+	std::cout << "Function returns iterator pointing to: " << (m1.lower_bound("4"))->second << std::endl;
+	std::cout << COLOR_BLUE << "Find lower_bound with the key *444* via 'm1.lower_bound(\"444\")'" << COLOR_DEFAULT << std::endl;
+	std::cout << "Function returns iterator pointing to: " << (m1.lower_bound("444"))->second << std::endl;
+	std::cout << COLOR_BLUE << "Find upper_bound with the key *4* via 'm1.upper_bound(\"4\")' " << COLOR_DEFAULT << std::endl;
+	std::cout << "Function returns iterator pointing to: " << (m1.upper_bound("4"))->second << std::endl;
+	std::cout << COLOR_BLUE << "Find upper_bound with the key *444* via 'm1.upper_bound(\"444\")' " << COLOR_DEFAULT << std::endl;
+	std::cout << "Function returns iterator pointing to: " << (m1.upper_bound("444"))->second << std::endl;
+	std::cout << COLOR_BLUE << "Test key_compare() on first two elements of m1 via 'm1.key_comp()(m1.begin()->first, (++m1.begin())->first)'" << COLOR_DEFAULT << std::endl;
+	std::cout << "Function returns: " << m1.key_comp()(m1.begin()->first, (++m1.begin())->first) << std::endl;
+	std::cout << COLOR_BLUE << "Test value_compare() on first two elements of m1 via 'm1.value_comp()(*(m1.begin()), (*(++m1.begin())))'" << COLOR_DEFAULT << std::endl;
+	std::cout << "Function returns: " << m1.value_comp()(*(m1.begin()), (*(++m1.begin()))) << std::endl;
+	usleep(500000);
 
 
-	// usleep(500000);
-	// std::cout << COLOR_RED <<  "TESTS FOR RELATIONAL OPERATORS" << COLOR_DEFAULT << std::endl;
-	// std::cout << COLOR_BLUE << "Compare m1 and m2" << COLOR_DEFAULT << std::endl;
-	// std::cout << "Printing m1: ";
-	// print_values(m1);
-	// std::cout << "Printing m2: ";
-	// print_values(m2);
-	// std::cout << "Printing v5: ";
-	// print_values(v5);
-	// std::cout << COLOR_BLUE << "Compare m1 and m2" << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is 'm1 == m2' (should return true)? " << COLOR_BLUE << ((m1 == m2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is 'm1 != m2' (should return true)? " << COLOR_BLUE << ((m1 != m2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is 'm1 < m2' (should return false)? " << COLOR_BLUE << ((m1 < m2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is 'm1 <= m2' (should return false)? " << COLOR_BLUE << ((m1 <= m2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is 'm1 > m2' (should return false)? " << COLOR_BLUE << ((m1 > m2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is 'm1 >= m2' (should return false)? " << COLOR_BLUE << ((m1 >= m2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	usleep(500000);
+	std::cout << COLOR_RED <<  "TESTS FOR RELATIONAL OPERATORS" << COLOR_DEFAULT << std::endl;
+	std::cout << COLOR_BLUE << "Compare m1 and m2" << COLOR_DEFAULT << std::endl;
+	std::cout << "Printing m1: ";
+	print_values(m1);
+	std::cout << "Printing m3: ";
+	print_values(m3);
+	std::cout << "Printing m4: ";
+	print_values(m4);
+	std::cout << COLOR_BLUE << "Compare m1 and m2" << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'm1 == m3' (should return false)? " << COLOR_BLUE << ((m1 == m3) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'm1 != m3' (should return true)? " << COLOR_BLUE << ((m1 != m3) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'm1 < m3' (should return false)? " << COLOR_BLUE << ((m1 < m3) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'm1 <= m3' (should return false)? " << COLOR_BLUE << ((m1 <= m3) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'm1 > m3' (should return true)? " << COLOR_BLUE << ((m1 > m3) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'm1 >= m3' (should return true)? " << COLOR_BLUE << ((m1 >= m3) ? "true" : "false") << COLOR_DEFAULT << std::endl;
 
-	// std::cout << COLOR_BLUE << "Compare m2 and v5" << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is 'm2 == v5' (should return false)? " << COLOR_BLUE << ((m2 == v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is 'm2 != v5' (should return true)? " << COLOR_BLUE << ((m2 != v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is 'm2 < v5' (should return false)? " << COLOR_BLUE << ((m2 < v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is 'm2 <= v5' (should return false)? " << COLOR_BLUE << ((m2 <= v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is 'm2 > v5' (should return true)? " << COLOR_BLUE << ((m2 > v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	// std::cout << "Is 'm2 >= v5' (should return true)? " << COLOR_BLUE << ((m2 >= v5) ? "true" : "false") << COLOR_DEFAULT << std::endl  << std::endl;
-	// usleep(500000);
+	std::cout << COLOR_BLUE << "Compare m3 and m4" << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'm3 == m4' (should return true)? " << COLOR_BLUE << ((m3 == m4) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'm3 != m4' (should return false)? " << COLOR_BLUE << ((m3 != m4) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'm3 < m4' (should return false)? " << COLOR_BLUE << ((m3 < m4) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'm3 <= m4' (should return true)? " << COLOR_BLUE << ((m3 <= m4) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'm3 > m4' (should return false)? " << COLOR_BLUE << ((m3 > m4) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'm3 >= m4' (should return true)? " << COLOR_BLUE << ((m3 >= m4) ? "true" : "false") << COLOR_DEFAULT << std::endl  << std::endl;
+	usleep(500000);
 
 
 	// std::cout << COLOR_YELLOW << "//######################## STRING VECTOR ######################################" << COLOR_DEFAULT << std::endl;
@@ -269,8 +273,6 @@ int main(void) {
 
 // add constructor tests and non-member-functions!
 // test change of dereferenced pointer (is overload dauerhaft modifying ?)
-// ----> { b=a; *a++; *b; } also stuff like this. See test cases: https://cplusplus.com/reference/iterator/
-// check all iterator operator overloads!!! (need map with incrementing numbers inside -> wait until push_back works)
 
 // use std::find for testing (and container::find)
 

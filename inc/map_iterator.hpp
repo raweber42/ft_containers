@@ -81,7 +81,10 @@ namespace ft {
 			
 			map_iterator &operator++(void) {
 				
+				// std::cout << "BEFORE: current points to " << m_current_ptr->content.first << std::endl;
 				m_current_ptr = plusPlus(m_current_ptr);
+				// if (m_current_ptr)
+					// std::cout << "AFTER: current points to " << m_current_ptr->content.first << std::endl;
 				return (*this);
 			}
 			
