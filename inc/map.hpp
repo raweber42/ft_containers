@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/06 15:31:31 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/06 16:26:00 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,10 +261,11 @@ namespace ft {
 					tmp++;
 					counter++;
 				}
-				
-				for (int i = 0; i < counter; i++ ) {
+				last--;
+				for (int i = 0; i < counter; i++) {
 
-					key_type tmp = (*first).first;
+					key_type tmp = (*last).first;
+					std::cout << "current key to be erased: " << tmp << std::endl;
 					erase(tmp);
 				}
 			}
