@@ -107,6 +107,8 @@ namespace ft
 			Node *end(void) const {
 				
 				Node *tmp = m_tree_root;
+				if (!tmp)
+					return (NULL);
 				while (tmp && tmp->right)
 					tmp = tmp->right;
 				return (tmp->right);
