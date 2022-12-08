@@ -116,7 +116,7 @@ namespace ft {
 //---------------PRIVATE HELPER FUNCIONS----------------------------------------
 
 
-		private:
+		protected:
 			
 			node_pointer plusPlus(node_pointer current) {
 
@@ -238,7 +238,7 @@ namespace ft {
 
 
 		public:
-			reverse_map_iterator(void) : iterator_type() {}
+			reverse_map_iterator(void) : _base() {}
 			
 			explicit reverse_map_iterator(iterator_type it) : _base(it) {}
 
@@ -277,7 +277,8 @@ namespace ft {
 			
 			reverse_map_iterator &operator++(void) {
 				
-				_base.m_current_ptr = _base.minusMinus(_base.m_current_ptr);
+				// _base.m_current_ptr = _base.minusMinus(_base.m_current_ptr);
+				--_base;
 				return (*this);
 			}
 			
@@ -290,7 +291,8 @@ namespace ft {
 
 			reverse_map_iterator &operator--(void) {
 				
-				_base.m_current_ptr = _base.plusPlus(_base.m_current_ptr);
+				// _base.m_current_ptr = _base.plusPlus(_base.m_current_ptr);
+				++_base;
 				return (*this);
 			}
 			

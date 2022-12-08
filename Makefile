@@ -12,11 +12,12 @@ RED = \033[31;1m
 UNDO_COL = \033[0m
 
 
-SRC = 	$(SRC_DIR)main_stack.cpp \
+SRC = 	$(SRC_DIR)subject_main.cpp 
 # 		$(SRC_DIR)main_map.cpp \
 		$(SRC_DIR)subject_main.cpp \
 		$(SRC_DIR)vector_vector.cpp \
 		$(SRC_DIR)main_map.cpp \
+		$(SRC_DIR)main_stack.cpp \
 
 
 all: $(NAME)

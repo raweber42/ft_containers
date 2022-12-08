@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/06 16:45:42 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:05:42 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ namespace ft {
 
 
 		public:
-			reverse_vector_iterator(void) : iterator_type() {}
+			reverse_vector_iterator(void) : _base() {} // changed from iterator_type() to _base()
 			
 			explicit reverse_vector_iterator(iterator_type x) : _base(x) {}
 			

@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/06 16:42:54 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/08 15:05:22 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ namespace ft {
 				
 				m_alloc = rhs.m_alloc;
 				m_comp = rhs.m_comp;
-				m_tree.clear();
+				m_tree.deleteAll();
 				m_tree.copyTree(rhs.m_tree.getRoot());
 
 				return (*this);
@@ -223,7 +223,7 @@ namespace ft {
 					tmp.second = false;
 				else
 					tmp.second = true;
-				tmp.first = iterator(m_tree.insertNode(&(m_tree.m_tree_root), value), m_tree.m_tree_root);
+				tmp.first = iterator(m_tree.insertNode(value), m_tree.m_tree_root);
 				return (tmp);
 			}
 
@@ -233,7 +233,7 @@ namespace ft {
 				iterator it = find(value.first);
 				if (it != end())
 					return (it);
-				return (iterator(m_tree.insertNode(&(m_tree.m_tree_root), value), m_tree.m_tree_root));
+				return (iterator(m_tree.insertNode(value), m_tree.m_tree_root));
 			}
 
 			template< class InputIt >
@@ -278,20 +278,30 @@ namespace ft {
 				return (0);
 			}
 
-			void swap( map& other ) {
-
-				key_compare	tmp_comp = m_comp;
-				alloc_type	tmp_alloc =	m_alloc;
-				binary_tree	tmp_tree = m_tree;
-
-				m_comp = other.m_comp;
-				m_alloc = other.m_alloc;
-				m_tree = other.m_tree;
-
-				other.m_comp = tmp_comp;
-				other.m_alloc = tmp_alloc;
-				other.m_tree = tmp_tree;
+			void swap( map& x ) {
+				
+				if (this == &x) return;
+				this->m_tree.swap(x.m_tree);
 			}
+
+
+			// void swap( map& other ) {
+
+			// 	if (this == &other) return;
+			// 	std::swap(this->m_tree.getRoot(), other.m_tree.getRoot());
+			// 	std::swap(this->m_tree.m_tree_size, other.m_tree.m_tree_size);
+				// key_compare	tmp_comp = m_comp;
+				// alloc_type	tmp_alloc =	m_alloc;
+				// binary_tree	tmp_tree = m_tree;
+
+				// m_comp = other.m_comp;
+				// m_alloc = other.m_alloc;
+				// m_tree = other.m_tree;
+
+				// other.m_comp = tmp_comp;
+				// other.m_alloc = tmp_alloc;
+				// other.m_tree = tmp_tree;
+			// }
 
 		
 //---------------------------LOOKUP----------------------------------------//
@@ -397,10 +407,20 @@ namespace ft {
 	};
 
 
+//---------------------------SWAP (non-member)--------------------------------//
+
+
+	template< class Key, class T, class Compare, class Alloc >
+	void swap( map<Key,T,Compare,Alloc>& lhs, map<Key,T,Compare,Alloc>& rhs ) {
+		
+		lhs.swap(rhs);
+	}
+	
+
 //---------------------------RELATIONAL OPERATORS (non-member)--------------------------------//
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator==( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+	bool operator==( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) {
 		
 		if (lhs.size() != rhs.size())
 			return (false);
@@ -408,35 +428,31 @@ namespace ft {
 	}
 	
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator!=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+	bool operator!=( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) {
 		
 		return (!(lhs == rhs));
 	}
 	
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator<( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+	bool operator<( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) {
 		
-		if (lhs.size() < rhs.size())
-			return (true);
-		else if (lhs.size() > rhs.size())
-			return (false);
 		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 	}
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator<=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+	bool operator<=( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) {
 
 		return (!(rhs < lhs));
 	}
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator>( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+	bool operator>( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) {
 
 		return (rhs < lhs);
 	}
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator>=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+	bool operator>=( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) {
 		
 		return (!(lhs < rhs));
 	}

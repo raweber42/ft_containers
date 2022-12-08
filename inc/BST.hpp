@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/06 16:35:47 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/08 15:34:11 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,19 @@ namespace ft
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
 
+			BST& operator=( const BST& rhs ) {
+				
+				
+				deleteAll();
+				copyTree(rhs.getRoot());
+				return (*this);
+			}
+			
 			void copyTree(node_pointer root = NULL) {
 				
 				if (root == NULL)
 					return;
-				insertNode(&m_tree_root, root->content);
+				insertNode(root->content);
 				copyTree(root->left);
 				copyTree(root->right);
 			}
@@ -137,26 +145,36 @@ namespace ft
 				newNode->left = NULL;
 				newNode->right = NULL;
 				newNode->parent = parent;
+				m_tree_size++;
 				return (newNode);
 			}
 
-			node_pointer insertNode(Node **m_root, const value_type &data, node_pointer parent = NULL) {
+			node_pointer insertNode(const value_type &data) {
 				
-				if (*m_root == NULL)
+				if (m_tree_root == NULL)
 				{
-					*m_root = createNewNode(data, parent);
-					m_tree_size++;
+					m_tree_root = createNewNode(data);
+					return (m_tree_root);
 				}
 
-				else if (m_comp(data.first, ((*m_root)->content).first))
-				{
-					(*m_root)->left = insertNode(&(*m_root)->left, data, *m_root);
+				node_pointer found = findKey(data.first);
+				node_pointer tmp = NULL;
+				if (found)
+					return (found);
+				found = m_tree_root;
+				while (found != NULL) {
+					tmp = found;
+					if (data.first < found->content.first)
+						found = found->left;
+					else
+						found = found->right;
 				}
-				else if (m_comp(((*m_root)->content).first, data.first))
-				{
-					(*m_root)->right = insertNode(&(*m_root)->right, data, *m_root);
-				}
-				return (*m_root);
+				found = createNewNode(data, tmp);
+				if (data.first < tmp->content.first)
+					tmp->left = found;
+				else
+					tmp->right = found;
+				return (found);
 			}
 
 			value_type successor(node_pointer root) {
@@ -220,6 +238,13 @@ namespace ft
 					return (0);
 				deleteNode(found);
 				return (1);
+			}
+
+			void swap( BST& other ) {
+				
+				if (this == &other) return;
+				std::swap(this->m_tree_root, other.m_tree_root);
+				std::swap(this->m_tree_size, other.m_tree_size);
 			}
 
 

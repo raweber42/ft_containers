@@ -6,15 +6,18 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:13:41 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/06 16:44:18 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/08 14:39:45 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
+#include <iostream>
+
 namespace ft {
 
+	
 //------------ENABLE_IF--------------------------------------
 	
 
@@ -217,14 +220,14 @@ namespace ft {
 		
 		while ((first1 != last1) && (first2 != last2))
 		{
-			if (!(*first1 < *first2))
+			if (*first2 < *first1)
 				return (false);
+			else if (*first1 < *first2)
+				return true;
 			first1++;
 			first2++;
 		}
-		if (first1 != last1 && (first2 == last2))
-			return (false);
-		return (true);
+		return first2 != last2;
 	}
 
 	template< class InputIt1, class InputIt2 >
@@ -239,6 +242,7 @@ namespace ft {
 		}
 		return (true);
 	}
+
 } // end namespace ft
 
 #endif
