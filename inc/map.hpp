@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/08 15:05:22 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:39:34 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,22 +249,30 @@ namespace ft {
 				m_tree.m_tree_size--;
 			}
 
-			void erase( iterator first, iterator last ) {
+			void erase( iterator first, iterator last ){
 				
-				int counter = 0;
-				iterator tmp = first;
-				while (tmp != last)
-				{
-					tmp++;
-					counter++;
-				}
-				last--;
-				for (int i = 0; i < counter; i++) {
-
-					key_type tmp = (*last).first;
-					erase(tmp);
+				for (; first != last; first++) {
+					key_type key = (*first).first;
+					erase(key);
 				}
 			}
+			
+			// void erase( iterator first, iterator last ) {
+				
+			// 	int counter = 0;
+			// 	iterator tmp = first;
+			// 	while (tmp != last)
+			// 	{
+			// 		tmp++;
+			// 		counter++;
+			// 	}
+			// 	// first++;
+			// 	for (int i = 0; i < counter; i++) {
+
+			// 		key_type tmp = (*first).first;
+			// 		erase(tmp);
+			// 	}
+			// }
 
 			size_type erase( const Key& key ) {
 				

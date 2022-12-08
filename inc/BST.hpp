@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/08 15:34:11 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/08 17:04:41 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,8 +216,8 @@ namespace ft
 				node_pointer tmp = NULL;
 				if (!to_delete)
 					return;
-				if (!to_delete->left && !to_delete->right)
-					deleteLeaf(to_delete);
+				if ((!to_delete->left) && (!to_delete->right))
+					deleteAll(to_delete);
 				else {
 					if (to_delete->left) {
 						tmp = maxNode(to_delete->left);

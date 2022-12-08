@@ -42,8 +42,8 @@ namespace ft {
 
 
 		protected:
-			node_pointer	m_current_ptr;
-			node_pointer	m_root_ptr;
+			mutable node_pointer	m_current_ptr;
+			mutable node_pointer	m_root_ptr;
 
 
 //---------------MAP ITERATOR CONSTRUCTORS-----------------------------------------------
