@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/09 11:15:25 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/09 13:03:06 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,7 @@ namespace ft {
 
 			ft::pair<const_iterator,const_iterator> equal_range( const Key& key ) const {
 				
-				return (ft::pair<iterator, iterator>(lower_bound(key), upper_bound(key)));
+				return (ft::pair<const_iterator, const_iterator>(lower_bound(key), upper_bound(key)));
 			}
 
 			iterator lower_bound(const Key& key) {
