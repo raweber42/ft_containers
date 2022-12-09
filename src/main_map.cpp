@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/09 09:11:50 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/09 11:24:48 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,19 @@ int main(void) {
 	m1.clear();
 	std::cout << "Current size is: " << m1.size() << std::endl;
 	print_values(m1);
+
+	//###################
+	m1["42"] = "fgzgxfn";
+	m1["25"] = "funny";
+	m1["80"] = "hey";
+	m1["12"] = "no";
+	m1["27"] = "bee";
+	m1["90"] = "8";
+	std::cout << "Size is: " << m1.size() << std::endl;
+	print_values(m1);
+	//###################
+
+	
 	std::cout << COLOR_BLUE << "Insert one element of value 'X' into the map via 'm1.insert(ft::pair<std::string, std::string>(\"X\", \"XXX\"))'" << COLOR_DEFAULT << std::endl;
 	m1.insert(ft::pair<std::string, std::string>("X", "XXX"));
 	print_values(m1);
@@ -193,35 +206,15 @@ int main(void) {
 	m1.insert(ft::pair<std::string, std::string>("9", "YZ"));
 	print_values(m1);
 
-	//####################
-	// std::cout << "m1.end() contains:" << m1.end()->first << std::endl;
-	std::cout << "--m1.end() contains:" << (--m1.end())->first << std::endl;
-	std::cout << "----m1.end() contains:" << (----m1.end())->first << std::endl;
-	std::cout << "------m1.end() contains:" << (------m1.end())->first << std::endl;
-	// m1.erase((--m1.end()));
-	// print_values(m1);
-	// m1.erase((----m1.end()));
-	// print_values(m1);
-	// m1.erase((------m1.end()));
-	// print_values(m1);
-	// m1.erase((--m1.end()));
-	// print_values(m1);
-	// m1.erase((--m1.end()));
-	// print_values(m1);
-	// m1.erase((--m1.end()));
-	// print_values(m1);
-	//####################
-	
+
+
 	// std::cout << COLOR_BLUE << "Erase the first element at the beginning of the map via calling 'm1.erase(m1.begin())'" << COLOR_DEFAULT << std::endl;
 	// m1.erase(m1.begin());
 	// print_values(m1);
-	std::cout << COLOR_BLUE << "Erase the last two elements of the map via calling 'm1.erase(----m1.end()))), m1.end())'" << COLOR_DEFAULT << std::endl;
-	// m1.erase((--(--(--(m1.end())))), m1.end());
-	// m1.m_tree.printTree();
-	m1.erase((++m1.begin()), m1.end());
-	m1.m_tree.printTree();
-	std::cout << "Current size is: " << m1.size() << std::endl;
-	print_values(m1);
+	// std::cout << COLOR_BLUE << "Erase the last two elements of the map via calling 'm1.erase(----m1.end()))), m1.end())'" << COLOR_DEFAULT << std::endl;
+	// m1.erase((----(m1.end())), m1.end());
+	// std::cout << "Current size is: " << m1.size() << std::endl;
+	// print_values(m1);
 	// std::cout << COLOR_BLUE << "Erase the element with the key *XXX* via calling 'm1.erase(\"XXX\")'" << COLOR_DEFAULT << std::endl;
 	// m1.erase("XXX");
 	// std::cout << "Current size is: " << m1.size() << std::endl;

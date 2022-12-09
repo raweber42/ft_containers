@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/09 09:22:52 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/09 12:53:21 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ namespace ft
 
 
 			BST& operator=( const BST& rhs ) {
-				
 				
 				deleteAll();
 				copyTree(rhs.getRoot());
@@ -164,13 +163,13 @@ namespace ft
 				found = m_tree_root;
 				while (found != NULL) {
 					tmp = found;
-					if (data.first < found->content.first)
+					if (m_comp(data.first, found->content.first))
 						found = found->left;
 					else
 						found = found->right;
 				}
 				found = createNewNode(data, tmp);
-				if (data.first < tmp->content.first)
+				if (m_comp(data.first, tmp->content.first))
 					tmp->left = found;
 				else
 					tmp->right = found;
@@ -235,6 +234,7 @@ namespace ft
 
 
 			static node_pointer getSuccessor(node_pointer node) {
+				
 				if (node->right != NULL)
 					return minNode(node->right);
 				else {
@@ -249,6 +249,7 @@ namespace ft
 			}
 
 			static node_pointer getPredecessor(node_pointer node) {
+				
 				if (node->left != NULL)
 					return maxNode(node->left);
 				else {
@@ -263,6 +264,7 @@ namespace ft
 			}
 		
 			static bool swapNodeValue(node_pointer node1, node_pointer node2) {
+				
 				node_pointer parent1 = node1->parent;
 				node_pointer node1Left = node1->left;
 				node_pointer node1Right = node1->right;
