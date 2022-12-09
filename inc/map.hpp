@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/08 17:39:34 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/09 09:20:17 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,33 +246,12 @@ namespace ft {
 			void erase( iterator pos ) {
 				
 				m_tree.erase((*pos).first);
-				m_tree.m_tree_size--;
 			}
 
-			void erase( iterator first, iterator last ){
-				
-				for (; first != last; first++) {
-					key_type key = (*first).first;
-					erase(key);
-				}
+			void erase(iterator first, iterator last) {
+				while (first != last)
+					m_tree.deleteNode((first++).base());
 			}
-			
-			// void erase( iterator first, iterator last ) {
-				
-			// 	int counter = 0;
-			// 	iterator tmp = first;
-			// 	while (tmp != last)
-			// 	{
-			// 		tmp++;
-			// 		counter++;
-			// 	}
-			// 	// first++;
-			// 	for (int i = 0; i < counter; i++) {
-
-			// 		key_type tmp = (*first).first;
-			// 		erase(tmp);
-			// 	}
-			// }
 
 			size_type erase( const Key& key ) {
 				
@@ -280,7 +259,6 @@ namespace ft {
 				if (tmp)
 				{
 					m_tree.erase(key);
-					m_tree.m_tree_size--;
 					return (1);	
 				}
 				return (0);
@@ -288,28 +266,10 @@ namespace ft {
 
 			void swap( map& x ) {
 				
-				if (this == &x) return;
+				if (this == &x)
+					return;
 				this->m_tree.swap(x.m_tree);
 			}
-
-
-			// void swap( map& other ) {
-
-			// 	if (this == &other) return;
-			// 	std::swap(this->m_tree.getRoot(), other.m_tree.getRoot());
-			// 	std::swap(this->m_tree.m_tree_size, other.m_tree.m_tree_size);
-				// key_compare	tmp_comp = m_comp;
-				// alloc_type	tmp_alloc =	m_alloc;
-				// binary_tree	tmp_tree = m_tree;
-
-				// m_comp = other.m_comp;
-				// m_alloc = other.m_alloc;
-				// m_tree = other.m_tree;
-
-				// other.m_comp = tmp_comp;
-				// other.m_alloc = tmp_alloc;
-				// other.m_tree = tmp_tree;
-			// }
 
 		
 //---------------------------LOOKUP----------------------------------------//

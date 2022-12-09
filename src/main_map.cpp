@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/08 17:27:43 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/09 09:11:50 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,10 @@ int main(void) {
 	// m1.erase(m1.begin());
 	// print_values(m1);
 	std::cout << COLOR_BLUE << "Erase the last two elements of the map via calling 'm1.erase(----m1.end()))), m1.end())'" << COLOR_DEFAULT << std::endl;
-	m1.erase((--(--(m1.end()))), m1.end());
+	// m1.erase((--(--(--(m1.end())))), m1.end());
+	// m1.m_tree.printTree();
+	m1.erase((++m1.begin()), m1.end());
+	m1.m_tree.printTree();
 	std::cout << "Current size is: " << m1.size() << std::endl;
 	print_values(m1);
 	// std::cout << COLOR_BLUE << "Erase the element with the key *XXX* via calling 'm1.erase(\"XXX\")'" << COLOR_DEFAULT << std::endl;

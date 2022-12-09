@@ -133,7 +133,7 @@ namespace ft {
 					while (tmp && tmp->left)
 						tmp = tmp->left;
 				}
-				else // go to parent: while parent is bigger -> go further up
+				else // go to parent: while child is bigger -> go further up
 				{
 					tmp = current->parent;
 					while (tmp && current == tmp->right)
@@ -161,7 +161,7 @@ namespace ft {
 					while (tmp && tmp->right)
 						tmp = tmp->right;
 				}
-				else // go to parent: while parent is smaller -> go further up
+				else // go to parent: while parent is bigger -> go further up
 				{
 					tmp = current->parent;
 					while (tmp && current == tmp->left)

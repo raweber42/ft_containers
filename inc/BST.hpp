@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/08 17:04:41 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/09 09:22:52 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,36 +175,16 @@ namespace ft
 				else
 					tmp->right = found;
 				return (found);
-			}
+			}		
 
-			value_type successor(node_pointer root) {
-
-				root = root->right;
-				while (root->left)
-					root = root->left;
-				return (root->content);
-			}
-
-			value_type predecessor(node_pointer root) {
-
-				root = root->left;
-				while (root->right)
-					root = root->right;
-				return (root->content);
-			}
-
-			
-//++++++++++++++++++++EDGARS STYLE BEGIN+++++++++++++++++++++++++++
-		
-
-			node_pointer maxNode(node_pointer curr) {
+			static node_pointer maxNode(node_pointer curr) {
 				
 				while (curr && curr->right)
 					curr = curr->right;
 				return (curr);
 			}
 
-			node_pointer minNode(node_pointer curr) {
+			static node_pointer minNode(node_pointer curr) {
 				
 				while (curr && curr->left)
 					curr = curr->left;
@@ -213,20 +193,30 @@ namespace ft
 
 			void deleteNode(node_pointer to_delete) {
 
-				node_pointer tmp = NULL;
+				// node_pointer tmp = NULL;
 				if (!to_delete)
 					return;
 				if ((!to_delete->left) && (!to_delete->right))
-					deleteAll(to_delete);
+					deleteLeaf(to_delete);
 				else {
-					if (to_delete->left) {
-						tmp = maxNode(to_delete->left);
-					}
-					else if (to_delete->right) {
-						tmp = minNode(to_delete->right);
-					}
-					m_alloc.construct(&(to_delete->content), tmp->content);
-					deleteNode(tmp);
+					// if (to_delete->left) {
+					// 	tmp = maxNode(to_delete->left);
+					// }
+					// else if (to_delete->right) {
+					// 	tmp = minNode(to_delete->right);
+					// }
+					// m_alloc.construct(&(to_delete->content), tmp->content);
+					// deleteNode(tmp);
+
+					node_pointer next;
+					if (to_delete->left)
+						next = getPredecessor(to_delete);
+					else
+					 	next = getSuccessor(to_delete);
+					// node_pointer next = to_delete->left != NULL ? getPredecessor(to_delete) : getSuccessor(to_delete);
+					if (!swapNodeValue(to_delete, next))
+						m_tree_root = next;
+					deleteNode(to_delete);
 				}
 			}
 
@@ -239,6 +229,93 @@ namespace ft
 				deleteNode(found);
 				return (1);
 			}
+			
+			
+//################ YUERINO STYLE ##################
+
+
+			static node_pointer getSuccessor(node_pointer node) {
+				if (node->right != NULL)
+					return minNode(node->right);
+				else {
+					node_pointer parent = node->parent;
+					while (parent != NULL && node == parent->right) {
+						node = parent;
+						parent = parent->parent;
+					}
+					node = parent;
+				}
+				return node;
+			}
+
+			static node_pointer getPredecessor(node_pointer node) {
+				if (node->left != NULL)
+					return maxNode(node->left);
+				else {
+					node_pointer parent = node->parent;
+					while (parent != NULL && node == parent->left) {
+						node = parent;
+						parent = parent->parent;
+					}
+					node = parent;
+				}
+				return node;
+			}
+		
+			static bool swapNodeValue(node_pointer node1, node_pointer node2) {
+				node_pointer parent1 = node1->parent;
+				node_pointer node1Left = node1->left;
+				node_pointer node1Right = node1->right;
+				node_pointer parent2 = node2->parent;
+				node_pointer node2Left = node2->left;
+				node_pointer node2Right = node2->right;
+
+				if (parent1 != NULL && parent1->left == node1)
+					parent1->left = node2;
+				else if (parent1 != NULL)
+					parent1->right = node2;
+				node2->parent = parent1;
+
+				if (parent2 != NULL && parent2->left == node2)
+					parent2->left = node1;
+				else if (parent2 != NULL)
+					parent2->right = node1;
+				if (parent2 != node1)
+					node1->parent = parent2;
+				else
+					node1->parent = node2;
+
+				if (node1Left == node2) {
+					node2->left = node1;
+					node2->right = node1Right;
+				} else if (node1Right == node2) {
+					node2->right = node1;
+					node2->left = node1Left;
+				} else {
+					node2->left = node1Left;
+					node2->right = node1Right;
+				}
+
+				if (node1Right && node1Right != node2)
+					node1Right->parent = node2;
+				if (node1Left && node1Left != node2)
+					node1Left->parent = node2;
+
+				node1->left = node2Left;
+				if (node2Left)
+					node2Left->parent = node1;
+				node1->right = node2Right;
+				if (node2Right)
+					node2Right->parent = node1;
+				
+				if (parent1 == NULL)
+					return false;
+				return true;
+			}
+
+
+//################ YUERINO STYLE END ##################
+
 
 			void swap( BST& other ) {
 				
@@ -246,10 +323,6 @@ namespace ft
 				std::swap(this->m_tree_root, other.m_tree_root);
 				std::swap(this->m_tree_size, other.m_tree_size);
 			}
-
-
-//++++++++++++++++++++EDGARS STYLE END+++++++++++++++++++++++++++++
-
 
 			void deleteLeaf(node_pointer to_delete) {
 
@@ -264,6 +337,7 @@ namespace ft
 					parent->right = NULL;
 				m_node_alloc.destroy(to_delete);
 				m_node_alloc.deallocate(to_delete, 1);
+				m_tree_size--;
 			}
 
 			void deleteAll(node_pointer root = NULL) {
