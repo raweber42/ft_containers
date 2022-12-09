@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/07 14:51:45 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/09 13:41:46 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,17 +188,22 @@ namespace ft
 				
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(&(_vec_ptr[i]));
-				_size = last - first;
-				if (_size> _capacity)
-					_alloc.deallocate(_vec_ptr, _capacity);
-				
-				if (_size > _capacity)
-				{
-					_vec_ptr = _alloc.allocate(_size);
-					_capacity = _size;
-				}
-				for (size_type i = 0; i < _size; i++)
+				// _size = last - first;
+				size_type new_size = last - first;
+
+				if (new_size > _capacity)
+					MEM_realloc(new_size);
+				// else if (new_size < _capacity) // HEEEEEREEE
+				// 	MEM_realloc(new_size);
+					// _alloc.deallocate(_vec_ptr, _capacity);
+				// if (_size > _capacity)
+				// {
+				// 	_vec_ptr = _alloc.allocate(_size);
+				// 	_capacity = _size;
+				// }
+				for (size_type i = 0; i < new_size; i++)
 					_alloc.construct(&(_vec_ptr[i]), *first++);
+				_size = new_size;
 			}
 			
 			void assign(size_type count, const T& value) {
