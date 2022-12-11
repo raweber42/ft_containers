@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/11 15:08:10 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/11 16:40:40 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,18 @@ namespace ft
 			template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
-			: _alloc(alloc), _size(0) {
+			: _alloc(alloc), _size(0), _capacity(0) {
 				
 				InputIterator tmp = first;
-				while (tmp++ != last)
+				while (tmp != last)
+				{
 					_size++;
+					tmp++;
+				}	
 				_vec_ptr = _alloc.allocate(_size);
 				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(&(_vec_ptr[i]), *first++);
+				_capacity = _size;
 			}
 
 
@@ -91,7 +95,7 @@ namespace ft
 //---------------------------COPY ASSIGNMENT OPERATOR----------------------------------------//
 
 
-			reference operator=(const vector& rhs) {
+			vector &operator=(const vector& rhs) {
 				
 				if (_vec_ptr != rhs._vec_ptr)
 				{
@@ -208,14 +212,6 @@ namespace ft
 
 				if (new_size > _capacity)
 					MEM_realloc(new_size);
-				// else if (new_size < _capacity) // HEEEEEREEE
-				// 	MEM_realloc(new_size);
-					// _alloc.deallocate(_vec_ptr, _capacity);
-				// if (_size > _capacity)
-				// {
-				// 	_vec_ptr = _alloc.allocate(_size);
-				// 	_capacity = _size;
-				// }
 				for (size_type i = 0; i < new_size; i++)
 					_alloc.construct(&(_vec_ptr[i]), *first++);
 				if (new_size < _size)

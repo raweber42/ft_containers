@@ -35,31 +35,38 @@ void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = true
 
 int		main(void)
 {
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(7);
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(5);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin(), ite = vct.end();
 
-	for (unsigned long int i = 0; i < vct.size(); ++i)
-	{
-		vct.at(i) = (vct.size() - i) * 3;
-		std::cout << "vct[]: " << vct[i] << std::endl;
-	}
+	std::cout << "len: " << (ite - it) << std::endl;
+	for (; it != ite; ++it)
+		*it = (ite - it);
+
+	it = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct_range(it, --(--ite));
+	for (int i = 0; it != ite; ++it)
+		*it = ++i * 5;
+
+	it = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct_copy(vct);
+	for (int i = 0; it != ite; ++it)
+		*it = ++i * 7;
+	vct_copy.push_back(42);
+	vct_copy.push_back(21);
+
+	std::cout << "\t-- PART ONE --" << std::endl;
 	printSize(vct);
+	printSize(vct_range);
+	printSize(vct_copy);
 
-	TESTED_NAMESPACE::vector<TESTED_TYPE> const vct_c(vct);
+	vct = vct_copy;
+	vct_copy = vct_range;
+	vct_range.clear();
 
-	std::cout << "front(): " << vct.front() << " " << vct_c.front() << std::endl;
-	std::cout << "back(): " << vct.back() << " " <<  vct_c.back() << std::endl;
-
-	for (unsigned long int i = 0; i < vct_c.size(); ++i)
-		std::cout << "vct_c.at(): " << vct_c.at(i) << std::endl;
-	try {
-		std::cout << vct_c.at(10) << std::endl;
-	}
-	catch (std::out_of_range &e) {
-		std::cout << "Catch out_of_range exception!" << std::endl;
-	}
-	catch (std::exception &e) {
-		std::cout << "Catch exception: " << e.what() << std::endl;
-	}
-	printSize(vct_c);
+	std::cout << "\t-- PART TWO --" << std::endl;
+	printSize(vct);
+	printSize(vct_range);
+	printSize(vct_copy);
 	return (0);
 }
+
