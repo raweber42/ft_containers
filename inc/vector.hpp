@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/11 16:40:40 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/11 17:26:22 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,8 +208,10 @@ namespace ft
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(&(_vec_ptr[i]));
 				// _size = last - first;
-				size_type new_size = last - first;
-
+				size_type new_size = 0;
+				InputIterator tmp = first;
+				while (tmp++ != last)
+					new_size++;
 				if (new_size > _capacity)
 					MEM_realloc(new_size);
 				for (size_type i = 0; i < new_size; i++)
@@ -308,7 +310,11 @@ namespace ft
 			void insert (iterator position, InputIterator first, InputIterator last, 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) {
 				
-				size_type tmp_size = last - first;
+				// size_type tmp_size = last - first;
+				size_type tmp_size = 0;
+				InputIterator tmp_it = first;
+				while (tmp_it++ != last)
+					tmp_size++;
 				if (!_vec_ptr)
 				{
 					_vec_ptr = _alloc.allocate(tmp_size);
@@ -326,9 +332,10 @@ namespace ft
 						MEM_realloc(_size + tmp_size);
 				}
 				size_type pos_counter = 0;
-				for (iterator it = this->begin(); it != position; it++)
+				for (iterator it = begin(); it != position; it++)
 					pos_counter++;
-				for (size_type i = (_size + tmp_size - 1); i >= pos_counter + tmp_size; i--)
+				std::cout << "pos counter on: " << pos_counter << std::endl; // HERE!!!
+				for (size_type i = (_size + tmp_size - 1); i >= (pos_counter + tmp_size); i--)
 				{
 					_alloc.construct(&(_vec_ptr[i]), _vec_ptr[i - tmp_size]);
 					_alloc.destroy(&(_vec_ptr[i - tmp_size]));

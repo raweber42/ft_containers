@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/07 17:05:42 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/11 16:54:13 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,20 @@ namespace ft {
 		return (lhs.base() >= rhs.base());
 	}
 
+// //---------------VECTOR REVERSE ITERATOR HELPERS FOR POINTER CALCULATION----------------------------------------
+
+// 	template<typename T1, typename T2, typename Container>
+// 	std::ptrdiff_t  operator+(const vector_iterator<T1, Container> &lhs, const vector_iterator<T2, Container> &rhs) {
+
+// 		return (lhs.base() + rhs.base());
+// 	}
+
+// 	template<typename T1, typename T2, typename Container>
+// 	std::ptrdiff_t  operator-(const vector_iterator<T1, Container> &lhs, const vector_iterator<T2, Container> &rhs) {
+
+// 		return (lhs.base() - rhs.base());
+// 	}
+
 
 //######################################################################
 //#################### REVERSE ITERATOR ################################
@@ -373,4 +387,18 @@ namespace ft {
 	bool operator>=(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
 		return (lhs.base() >= rhs.base());
 	}
+
+// //---------------VECTOR REVERSE ITERATOR HELPERS FOR POINTER CALCULATION----------------------------------------
+
+// 	template<typename T1, typename T2>
+// 	std::ptrdiff_t  operator+(const reverse_vector_iterator<T1> &lhs, const reverse_vector_iterator<T2> &rhs) {
+
+// 		return (lhs.base() + rhs.base());
+// 	}
+
+// 	template<typename T1, typename T2>
+// 	std::ptrdiff_t  operator-(const reverse_vector_iterator<T1> &lhs, const reverse_vector_iterator<T2> &rhs) {
+
+// 		return (lhs.base() - rhs.base());
+// 	}
 } //namespace end
