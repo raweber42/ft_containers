@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/09 13:41:46 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/11 15:08:10 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,11 +160,26 @@ namespace ft
 //---------------------------ELEMENT ACCESS----------------------------------------//
 	
 			
-			reference at(size_type pos) { return(_vec_ptr[pos]); }
+			reference at(size_type pos) const {
+				
+				if (pos >= _size)
+					throw std::out_of_range("vector.at() call out of range");
+				return(_vec_ptr[pos]);
+			}
 
-			reference operator[](unsigned int index) { return(_vec_ptr[index]); }
+			reference operator[](unsigned int index) {
+				
+				if (index >= _size)
+					throw std::out_of_range("vector[index] call out of range");
+				return(_vec_ptr[index]);
+			}
 
-			const_reference operator[](unsigned int index) const { return(_vec_ptr[index]); }
+			const_reference operator[](unsigned int index) const {
+				
+				if (index >= _size)
+					throw std::out_of_range("vector[index] call out of range");
+				return(_vec_ptr[index]);
+			}
 
 			reference front(void) { return(*_vec_ptr); }
 			
@@ -172,7 +187,7 @@ namespace ft
 			
 			reference back(void) { return(_vec_ptr[_size - 1]); }
 			
-			const_reference back(void) const { return(*(_vec_ptr[_size - 1])); }
+			const_reference back(void) const { return(_vec_ptr[_size - 1]); }
 			
 			T* data(void) { return(_vec_ptr); }
 			
@@ -184,7 +199,7 @@ namespace ft
 			
 			template< class InputIterator >
 			void assign(InputIterator first, InputIterator last,
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) {
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) {
 				
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(&(_vec_ptr[i]));
@@ -203,6 +218,11 @@ namespace ft
 				// }
 				for (size_type i = 0; i < new_size; i++)
 					_alloc.construct(&(_vec_ptr[i]), *first++);
+				if (new_size < _size)
+				{
+					for (size_type i = new_size; i < _size; i++)
+						_alloc.destroy(&(_vec_ptr[i]));
+				}
 				_size = new_size;
 			}
 			
@@ -210,11 +230,11 @@ namespace ft
 				
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(&(_vec_ptr[i]));
-				_alloc.deallocate(_vec_ptr, _capacity);
-
-				_vec_ptr = _alloc.allocate(count);	
+				if (_size < count)
+					MEM_realloc(count);
 				for (size_type i = 0; i < count; i++)
 					_alloc.construct(&(_vec_ptr[i]), value);
+				_size = count;
 			}
 				
 			void push_back (const value_type& val) {

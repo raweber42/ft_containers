@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:13:41 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/08 14:39:45 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/11 14:51:49 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ namespace ft {
 //------------ENABLE_IF--------------------------------------
 	
 
-	template<bool, typename>
+	template<bool, typename T = void>
 	struct enable_if {};
 
 	template<typename T>
