@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/12 11:10:12 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/12 11:27:09 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,19 @@ namespace ft {
 		return (lhs.base() >= rhs.base());
 	}
 
+	template<typename T2, typename Container>
+	vector_iterator<T2, Container> operator+(typename vector_iterator<T2, Container>::difference_type offset, const vector_iterator<T2, Container> &rhs) {
+
+		return (vector_iterator<T2, Container>(rhs.base() + offset));
+	}
+
+	template<typename T1, typename Container>
+	vector_iterator<T1, Container> operator+(const vector_iterator<T1, Container> &lhs, typename vector_iterator<T1, Container>::difference_type offset) {
+
+		return (vector_iterator<T1, Container>(lhs.base() + offset));
+	}
+
+
 //---------------VECTOR ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> SAME ITERATOR TYPE----------------------------------------
 
 	template<typename T, typename Container>
@@ -193,19 +206,6 @@ namespace ft {
 		return (lhs.base() >= rhs.base());
 	}
 
-// //---------------VECTOR REVERSE ITERATOR HELPERS FOR POINTER CALCULATION----------------------------------------
-
-// 	template<typename T1, typename T2, typename Container>
-// 	std::ptrdiff_t  operator+(const vector_iterator<T1, Container> &lhs, const vector_iterator<T2, Container> &rhs) {
-
-// 		return (lhs.base() + rhs.base());
-// 	}
-
-// 	template<typename T1, typename T2, typename Container>
-// 	std::ptrdiff_t  operator-(const vector_iterator<T1, Container> &lhs, const vector_iterator<T2, Container> &rhs) {
-
-// 		return (lhs.base() - rhs.base());
-// 	}
 
 
 //######################################################################
@@ -388,17 +388,5 @@ namespace ft {
 		return (lhs.base() >= rhs.base());
 	}
 
-// //---------------VECTOR REVERSE ITERATOR HELPERS FOR POINTER CALCULATION----------------------------------------
 
-// 	template<typename T1, typename T2>
-// 	std::ptrdiff_t  operator+(const reverse_vector_iterator<T1> &lhs, const reverse_vector_iterator<T2> &rhs) {
-
-// 		return (lhs.base() + rhs.base());
-// 	}
-
-// 	template<typename T1, typename T2>
-// 	std::ptrdiff_t  operator-(const reverse_vector_iterator<T1> &lhs, const reverse_vector_iterator<T2> &rhs) {
-
-// 		return (lhs.base() - rhs.base());
-// 	}
 } //namespace end
