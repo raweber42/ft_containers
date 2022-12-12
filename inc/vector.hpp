@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/11 17:26:22 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/12 10:51:55 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,39 +310,49 @@ namespace ft
 			void insert (iterator position, InputIterator first, InputIterator last, 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) {
 				
-				// size_type tmp_size = last - first;
-				size_type tmp_size = 0;
-				InputIterator tmp_it = first;
-				while (tmp_it++ != last)
-					tmp_size++;
-				if (!_vec_ptr)
+				// if inserting at end() -> just push_back()
+				if (position == end())
 				{
-					_vec_ptr = _alloc.allocate(tmp_size);
+					for (; first != last; first++)
+						push_back(*first);
+				}
+				else
+				{
+					if (first == last)
+						return;
+					size_type tmp_size = 0;
+					InputIterator tmp_it = first;
+					while (tmp_it++ != last)
+						tmp_size++;
+					if (!_vec_ptr)
+					{
+						_vec_ptr = _alloc.allocate(tmp_size);
+						for (size_type i = 0; i < tmp_size; i++)
+							_alloc.construct(&_vec_ptr[i], *first++);
+						_size = tmp_size;
+						_capacity = tmp_size;
+						return ;
+					}
+					size_type pos_counter = 0;
+					iterator tmp = begin();
+					for (iterator it = this->begin(); it != position; it++)
+						pos_counter++;
+					if (_size + tmp_size >= _capacity)
+					{
+						if (!_capacity)
+							MEM_realloc(tmp_size);
+						else
+							MEM_realloc(_size + tmp_size);
+					}
+					for (size_type i = (_size + tmp_size - 1); i >= (pos_counter + tmp_size); i--)
+					{
+						_alloc.construct(&(_vec_ptr[i]), _vec_ptr[i - tmp_size]);
+						_alloc.destroy(&(_vec_ptr[i - tmp_size]));
+					}
 					for (size_type i = 0; i < tmp_size; i++)
-						_alloc.construct(&_vec_ptr[i], *first++);
-					_size = tmp_size;
-					_capacity = tmp_size;
-					return ;
+						_alloc.construct(&(_vec_ptr[pos_counter + i]), *first++);
+					_size += tmp_size;
 				}
-				if (_size + tmp_size >= _capacity)
-				{
-					if (!_capacity)
-						MEM_realloc(tmp_size);
-					else
-						MEM_realloc(_size + tmp_size);
-				}
-				size_type pos_counter = 0;
-				for (iterator it = begin(); it != position; it++)
-					pos_counter++;
-				std::cout << "pos counter on: " << pos_counter << std::endl; // HERE!!!
-				for (size_type i = (_size + tmp_size - 1); i >= (pos_counter + tmp_size); i--)
-				{
-					_alloc.construct(&(_vec_ptr[i]), _vec_ptr[i - tmp_size]);
-					_alloc.destroy(&(_vec_ptr[i - tmp_size]));
-				}
-				for (size_type i = 0; i < tmp_size; i++)
-					_alloc.construct(&(_vec_ptr[pos_counter + i]), *first++);
-				_size += tmp_size;
 			}
 
 			iterator erase (iterator position) {

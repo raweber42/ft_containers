@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/11 16:54:13 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/12 11:10:12 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ namespace ft {
 
 	template<typename T1, typename T2, typename Container>
 	bool operator!=(const vector_iterator<T1, Container> &lhs, const vector_iterator<T2, Container> &rhs) {
-		return (lhs.base() != rhs.base());
+		return (!(lhs.base() == rhs.base()));
 	}
 
 	template<typename T1, typename T2, typename Container>
