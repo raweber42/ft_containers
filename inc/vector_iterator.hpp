@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/12 17:55:09 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/12 18:19:35 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,8 +258,8 @@ namespace ft {
 			
 			reference operator*(void) { 
 				
-				iterator_type tmp = _base;
-				return (*(--tmp));
+				iterator_type tmp = _base - 1;
+				return (*(tmp));
 			}
 
 			pointer operator->(void) { return ( &(operator*()) ); }
@@ -292,7 +292,7 @@ namespace ft {
 
 				// std::cout << "-1 called" << std::endl;
 				// std::cout << "value is: " << *(_base - offset) << std::endl;
-				return (reverse_vector_iterator(_base + offset));
+				return (reverse_vector_iterator(_base - offset));
 			}
 			
 			difference_type  operator+(reverse_vector_iterator rhs) const {
@@ -303,7 +303,7 @@ namespace ft {
 			reverse_vector_iterator  operator-(difference_type offset) const {
 
 				// std::cout << "-2 called" << std::endl;
-				return (reverse_vector_iterator(_base - offset));
+				return (reverse_vector_iterator(_base + offset));
 			}
 
 			difference_type  operator-(reverse_vector_iterator rhs) const {
@@ -312,12 +312,12 @@ namespace ft {
 			}
 
 			reverse_vector_iterator &operator+=(difference_type offset) {
-				_base += offset;
+				_base -= offset;
 				return (*this);
 			}
 			
 			reverse_vector_iterator &operator-=(difference_type offset) {
-				_base -= offset;
+				_base += offset;
 				return (*this);
 			}
 
@@ -389,28 +389,28 @@ namespace ft {
 	reverse_vector_iterator<T1> operator+(const reverse_vector_iterator<T1> &lhs, typename reverse_vector_iterator<T1>::difference_type offset) {
 
 		// std::cout << "1 called" << std::endl;
-		return (reverse_vector_iterator<T1>(lhs.base() + offset));
+		return (reverse_vector_iterator<T1>(lhs.base() - offset));
 	}
 
 	template<typename T2>
 	reverse_vector_iterator<T2> operator+(typename reverse_vector_iterator<T2>::difference_type offset, const reverse_vector_iterator<T2> &rhs) {
 
 		// std::cout << "2 called" << std::endl;
-		return (reverse_vector_iterator<T2>(rhs.base() + offset));
+		return (reverse_vector_iterator<T2>(rhs.base() - offset));
 	}
 	
 	template<typename T2>
 	reverse_vector_iterator<T2> operator-(typename reverse_vector_iterator<T2>::difference_type offset, const reverse_vector_iterator<T2> &rhs) {
 
 		// std::cout << "3 called" << std::endl;
-		return (reverse_vector_iterator<T2>(rhs.base() - offset));
+		return (reverse_vector_iterator<T2>(rhs.base() + offset));
 	}
 
 	template<typename T1>
 	reverse_vector_iterator<T1> operator-(const reverse_vector_iterator<T1> &lhs, typename reverse_vector_iterator<T1>::difference_type offset) {
 
 		// std::cout << "4 called" << std::endl;
-		return (reverse_vector_iterator<T1>(lhs.base() - offset));
+		return (reverse_vector_iterator<T1>(lhs.base() + offset));
 	}
 
 	template<typename Iterator1, typename Iterator2>
