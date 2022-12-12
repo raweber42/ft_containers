@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/12 12:10:02 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/12 14:48:53 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ namespace ft
 			reverse_iterator rbegin(void) { std::cout << "NON const called" << std::endl; return(reverse_iterator(_vec_ptr + _size)); }
 
 			const_reverse_iterator rbegin(void) const { std::cout << "const called" << std::endl; return(const_reverse_iterator(_vec_ptr + _size)); }
+				
 
 			reverse_iterator rend(void) { return(reverse_iterator(_vec_ptr)); }
 			

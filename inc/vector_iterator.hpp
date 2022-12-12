@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/12 12:05:41 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/12 15:14:11 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,15 @@ namespace ft {
 		return (lhs.base() >= rhs.base());
 	}
 
+	template<typename TPtr1, typename TPtr2, typename Container>
+	typename ft::iterator_traits<TPtr1>::difference_type operator-(const vector_iterator<TPtr1, Container>& lhs, const vector_iterator<TPtr2, Container>& rhs) {
+		return lhs.base() - rhs.base();
+	}
+
+	template<typename TPtr, typename Container>
+	typename ft::iterator_traits<TPtr>::difference_type operator-(const vector_iterator<TPtr, Container>& lhs, const vector_iterator<TPtr, Container>& rhs) {
+		return lhs.base() - rhs.base();
+	}
 
 
 //######################################################################
@@ -394,6 +403,11 @@ namespace ft {
 	typename reverse_vector_iterator<Iterator1>::difference_type operator-(const reverse_vector_iterator<Iterator1>& lhs, const reverse_vector_iterator<Iterator2>& rhs) {
 		return (rhs.base() - lhs.base());
 	}
+
+	// template<typename TPtr, typename Container>
+	// typename ft::iterator_traits<TPtr>::difference_type operator-(const vector_iterator<TPtr, Container>& lhs, const vector_iterator<TPtr, Container>& rhs) {
+	// 	return lhs.base() - rhs.base();
+	// }
 
 
 //---------------VECTOR REVERSE ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> SAME ITERATOR TYPE----------------------------------------
