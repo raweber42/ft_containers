@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/12 10:51:55 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/12 11:36:13 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -478,11 +478,7 @@ namespace ft
 
 	template< class T, class Alloc >
 	bool operator<( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ) {
-		
-		if (lhs.size() < rhs.size())
-			return (true);
-		else if (lhs.size() > rhs.size())
-			return (false);
+
 		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 	}
 				
