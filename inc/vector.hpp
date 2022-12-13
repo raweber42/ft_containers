@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/12 18:15:06 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/13 09:46:11 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ namespace ft
 				for (size_type i = 0; i < n; i++)
 					_alloc.construct(&(_vec_ptr[i]), val);
 			}
-			
 			
 			template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), 
@@ -175,14 +174,16 @@ namespace ft
 				
 				if (index >= _size)
 					throw std::out_of_range("vector[index] call out of range");
-				return(_vec_ptr[index]);
+				// return(_vec_ptr[index]);
+				return *(_vec_ptr + index);
 			}
 
 			const_reference operator[](unsigned int index) const {
 				
 				if (index >= _size)
 					throw std::out_of_range("vector[index] call out of range");
-				return(_vec_ptr[index]);
+				// return(_vec_ptr[index]);
+				return *(_vec_ptr + index);
 			}
 
 			reference front(void) { return(*_vec_ptr); }

@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/12 18:19:35 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/13 11:13:50 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ namespace ft {
 			template<typename _T>
 			vector_iterator(const vector_iterator<_T, typename ft::enable_if<ft::are_same<_T, typename Container::pointer>::value, Container>::type>& copy) : _ptr(copy.base()) {}		
 			//end addition
-			vector_iterator(const vector_iterator &src) : _ptr(src._ptr) {}
+			vector_iterator(const vector_iterator &copy) : _ptr(copy._ptr) {}
 			~vector_iterator() {}
 
 
@@ -69,7 +69,7 @@ namespace ft {
 
 			pointer operator->(void) const { return (_ptr); }
 
-			reference operator[](difference_type offset) const { return(*((*this) + offset)); }
+			reference operator[](difference_type offset) const { return(*(_ptr + offset)); }
 			
 			vector_iterator &operator++(void) {
 				_ptr++;
@@ -98,20 +98,20 @@ namespace ft {
 				return (vector_iterator(_ptr + offset));
 			}
 			
-			difference_type  operator+(vector_iterator rhs) const {
+			// difference_type  operator+(vector_iterator rhs) const {
 
-				return (_ptr + rhs._ptr);
-			}
+			// 	return (_ptr + rhs._ptr);
+			// }
 
 			vector_iterator  operator-(difference_type offset) const {
 
 				return (vector_iterator(_ptr - offset));
 			}
 
-			difference_type  operator-(vector_iterator rhs) const {
+			// difference_type  operator-(vector_iterator rhs) const {
 
-				return (_ptr - rhs._ptr);
-			}
+			// 	return (_ptr - rhs._ptr);
+			// }
 
 			vector_iterator &operator+=(difference_type offset) {
 				_ptr += offset;
@@ -235,12 +235,13 @@ namespace ft {
 		public:
 			reverse_vector_iterator(void) : _base() {} // changed from iterator_type() to _base()
 			
-			explicit reverse_vector_iterator(iterator_type x) : _base(x) {}
+			reverse_vector_iterator(iterator_type x) : _base(x) {}
 			
+			reverse_vector_iterator(const reverse_vector_iterator& other) : _base(other.base()) {}
+
 			template< class U >
 			reverse_vector_iterator(const reverse_vector_iterator<U>& other) : _base(other.base()) {}
 
-			template< class U >
 			reverse_vector_iterator& operator=(const reverse_vector_iterator& rhs) {
 				_base = rhs.base();
 				return (*this);
@@ -256,15 +257,20 @@ namespace ft {
 //---------------VECTOR (MEMBER) REVERSE_ITERATOR OPERATOR OVERLOAD--------------------------------------------------
 
 			
-			reference operator*(void) { 
+			reference operator*(void) const { 
 				
-				iterator_type tmp = _base - 1;
-				return (*(tmp));
+				// iterator_type tmp(_base - 1);
+				// return (*(tmp));
+				return *iterator_type(this->_base - 1);
 			}
 
-			pointer operator->(void) { return ( &(operator*()) ); }
+			pointer operator->(void) const { return ( &(operator*()) ); }
 
-			reference operator[](difference_type offset) { return(base()[offset - 1]); }
+			reference operator[](difference_type offset) const { 
+				
+				// return(base()[offset - 1]); 
+				return (*(*this + offset)); // removed '-1' here
+			}
 
 			reverse_vector_iterator &operator++(void) {
 				_base--;
@@ -295,10 +301,10 @@ namespace ft {
 				return (reverse_vector_iterator(_base - offset));
 			}
 			
-			difference_type  operator+(reverse_vector_iterator rhs) const {
+			// difference_type  operator+(reverse_vector_iterator rhs) const {
 
-				return (_base - rhs._base);
-			}
+			// 	return (_base - rhs._base);
+			// }
 
 			reverse_vector_iterator  operator-(difference_type offset) const {
 
@@ -306,10 +312,10 @@ namespace ft {
 				return (reverse_vector_iterator(_base + offset));
 			}
 
-			difference_type  operator-(reverse_vector_iterator rhs) const {
+			// difference_type  operator-(reverse_vector_iterator rhs) const {
 
-				return (_base + rhs._base);
-			}
+			// 	return (_base + rhs._base);
+			// }
 
 			reverse_vector_iterator &operator+=(difference_type offset) {
 				_base -= offset;
@@ -361,29 +367,6 @@ namespace ft {
 
 //---------------VECTOR REVERSE ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> FOR SIZE_TYPE CALCULATIONS----------------------------------------
 
-	// 	template<typename T2, typename Container>
-	// vector_iterator<T2, Container> operator+(typename vector_iterator<T2, Container>::difference_type offset, const vector_iterator<T2, Container> &rhs) {
-
-	// 	return (vector_iterator<T2, Container>(rhs.base() + offset));
-	// }
-
-	// template<typename T1, typename Container>
-	// vector_iterator<T1, Container> operator+(const vector_iterator<T1, Container> &lhs, typename vector_iterator<T1, Container>::difference_type offset) {
-
-	// 	return (vector_iterator<T1, Container>(lhs.base() + offset));
-	// }
-
-	// template<typename T2, typename Container>
-	// vector_iterator<T2, Container> operator-(typename vector_iterator<T2, Container>::difference_type offset, const vector_iterator<T2, Container> &rhs) {
-
-	// 	return (vector_iterator<T2, Container>(rhs.base() - offset));
-	// }
-
-	// template<typename T1, typename Container>
-	// vector_iterator<T1, Container> operator-(const vector_iterator<T1, Container> &lhs, typename vector_iterator<T1, Container>::difference_type offset) {
-
-	// 	return (vector_iterator<T1, Container>(lhs.base() - offset));
-	// }
 
 	template<typename T1>
 	reverse_vector_iterator<T1> operator+(const reverse_vector_iterator<T1> &lhs, typename reverse_vector_iterator<T1>::difference_type offset) {
