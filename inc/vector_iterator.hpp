@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/13 11:17:37 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/13 17:28:25 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ namespace ft {
 			template<typename _T>
 			vector_iterator(const vector_iterator<_T, typename ft::enable_if<ft::are_same<_T, typename Container::pointer>::value, Container>::type>& copy) : _ptr(copy.base()) {}		
 			//end addition
-			vector_iterator(const vector_iterator &copy) : _ptr(copy._ptr) {}
+			vector_iterator(const vector_iterator &copy) : _ptr(copy.base()) {}
 			~vector_iterator() {}
 
 
@@ -300,22 +300,11 @@ namespace ft {
 				// std::cout << "value is: " << *(_base - offset) << std::endl;
 				return (reverse_vector_iterator(_base - offset));
 			}
-			
-			// difference_type  operator+(reverse_vector_iterator rhs) const {
-
-			// 	return (_base - rhs._base);
-			// }
 
 			reverse_vector_iterator  operator-(difference_type offset) const {
 
-				// std::cout << "-2 called" << std::endl;
-				return (reverse_vector_iterator(_base + offset));
+				return (reverse_vector_iterator(_base + offset)); // added +1
 			}
-
-			// difference_type  operator-(reverse_vector_iterator rhs) const {
-
-			// 	return (_base + rhs._base);
-			// }
 
 			reverse_vector_iterator &operator+=(difference_type offset) {
 				_base -= offset;
@@ -347,22 +336,22 @@ namespace ft {
 
 	template<typename T1, typename T2>
 	bool operator<(const reverse_vector_iterator<T1> &lhs, const reverse_vector_iterator<T2> &rhs) {
-		return (lhs.base() < rhs.base());
-	}
-
-	template<typename T1, typename T2>
-	bool operator<=(const reverse_vector_iterator<T1> &lhs, const reverse_vector_iterator<T2> &rhs) {
-		return (lhs.base() <= rhs.base());
-	}
-
-	template<typename T1, typename T2>
-	bool operator>(const reverse_vector_iterator<T1> &lhs, const reverse_vector_iterator<T2> &rhs) {
 		return (lhs.base() > rhs.base());
 	}
 
 	template<typename T1, typename T2>
-	bool operator>=(const reverse_vector_iterator<T1> &lhs, const reverse_vector_iterator<T2> &rhs) {
+	bool operator<=(const reverse_vector_iterator<T1> &lhs, const reverse_vector_iterator<T2> &rhs) {
 		return (lhs.base() >= rhs.base());
+	}
+
+	template<typename T1, typename T2>
+	bool operator>(const reverse_vector_iterator<T1> &lhs, const reverse_vector_iterator<T2> &rhs) {
+		return (lhs.base() < rhs.base());
+	}
+
+	template<typename T1, typename T2>
+	bool operator>=(const reverse_vector_iterator<T1> &lhs, const reverse_vector_iterator<T2> &rhs) {
+		return (lhs.base() <= rhs.base());
 	}
 
 //---------------VECTOR REVERSE ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> FOR SIZE_TYPE CALCULATIONS----------------------------------------
@@ -405,35 +394,35 @@ namespace ft {
 //---------------VECTOR REVERSE ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> SAME ITERATOR TYPE----------------------------------------
 
 
-	template<typename T>
-	bool operator==(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
-		return (lhs.base() == rhs.base());	
-	}
+	// template<typename T>
+	// bool operator==(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
+	// 	return (lhs.base() == rhs.base());	
+	// }
 
-	template<typename T>
-	bool operator!=(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
-		return (lhs.base() != rhs.base());
-	}
+	// template<typename T>
+	// bool operator!=(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
+	// 	return (lhs.base() != rhs.base());
+	// }
 
-	template<typename T>
-	bool operator<(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
-		return (lhs.base() < rhs.base());
-	}
+	// template<typename T>
+	// bool operator<(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
+	// 	return (lhs.base() > rhs.base());
+	// }
 
-	template<typename T>
-	bool operator<=(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
-		return (lhs.base() <= rhs.base());
-	}
+	// template<typename T>
+	// bool operator<=(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
+	// 	return (lhs.base() >= rhs.base());
+	// }
 
-	template<typename T>
-	bool operator>(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
-		return (lhs.base() > rhs.base());
-	}
+	// template<typename T>
+	// bool operator>(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
+	// 	return (lhs.base() < rhs.base());
+	// }
 
-	template<typename T>
-	bool operator>=(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
-		return (lhs.base() >= rhs.base());
-	}
+	// template<typename T>
+	// bool operator>=(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
+	// 	return (lhs.base() <= rhs.base());
+	// }
 
 
 } //namespace end
