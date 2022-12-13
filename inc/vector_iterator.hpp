@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/13 11:13:50 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/13 11:17:37 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ namespace ft {
 
 			pointer operator->(void) const { return (_ptr); }
 
-			reference operator[](difference_type offset) const { return(*(_ptr + offset)); }
+			reference operator[](const difference_type &offset) const { return(*(_ptr + offset)); }
 			
 			vector_iterator &operator++(void) {
 				_ptr++;
@@ -266,7 +266,7 @@ namespace ft {
 
 			pointer operator->(void) const { return ( &(operator*()) ); }
 
-			reference operator[](difference_type offset) const { 
+			reference operator[](const difference_type &offset) const { 
 				
 				// return(base()[offset - 1]); 
 				return (*(*this + offset)); // removed '-1' here
