@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:13:41 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/11 14:51:49 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/14 13:39:16 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,18 @@ namespace ft {
 			first2++;
 		}
 		return (true);
+	}
+
+	template<typename Iterator>
+	size_t distance(Iterator first, Iterator last) {
+		
+		size_t counter = 0;
+		while (first != last)
+		{
+			first++;
+			counter++;
+		}
+		return (counter);
 	}
 
 } // end namespace ft

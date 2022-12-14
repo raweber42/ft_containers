@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/14 09:41:38 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/14 19:05:47 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <memory>
 #include <iostream>
 #include <stdexcept>
+#include <iterator>
 #include "colors.hpp"
 #include "vector_iterator.hpp"
 #include "utils.hpp"
@@ -312,48 +313,75 @@ namespace ft
 				_size += n;
 			}
 			
-			/**
-			If the operation inserts a single element at the end, and no reallocations happen, 
-			there are no changes in the container in case of exception (strong guarantee). 
-			
-			In case of reallocations, the strong guarantee is also given in this case
-			if the type of the elements is either copyable or no-throw moveable.
-			Otherwise, the container is guaranteed to end in a valid state (basic guarantee).
-			If allocator_traits::construct is not supported with the appropriate arguments for the element constructions, or if an invalid position or range is specified, it causes undefined behavior.
-			**/
 			template <class InputIterator>
-			void insert (iterator position, InputIterator first, InputIterator last, 
+			void insert(iterator position, InputIterator first, InputIterator last, 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) {
 				
-				// if inserting at end() -> just push_back()
-				if (position == end())
+				if (first == last)
+					return;
+				size_type tmp_size = 0;
+				for (InputIterator tmp_it = first; tmp_it != last; tmp_it++)
+					tmp_size++;
+				
+				pointer dup_start = NULL;
+				pointer dup_end = NULL;
+				size_type dup_capacity = 0;
+				pointer pointer_pos = position.base();
+				InputIterator it_first = first;
+				InputIterator it_last= last;
+				pointer tmp = _vec_ptr;
+
+				if (_size + tmp_size >= _capacity)
 				{
-					// std::cout << "went here" << std::endl;
-					for (; first != last; first++)
-						push_back(*first);
-					// std::cout << "still alive after" << std::endl;
+					dup_capacity = _size + tmp_size;
+					if (_size + tmp_size > _capacity * 2)
+						dup_capacity = _size + tmp_size;
+					else
+						dup_capacity = _capacity * 2;
+					dup_start = _alloc.allocate(dup_capacity);
+					dup_end = dup_start;
+					try 
+					{
+						while(tmp != pointer_pos)
+						{
+							_alloc.construct(dup_end, *tmp);
+							_alloc.destroy(tmp);
+							dup_end++;
+							tmp++;
+						}
+						while (it_first != it_last)
+						{
+							_alloc.construct(dup_end, *it_first);
+							dup_end++;
+							it_first++;
+						}
+						while (tmp != (_vec_ptr + _size))
+						{
+							_alloc.construct(dup_end, *tmp);
+							_alloc.destroy(tmp);
+							dup_end++;
+							tmp++;
+						}
+					}
+					catch (...)
+					{
+						while (dup_start != dup_end)
+							_alloc.destroy(dup_end--);
+						_alloc.destroy(dup_start);
+						_alloc.deallocate(dup_start, dup_capacity);
+						throw;
+					}
+					_alloc.deallocate(_vec_ptr, _capacity);
+					_vec_ptr = dup_start;
+					_capacity = dup_capacity;
+					_size += tmp_size;
 				}
-				else
-				{
-					if (first == last)
-						return;
-					size_type tmp_size = 0;
-					InputIterator tmp_it = first;
-					while (tmp_it++ != last)
-						tmp_size++;
-			
+				else {
+
 					size_type pos_counter = 0;
-					iterator tmp = begin();
 					for (iterator it = this->begin(); it != position; it++)
 						pos_counter++;
-					
-					if (_size + tmp_size >= _capacity) // HERE AT HA's CODE
-					{
-						if (!_capacity)
-							MEM_realloc(tmp_size);
-						else
-							MEM_realloc(_size + tmp_size);
-					}
+
 					for (size_type i = (_size + tmp_size - 1); i >= (pos_counter + tmp_size); i--)
 					{
 						_alloc.construct(&(_vec_ptr[i]), _vec_ptr[i - tmp_size]);
@@ -363,6 +391,24 @@ namespace ft
 						_alloc.construct(&(_vec_ptr[pos_counter + i]), *first++);
 					_size += tmp_size;
 				}
+				
+				
+				// RALF OLD NO EXCEPTION HANDLING
+				// if (_size + tmp_size >= _capacity)
+				// {
+				// 	if (!_capacity)
+				// 		MEM_realloc(tmp_size);
+				// 	else
+				// 		MEM_realloc(_size + tmp_size);
+				// }
+				// for (size_type i = (_size + tmp_size - 1); i >= (pos_counter + tmp_size); i--)
+				// {
+				// 	_alloc.construct(&(_vec_ptr[i]), _vec_ptr[i - tmp_size]);
+				// 	_alloc.destroy(&(_vec_ptr[i - tmp_size]));
+				// }
+				// for (size_type i = 0; i < tmp_size; i++)
+				// 	_alloc.construct(&(_vec_ptr[pos_counter + i]), *first++);
+				// _size += tmp_size;
 			}
 
 			iterator erase (iterator position) {

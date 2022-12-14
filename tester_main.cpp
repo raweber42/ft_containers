@@ -91,12 +91,11 @@ std::vector<int> insert_test_3(ft::vector<T> vector) {
     v1.push_back(&(*k3));
     v1.push_back(&(*k4));
 
-	vv.insert(vv.begin(), v1.begin(), v1.end());
-    // try { vv.insert(vv.begin(), v1.begin(), v1.end()); }
-    // catch (...) {
-    //     v.push_back(vv.size());
-    //     v.push_back(vv.capacity());
-    // }
+    try { vv.insert(vv.begin(), v1.begin(), v1.end()); }
+    catch (...) {
+        v.push_back(vv.size());
+        v.push_back(vv.capacity());
+    }
 	std::cout << "finished std" << std::endl;
     return v;
 }
