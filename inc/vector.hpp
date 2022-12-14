@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/14 07:53:38 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/14 09:41:38 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,12 @@ namespace ft
 			}
 				
 			void push_back (const value_type& val) {
-				this->insert(this->end(), val);
+				if (!_capacity)
+					MEM_realloc(1);
+				if (_size == _capacity)
+					MEM_realloc(_capacity * 2);
+				_alloc.construct(_vec_ptr + _size, val);
+				this->_size++;
 			}
 			
 			void pop_back(void) {
@@ -307,6 +312,15 @@ namespace ft
 				_size += n;
 			}
 			
+			/**
+			If the operation inserts a single element at the end, and no reallocations happen, 
+			there are no changes in the container in case of exception (strong guarantee). 
+			
+			In case of reallocations, the strong guarantee is also given in this case
+			if the type of the elements is either copyable or no-throw moveable.
+			Otherwise, the container is guaranteed to end in a valid state (basic guarantee).
+			If allocator_traits::construct is not supported with the appropriate arguments for the element constructions, or if an invalid position or range is specified, it causes undefined behavior.
+			**/
 			template <class InputIterator>
 			void insert (iterator position, InputIterator first, InputIterator last, 
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) {
@@ -314,8 +328,10 @@ namespace ft
 				// if inserting at end() -> just push_back()
 				if (position == end())
 				{
+					// std::cout << "went here" << std::endl;
 					for (; first != last; first++)
 						push_back(*first);
+					// std::cout << "still alive after" << std::endl;
 				}
 				else
 				{
@@ -325,20 +341,13 @@ namespace ft
 					InputIterator tmp_it = first;
 					while (tmp_it++ != last)
 						tmp_size++;
-					if (!_vec_ptr)
-					{
-						_vec_ptr = _alloc.allocate(tmp_size);
-						for (size_type i = 0; i < tmp_size; i++)
-							_alloc.construct(&_vec_ptr[i], *first++);
-						_size = tmp_size;
-						_capacity = tmp_size;
-						return ;
-					}
+			
 					size_type pos_counter = 0;
 					iterator tmp = begin();
 					for (iterator it = this->begin(); it != position; it++)
 						pos_counter++;
-					if (_size + tmp_size >= _capacity)
+					
+					if (_size + tmp_size >= _capacity) // HERE AT HA's CODE
 					{
 						if (!_capacity)
 							MEM_realloc(tmp_size);

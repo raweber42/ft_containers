@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/11/25 18:27:33 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/14 09:39:24 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,19 +245,19 @@ int main(void) {
 	std::cout << "Printing v5: ";
 	print_values(v5);
 	std::cout << COLOR_BLUE << "Compare v1 and v2" << COLOR_DEFAULT << std::endl;
-	std::cout << "Is 'v1 == v2' (should return true)? " << COLOR_BLUE << ((v1 == v2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'v1 == v2' (should return false)? " << COLOR_BLUE << ((v1 == v2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
 	std::cout << "Is 'v1 != v2' (should return true)? " << COLOR_BLUE << ((v1 != v2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
 	std::cout << "Is 'v1 < v2' (should return false)? " << COLOR_BLUE << ((v1 < v2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
 	std::cout << "Is 'v1 <= v2' (should return false)? " << COLOR_BLUE << ((v1 <= v2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	std::cout << "Is 'v1 > v2' (should return false)? " << COLOR_BLUE << ((v1 > v2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	std::cout << "Is 'v1 >= v2' (should return false)? " << COLOR_BLUE << ((v1 >= v2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'v1 > v2' (should return true)? " << COLOR_BLUE << ((v1 > v2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'v1 >= v2' (should return true)? " << COLOR_BLUE << ((v1 >= v2) ? "true" : "false") << COLOR_DEFAULT << std::endl;
 
 	std::cout << COLOR_BLUE << "Compare v2 and v5" << COLOR_DEFAULT << std::endl;
-	std::cout << "Is 'v2 == v5' (should return false)? " << COLOR_BLUE << ((v2 == v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	std::cout << "Is 'v2 != v5' (should return true)? " << COLOR_BLUE << ((v2 != v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'v2 == v5' (should return true)? " << COLOR_BLUE << ((v2 == v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'v2 != v5' (should return false)? " << COLOR_BLUE << ((v2 != v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
 	std::cout << "Is 'v2 < v5' (should return false)? " << COLOR_BLUE << ((v2 < v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	std::cout << "Is 'v2 <= v5' (should return false)? " << COLOR_BLUE << ((v2 <= v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
-	std::cout << "Is 'v2 > v5' (should return true)? " << COLOR_BLUE << ((v2 > v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'v2 <= v5' (should return true)? " << COLOR_BLUE << ((v2 <= v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
+	std::cout << "Is 'v2 > v5' (should return false)? " << COLOR_BLUE << ((v2 > v5) ? "true" : "false") << COLOR_DEFAULT << std::endl;
 	std::cout << "Is 'v2 >= v5' (should return true)? " << COLOR_BLUE << ((v2 >= v5) ? "true" : "false") << COLOR_DEFAULT << std::endl  << std::endl;
 	usleep(500000);
 

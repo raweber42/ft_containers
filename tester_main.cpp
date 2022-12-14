@@ -7,49 +7,101 @@ void printElement(std::string t) {
 	std::cout << t << std::endl;
 }
 
+class B {
+public:
+    char *l;
+    int i;
+    B():l(nullptr), i(1) {};
+    B(const int &ex) {
+        this->i = ex;
+        this->l = new char('a');
+    };
+    virtual ~B() {
+        delete this->l;
+        this->l = nullptr;
+    };
+};
+
+class A : public B {
+public:
+    A():B(){};
+    A(const B* ex){
+        this->l = new char(*(ex->l));
+        this->i = ex->i;
+        if (ex->i == -1) throw "n";
+    }
+    ~A() {
+        delete this->l;
+        this->l = nullptr;
+    };
+};
+
 template <typename T>
-std::vector<int> resize_test(std::vector<T> vector) {
+std::vector<int> insert_test_3(std::vector<T> vector) {
     std::vector<int> v;
-    vector.assign(9900 * _ratio, 1);
+    std::vector<int> tmp;
+    tmp.assign(2600 * _ratio, 1);
+    vector.assign(4200 * _ratio, 1);
     // g_start1 = timer();
-    vector.resize(5000 * _ratio);
-    vector.reserve(5000 * _ratio);
-    v.push_back(vector.size());
-    v.push_back(vector.capacity());
-    vector.resize(7000 * _ratio);
-    v.push_back(vector.size());
-    v.push_back(vector.capacity());
-	std::cout << "capacity std is: " << vector.capacity() << std::endl;
-    vector.resize(15300 * _ratio, T());
-    v.push_back(vector.size());
-	std::cout << "capacity std is: " << vector.capacity() << std::endl;
-    // v.push_back(vector.capacity());
-    // v.push_back(vector[65]);
+    vector.insert(vector.end() - 1000 * _ratio, tmp.begin(), tmp.end());
     // g_end1 = timer();
+    v.push_back(vector[3]);
+    v.push_back(vector.size());
+    v.push_back(vector.capacity());
+
+    std::unique_ptr<B> k2(new B(3));
+    std::unique_ptr<B> k3(new B(4));
+    std::unique_ptr<B> k4(new B(-1));
+    std::vector<A> vv;
+    std::vector<B*> v1;
+
+    v1.push_back(&(*k2));
+    v1.push_back(&(*k3));
+    v1.push_back(&(*k4));
+    try { vv.insert(vv.begin(), v1.begin(), v1.end()); }
+    catch (...) {
+        v.push_back(vv.size());
+        v.push_back(vv.capacity());
+		std::cout << "vv.size() is: " << vv.size() << std::endl;
+    }
+	std::cout << "finished std" << std::endl;
     return v;
 }
 
 template <typename T>
-std::vector<int> resize_test(ft::vector<T> vector) {
+std::vector<int> insert_test_3(ft::vector<T> vector) {
     std::vector<int> v;
-    vector.assign(9900 * _ratio, 1);
+    ft::vector<int> tmp;
+    tmp.assign(2600 * _ratio, 1);
+    vector.assign(4200 * _ratio, 1);
     // g_start2 = timer();
-    vector.resize(5000 * _ratio);
-    vector.reserve(5000 * _ratio);
-    v.push_back(vector.size());
-    v.push_back(vector.capacity());
-    vector.resize(7000 * _ratio);
-    v.push_back(vector.size());
-    v.push_back(vector.capacity());
-	std::cout << "capacity ft is: " << vector.capacity() << std::endl;
-    vector.resize(15300 * _ratio, T());
-    v.push_back(vector.size());
-	std::cout << "capacity ft is: " << vector.capacity() << std::endl;
-    // v.push_back(vector.capacity());
-    // v.push_back(vector[65]);
+    vector.insert(vector.end() - 1000 * _ratio, tmp.begin(), tmp.end());
     // g_end2 = timer();
+    v.push_back(vector[3]);
+    v.push_back(vector.size());
+    v.push_back(vector.capacity());
+
+    std::unique_ptr<B> k2(new B(3));
+    std::unique_ptr<B> k3(new B(4));
+    std::unique_ptr<B> k4(new B(-1));
+    ft::vector<A> vv;
+    ft::vector<B*> v1;
+
+    v1.push_back(&(*k2));
+    v1.push_back(&(*k3));
+    v1.push_back(&(*k4));
+
+	vv.insert(vv.begin(), v1.begin(), v1.end());
+    // try { vv.insert(vv.begin(), v1.begin(), v1.end()); }
+    // catch (...) {
+    //     v.push_back(vv.size());
+    //     v.push_back(vv.capacity());
+    // }
+	std::cout << "finished std" << std::endl;
     return v;
 }
+
+
 
 template <class T>
 int run_vector_unit_test(std::string test_name, std::vector<int> (func1)(std::vector<T>), std::vector<int> (func2)(ft::vector<T>)) {
@@ -83,8 +135,7 @@ int run_vector_unit_test(std::string test_name, std::vector<int> (func1)(std::ve
 }
 
 
-
 int main() {
 
-    exit(run_vector_unit_test<int>("resize()", resize_test, resize_test));
+    exit(run_vector_unit_test<int>("insert(range)", insert_test_3, insert_test_3));
 }
