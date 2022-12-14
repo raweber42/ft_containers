@@ -1,59 +1,90 @@
 #include "inc/vector.hpp"
-#include <list>
+#include <vector>
 
-#define TESTED_NAMESPACE ft
-#define T_SIZE_TYPE typename TESTED_NAMESPACE::vector<T>::size_type
-#define TESTED_TYPE int
+int _ratio = 10000;
 
+void printElement(std::string t) {
+	std::cout << t << std::endl;
+}
 
 template <typename T>
-void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = true)
-{
-	const T_SIZE_TYPE size = vct.size();
-	const T_SIZE_TYPE capacity = vct.capacity();
-	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
-	// Cannot limit capacity's max value because it's implementation dependent
+std::vector<int> resize_test(std::vector<T> vector) {
+    std::vector<int> v;
+    vector.assign(9900 * _ratio, 1);
+    // g_start1 = timer();
+    vector.resize(5000 * _ratio);
+    vector.reserve(5000 * _ratio);
+    v.push_back(vector.size());
+    v.push_back(vector.capacity());
+    vector.resize(7000 * _ratio);
+    v.push_back(vector.size());
+    v.push_back(vector.capacity());
+	std::cout << "capacity std is: " << vector.capacity() << std::endl;
+    vector.resize(15300 * _ratio, T());
+    v.push_back(vector.size());
+	std::cout << "capacity std is: " << vector.capacity() << std::endl;
+    // v.push_back(vector.capacity());
+    // v.push_back(vector[65]);
+    // g_end1 = timer();
+    return v;
+}
 
-	std::cout << "size: " << size << std::endl;
-	std::cout << "capacity: " << isCapacityOk << std::endl;
-	std::cout << "max_size: " << vct.max_size() << std::endl;
-	if (print_content)
-	{
-		typename TESTED_NAMESPACE::vector<T>::const_iterator it = vct.begin();
-		typename TESTED_NAMESPACE::vector<T>::const_iterator ite = vct.end();
-		std::cout << std::endl << "Content is:" << std::endl;
-		for (; it != ite; ++it)
-			std::cout << "- " << *it << std::endl;
+template <typename T>
+std::vector<int> resize_test(ft::vector<T> vector) {
+    std::vector<int> v;
+    vector.assign(9900 * _ratio, 1);
+    // g_start2 = timer();
+    vector.resize(5000 * _ratio);
+    vector.reserve(5000 * _ratio);
+    v.push_back(vector.size());
+    v.push_back(vector.capacity());
+    vector.resize(7000 * _ratio);
+    v.push_back(vector.size());
+    v.push_back(vector.capacity());
+	std::cout << "capacity ft is: " << vector.capacity() << std::endl;
+    vector.resize(15300 * _ratio, T());
+    v.push_back(vector.size());
+	std::cout << "capacity ft is: " << vector.capacity() << std::endl;
+    // v.push_back(vector.capacity());
+    // v.push_back(vector[65]);
+    // g_end2 = timer();
+    return v;
+}
+
+template <class T>
+int run_vector_unit_test(std::string test_name, std::vector<int> (func1)(std::vector<T>), std::vector<int> (func2)(ft::vector<T>)) {
+    int    result;
+    int    leaks;
+    time_t t1;
+    time_t t2;
+    std::vector<int > res1;
+    std::vector<int > res2;
+    std::vector<int> vector;
+    ft::vector<int> my_vector;
+
+	printElement(test_name);
+	res1 = func1(vector);
+	res2 = func2(my_vector);
+	if (res1 == res2) {
+	    printElement("OK");
+	    result = 0;
 	}
-	std::cout << "###############################################" << std::endl;
+	else {
+	    printElement("FAILED");
+	    result = 1;
+	}
+	// t1 = g_end1 - g_start1, t2 = g_end2 - g_start2;
+	// (t1 >= t2) ? printElement(GREEN + std::to_string(t2) + "ms" + RESET) : printElement(REDD + std::to_string(t2) + "ms" + RESET);
+	// (t1 > t2) ? printElement(REDD + std::to_string(t1) + "ms" + RESET) : printElement(GREEN + std::to_string(t1) + "ms" + RESET);
+	// leaks = leaks_test(getpid());
+	// cout << endl;
+
+	return !(!result && !leaks);
 }
 
-int		main(void)
-{
-	const int size = 5;
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(size);
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator it = vct.rbegin();
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator ite = vct.rbegin(); // DOESNT CALL CONST!
 
-	for (int i = 0; i < size; ++i)
-		it[i] = (size - i) * 5;
 
-	it = it + 5;
-	it = 1 + it;
-	it = it - 4;
-	std::cout << *(it += 2) << std::endl;
-	std::cout << *(it -= 1) << std::endl;
+int main() {
 
-	*(it -= 2) = 42;
-	*(it += 2) = 21;
-
-	std::cout << "const_ite +=/-=: " << *(ite += 2) << " | " << *(ite -= 2) << std::endl;
-
-	std::cout << "(it == const_it): " << (ite == it) << std::endl;
-	std::cout << "(const_ite - it): " << (ite - it) << std::endl;
-	// std::cout << "(ite + 3 == it): " << (ite + 3 == it) << std::endl;
-
-	// printSize(vct, true);
-	return (0);
+    exit(run_vector_unit_test<int>("resize()", resize_test, resize_test));
 }
-

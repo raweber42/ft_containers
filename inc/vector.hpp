@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/13 17:27:10 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/14 07:53:38 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,7 +420,10 @@ namespace ft
 			void resize(size_type n, value_type val = value_type()) {
 				
 				if (n > _capacity) {
-					MEM_realloc(n, val);
+					size_type tmp_capacity = _capacity;
+					while (tmp_capacity < n)
+						tmp_capacity *= 2;
+					MEM_realloc(tmp_capacity, val);
 				}
 				else if (n > _size) {
 					for (size_type i = _size; i < n; i++)
