@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/14 19:05:47 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/14 19:19:49 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,7 +392,6 @@ namespace ft
 					_size += tmp_size;
 				}
 				
-				
 				// RALF OLD NO EXCEPTION HANDLING
 				// if (_size + tmp_size >= _capacity)
 				// {
@@ -450,9 +449,9 @@ namespace ft
 			void swap (vector& x) {
 				
 				pointer tmp_ptr = _vec_ptr;
-				allocator_type	tmp_alloc = _alloc;
-				size_t			tmp_size = _size;
-				size_t			tmp_capacity = _capacity;
+				allocator_type tmp_alloc = _alloc;
+				size_type tmp_size = _size;
+				size_type tmp_capacity = _capacity;
 				
 				_vec_ptr = x._vec_ptr;
 				_alloc = x._alloc;
@@ -560,18 +559,19 @@ namespace ft
 	}
 
 
-//---------------------------SWAP (non-member)--------------------------------//
-
-
-	template< class T, class Alloc >
-	void swap( vector<T,Alloc>& lhs, vector<T,Alloc>& rhs ) {
-		
-		lhs.swap(rhs);
-	}
 
 
 } // namespace ft
 
-// see bookmark page 484
+//---------------------------SWAP (non-member)--------------------------------//
+
+namespace std {
+
+	template< class T, class Alloc >
+	void swap(vector<T,Alloc>& lhs, vector<T,Alloc>& rhs ) {
+		
+		lhs.swap(rhs);
+	}
+} // namespace std
 
 #endif
