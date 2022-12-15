@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:13:41 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/15 08:08:20 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/15 08:17:03 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,9 +194,9 @@ namespace ft {
 	template<> struct is_integral<unsigned char> : public true_type {};
 	template<> struct is_integral<wchar_t> : public true_type {};
 	template<> struct is_integral<char16_t> : public true_type {};
+	template<> struct is_integral<char32_t> : public true_type {};
 	template<> struct is_integral<short> : public true_type {};
 	template<> struct is_integral<int> : public true_type {};
-	template<> struct is_integral<float> : public true_type {};
 	template<> struct is_integral<long> : public true_type {};
 	template<> struct is_integral<long long> : public true_type {};
 
