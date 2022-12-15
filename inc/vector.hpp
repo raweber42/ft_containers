@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/14 19:19:49 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/15 08:01:59 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -568,7 +568,7 @@ namespace ft
 namespace std {
 
 	template< class T, class Alloc >
-	void swap(vector<T,Alloc>& lhs, vector<T,Alloc>& rhs ) {
+	void swap(ft::vector<T,Alloc>& lhs, ft::vector<T,Alloc>& rhs ) {
 		
 		lhs.swap(rhs);
 	}
