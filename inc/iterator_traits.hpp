@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 09:38:16 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/11 16:46:51 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/15 08:43:51 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,21 @@ namespace ft {
 	// spezialization pointer
 	template <typename T>
 	struct iterator_traits<T*> {
-		typedef std::ptrdiff_t				difference_type;
-		typedef random_access_iterator_tag	iterator_category;
-		typedef T							value_type;
-		typedef T*							pointer;
-		typedef T&							reference;	
+		typedef std::ptrdiff_t					difference_type;
+		typedef std::random_access_iterator_tag	iterator_category;
+		typedef T								value_type;
+		typedef T*								pointer;
+		typedef T&								reference;	
 	};
 
 	// spezialization const pointer
 	template <typename T>
 	struct iterator_traits<const T*> {
 		typedef std::ptrdiff_t					difference_type;
-		typedef random_access_iterator_tag	iterator_category;
-		typedef T							value_type;
-		typedef const T*					pointer;
-		typedef const T&					reference;	
+		typedef std::random_access_iterator_tag	iterator_category;
+		typedef T								value_type;
+		typedef const T*						pointer;
+		typedef const T&						reference;	
 	};
 }
 

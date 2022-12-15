@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/13 17:28:25 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/15 08:32:38 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ namespace ft {
 	
 	
 		public:
+			typedef T														iterator_type;
 			typedef typename ft::iterator_traits<T>::iterator_category		iterator_category;
 			typedef typename ft::iterator_traits<T>::value_type				value_type;
 			typedef typename ft::iterator_traits<T>::difference_type		difference_type;
