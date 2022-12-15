@@ -81,6 +81,13 @@ namespace ft {
 				m_root_ptr = rhs.m_root_ptr;
 				return (*this);
 			}
+
+			template<typename other_map_iterator> // MAGGI: HOW TO OVERLOAD THIS?
+			map_iterator& operator=(other_map_iterator const &rhs) {
+				m_current_ptr = rhs.base();
+				m_root_ptr = rhs.getRootPtr();
+				return (*this);
+			}
 			
 			value_type &operator*(void) const { return (m_current_ptr->content); }
 

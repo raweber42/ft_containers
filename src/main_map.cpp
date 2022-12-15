@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/09 11:24:48 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/15 08:58:22 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,114 +97,101 @@ int main(void) {
 	ft::map<std::string, std::string> m2(m1.begin(), --m1.end());
 	print_values(m2);
 
-	std::cout << COLOR_BLUE << "Initializing map m3 via copy constructor via 'm3(m1)'" << COLOR_DEFAULT  << std::endl;
-	ft::map<std::string, std::string> m3(m1);
-	print_values(m3);
+	// std::cout << COLOR_BLUE << "Initializing map m3 via copy constructor via 'm3(m1)'" << COLOR_DEFAULT  << std::endl;
+	// ft::map<std::string, std::string> m3(m1);
+	// print_values(m3);
 	
-	std::cout << COLOR_BLUE << "Initializing map m4 via assignment 'm4 = m3'" << COLOR_DEFAULT  << std::endl;
-	ft::map<std::string, std::string> m4 = m3;
-	print_values(m4);
-	usleep(delay);
-	
-	// usleep(delay); // HOW TO TEST THIS????
-	// std::cout << COLOR_RED <<  "GET ALLOCATOR TYPE" << COLOR_DEFAULT << std::endl;
-	// std::cout << "m1.get_allocator() returns: " << m1.get_allocator() << std::endl;
+	// std::cout << COLOR_BLUE << "Initializing map m4 via assignment 'm4 = m3'" << COLOR_DEFAULT  << std::endl;
+	// ft::map<std::string, std::string> m4 = m3;
+	// print_values(m4);
 	// usleep(delay);
 	
-	usleep(delay);
-	std::cout << COLOR_RED <<  "INSERTING TEST ELEMENTS INTO/FROM M1" << COLOR_DEFAULT << std::endl;
-	std::cout << "Size before is: " << COLOR_GREEN << m1.size() << COLOR_DEFAULT << std::endl;
-	std::cout << COLOR_BLUE << "Pushing alphabetic key->value pairs to m1" << COLOR_DEFAULT;
-	m1.insert(ft::pair<std::string, std::string>("4", "JKL"));
-	std::cout << " .";
-	fflush(stdout);
-	usleep(sleep_time);
-	m1.insert(ft::pair<std::string, std::string>("5", "MNO"));
-	std::cout << " .";
-	fflush(stdout);
-	usleep(sleep_time);
-	m1.insert(ft::pair<std::string, std::string>("6", "PQR"));
-	std::cout << " .";
-	fflush(stdout);
-	usleep(sleep_time);
-	m1.insert(ft::pair<std::string, std::string>("7", "STU"));
-	std::cout << " .";
-	fflush(stdout);
-	usleep(sleep_time);
-	m1.insert(ft::pair<std::string, std::string>("8", "VWX"));
-	std::cout << " .";
-	fflush(stdout);
-	usleep(sleep_time);
-	m1.insert(ft::pair<std::string, std::string>("9", "YZ"));
-	std::cout << " .";
-	fflush(stdout);
-	usleep(sleep_time);
-	std::cout << std::endl << "Size after is: " << COLOR_GREEN << m1.size() << COLOR_DEFAULT << std::endl << std::endl;
-	print_values(m1);
-	usleep(delay);
+	// // usleep(delay); // HOW TO TEST THIS????
+	// // std::cout << COLOR_RED <<  "GET ALLOCATOR TYPE" << COLOR_DEFAULT << std::endl;
+	// // std::cout << "m1.get_allocator() returns: " << m1.get_allocator() << std::endl;
+	// // usleep(delay);
+	
+	// usleep(delay);
+	// std::cout << COLOR_RED <<  "INSERTING TEST ELEMENTS INTO/FROM M1" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Size before is: " << COLOR_GREEN << m1.size() << COLOR_DEFAULT << std::endl;
+	// std::cout << COLOR_BLUE << "Pushing alphabetic key->value pairs to m1" << COLOR_DEFAULT;
+	// m1.insert(ft::pair<std::string, std::string>("4", "JKL"));
+	// std::cout << " .";
+	// fflush(stdout);
+	// usleep(sleep_time);
+	// m1.insert(ft::pair<std::string, std::string>("5", "MNO"));
+	// std::cout << " .";
+	// fflush(stdout);
+	// usleep(sleep_time);
+	// m1.insert(ft::pair<std::string, std::string>("6", "PQR"));
+	// std::cout << " .";
+	// fflush(stdout);
+	// usleep(sleep_time);
+	// m1.insert(ft::pair<std::string, std::string>("7", "STU"));
+	// std::cout << " .";
+	// fflush(stdout);
+	// usleep(sleep_time);
+	// m1.insert(ft::pair<std::string, std::string>("8", "VWX"));
+	// std::cout << " .";
+	// fflush(stdout);
+	// usleep(sleep_time);
+	// m1.insert(ft::pair<std::string, std::string>("9", "YZ"));
+	// std::cout << " .";
+	// fflush(stdout);
+	// usleep(sleep_time);
+	// std::cout << std::endl << "Size after is: " << COLOR_GREEN << m1.size() << COLOR_DEFAULT << std::endl << std::endl;
+	// print_values(m1);
+	// usleep(delay);
 
 
-	usleep(delay);
-	std::cout << COLOR_RED <<  "TESTS FOR ELEMENT ACCESS" << COLOR_DEFAULT << std::endl;
-	std::cout <<  COLOR_BLUE << "Get first value via 'm1.at(\"1\")'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Value is: " << m1.at("1") << std::endl;
-	std::cout <<  COLOR_BLUE << "Get first value via 'm1[\"1\"]'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Value is: " << m1["1"] << std::endl;
-	std::cout << "Size before is: " << COLOR_GREEN << m1.size() << COLOR_DEFAULT << std::endl;
-	std::cout <<  COLOR_BLUE << "Get first value via 'm1[\"INSERTED\"]' ( WILL INSERT NEW ELEMENT WITHOUT VALUE (ONLY KEY) )" << COLOR_DEFAULT << std::endl;
-	std::cout << "Value is: " << m1["INSERTED"] << std::endl;
-	std::cout << "Size after is: " << COLOR_GREEN << m1.size() << COLOR_DEFAULT << std::endl << std::endl;
-	usleep(delay);
+	// usleep(delay);
+	// std::cout << COLOR_RED <<  "TESTS FOR ELEMENT ACCESS" << COLOR_DEFAULT << std::endl;
+	// std::cout <<  COLOR_BLUE << "Get first value via 'm1.at(\"1\")'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Value is: " << m1.at("1") << std::endl;
+	// std::cout <<  COLOR_BLUE << "Get first value via 'm1[\"1\"]'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Value is: " << m1["1"] << std::endl;
+	// std::cout << "Size before is: " << COLOR_GREEN << m1.size() << COLOR_DEFAULT << std::endl;
+	// std::cout <<  COLOR_BLUE << "Get first value via 'm1[\"INSERTED\"]' ( WILL INSERT NEW ELEMENT WITHOUT VALUE (ONLY KEY) )" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Value is: " << m1["INSERTED"] << std::endl;
+	// std::cout << "Size after is: " << COLOR_GREEN << m1.size() << COLOR_DEFAULT << std::endl << std::endl;
+	// usleep(delay);
 
 
-	usleep(delay);
-	std::cout << COLOR_RED <<  "TESTS FOR CAPACITY FUNCTIONS" << COLOR_DEFAULT << std::endl;
-	std::cout << COLOR_BLUE << "Check if container is empty via 'm1.empty()'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Function returns: " << ((m1.empty()) ? "TRUE" : "FALSE") << std::endl;
-	std::cout << COLOR_BLUE << "Get size of map via 'm1.size()'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Current size is: " << m1.size() << std::endl;
-	std::cout <<  COLOR_BLUE << "Get max size of map via 'm1.max_size()'" << COLOR_DEFAULT << std::endl;
-	std::cout << "Max size is: " << m1.max_size() << std::endl << std::endl;
-	usleep(delay);
+	// usleep(delay);
+	// std::cout << COLOR_RED <<  "TESTS FOR CAPACITY FUNCTIONS" << COLOR_DEFAULT << std::endl;
+	// std::cout << COLOR_BLUE << "Check if container is empty via 'm1.empty()'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Function returns: " << ((m1.empty()) ? "TRUE" : "FALSE") << std::endl;
+	// std::cout << COLOR_BLUE << "Get size of map via 'm1.size()'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Current size is: " << m1.size() << std::endl;
+	// std::cout <<  COLOR_BLUE << "Get max size of map via 'm1.max_size()'" << COLOR_DEFAULT << std::endl;
+	// std::cout << "Max size is: " << m1.max_size() << std::endl << std::endl;
+	// usleep(delay);
 
 	
-	usleep(delay);
-	std::cout << COLOR_RED <<  "TESTS FOR MODIFIER FUNCTIONS" << COLOR_DEFAULT << std::endl;
-	std::cout << COLOR_BLUE << "Clear the map via m1.clear()" << COLOR_DEFAULT << std::endl;
-	m1.clear();
-	std::cout << "Current size is: " << m1.size() << std::endl;
-	print_values(m1);
-
-	//###################
-	m1["42"] = "fgzgxfn";
-	m1["25"] = "funny";
-	m1["80"] = "hey";
-	m1["12"] = "no";
-	m1["27"] = "bee";
-	m1["90"] = "8";
-	std::cout << "Size is: " << m1.size() << std::endl;
-	print_values(m1);
-	//###################
-
-	
-	std::cout << COLOR_BLUE << "Insert one element of value 'X' into the map via 'm1.insert(ft::pair<std::string, std::string>(\"X\", \"XXX\"))'" << COLOR_DEFAULT << std::endl;
-	m1.insert(ft::pair<std::string, std::string>("X", "XXX"));
-	print_values(m1);
-	std::cout << COLOR_BLUE << "Insert value of '\?\?\?' as close as possible to the position just prior to m1.begin() via 'm1.insert(ft::pair<std::string, std::string>(\"?\", \"???\"))'" << COLOR_DEFAULT << std::endl;
-	m1.insert(ft::pair<std::string, std::string>("?", "???"));
-	print_values(m1);
-	std::cout << COLOR_BLUE << "Insert the first two elements of value m2 into the map via 'm1.insert(m2.begin(), ++(++m2.begin()))'" << COLOR_DEFAULT << std::endl;
-	m1.insert(m2.begin(), ++(++m2.begin()));
-	print_values(m1);
-	std::cout << COLOR_BLUE << "Insert some more elements for demonstration purposes" << COLOR_DEFAULT << std::endl;
-	m1.insert(ft::pair<std::string, std::string>("3", "GHI"));
-	m1.insert(ft::pair<std::string, std::string>("4", "JKL"));
-	m1.insert(ft::pair<std::string, std::string>("5", "MNO"));
-	m1.insert(ft::pair<std::string, std::string>("6", "PQR"));
-	m1.insert(ft::pair<std::string, std::string>("7", "STU"));
-	m1.insert(ft::pair<std::string, std::string>("8", "VWX"));
-	m1.insert(ft::pair<std::string, std::string>("9", "YZ"));
-	print_values(m1);
+	// usleep(delay);
+	// std::cout << COLOR_RED <<  "TESTS FOR MODIFIER FUNCTIONS" << COLOR_DEFAULT << std::endl;
+	// std::cout << COLOR_BLUE << "Clear the map via m1.clear()" << COLOR_DEFAULT << std::endl;
+	// m1.clear();
+	// std::cout << "Current size is: " << m1.size() << std::endl;
+	// print_values(m1);	
+	// std::cout << COLOR_BLUE << "Insert one element of value 'X' into the map via 'm1.insert(ft::pair<std::string, std::string>(\"X\", \"XXX\"))'" << COLOR_DEFAULT << std::endl;
+	// m1.insert(ft::pair<std::string, std::string>("X", "XXX"));
+	// print_values(m1);
+	// std::cout << COLOR_BLUE << "Insert value of '\?\?\?' as close as possible to the position just prior to m1.begin() via 'm1.insert(ft::pair<std::string, std::string>(\"?\", \"???\"))'" << COLOR_DEFAULT << std::endl;
+	// m1.insert(ft::pair<std::string, std::string>("?", "???"));
+	// print_values(m1);
+	// std::cout << COLOR_BLUE << "Insert the first two elements of value m2 into the map via 'm1.insert(m2.begin(), ++(++m2.begin()))'" << COLOR_DEFAULT << std::endl;
+	// m1.insert(m2.begin(), ++(++m2.begin()));
+	// print_values(m1);
+	// std::cout << COLOR_BLUE << "Insert some more elements for demonstration purposes" << COLOR_DEFAULT << std::endl;
+	// m1.insert(ft::pair<std::string, std::string>("3", "GHI"));
+	// m1.insert(ft::pair<std::string, std::string>("4", "JKL"));
+	// m1.insert(ft::pair<std::string, std::string>("5", "MNO"));
+	// m1.insert(ft::pair<std::string, std::string>("6", "PQR"));
+	// m1.insert(ft::pair<std::string, std::string>("7", "STU"));
+	// m1.insert(ft::pair<std::string, std::string>("8", "VWX"));
+	// m1.insert(ft::pair<std::string, std::string>("9", "YZ"));
+	// print_values(m1);
 
 
 

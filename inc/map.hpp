@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/09 13:03:06 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/15 08:55:22 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ namespace ft {
 			}
 
 			map( const map& other ) : m_comp(other.m_comp), m_alloc(other.m_alloc) {
-
+				
+				// if (m_tree == other.m_tree)
+				// 	return;
 				m_tree.deleteAll(m_tree.getRoot());
 				m_tree.copyTree(other.m_tree.getRoot());
 			}

@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/09 12:53:21 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/15 10:20:00 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ namespace ft
 //---------------------------CONSTRUCTOR---------------------------------------//
 
 		public:
-			BST(const Compare& comp = Compare()) : m_comp(comp), m_tree_size(0), m_tree_root(NULL) {}
+			BST(const Compare& comp = Compare()) :  m_comp(comp), m_tree_size(0), m_tree_root(NULL) {}
 
 
 //---------------------------------------DESTRUCTOR-------------------------------------------//
