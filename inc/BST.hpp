@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/16 17:25:30 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:15:09 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@
 
 namespace ft
 {
+	template< typename Key, typename T>
+	struct Node {
+		ft::pair<const Key, T>	content;
+		Node*					left;
+		Node*					right;
+		Node*					parent;
+	};
+			
 	template< typename Key, typename T, typename Compare = std::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, T> > >
 	class BST {
 
@@ -28,13 +36,6 @@ namespace ft
 
 		public:
 
-			struct Node {
-				ft::pair<const Key, T>	content;
-				Node*					left;
-				Node*					right;
-				Node*					parent;
-			};
-			
 			typedef Key													key_type;
 			typedef T													mapped_type;
 			typedef pair<const Key, T>									value_type;
@@ -47,8 +48,8 @@ namespace ft
 			typedef typename Alloc::const_reference						const_reference;
 			typedef typename Alloc::pointer								pointer;
 			typedef typename Alloc::const_pointer						const_pointer;
-			typedef Node*												node_pointer;
-			typedef const Node*											const_node_pointer;
+			typedef Node<Key, T>*										node_pointer;
+			typedef const Node<Key, T>*									const_node_pointer;
 
 			// START NEW
 			typedef map_iterator<node_pointer, value_type> 				iterator;
@@ -67,12 +68,12 @@ namespace ft
 		public: //make public?
 			key_compare				m_comp;
 			size_type				m_tree_size;
-			std::allocator<Node>	m_node_alloc;
+			std::allocator<Node<Key, T> >	m_node_alloc;
 			alloc_type				m_alloc;
 
 
 		public:
-			Node	*m_tree_root;
+			Node<Key, T>	*m_tree_root;
 
 
 //---------------------------CONSTRUCTOR---------------------------------------//

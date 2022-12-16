@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/16 17:46:38 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:08:51 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 
 namespace ft {
 	
+	
+		
+	// template< typename Key, typename T, typename Compare, typename Alloc = std::allocator<pair<const Key, T> > >
 	template< typename Key, typename T, typename Compare = std::less<Key>, typename Alloc = std::allocator<pair<const Key, T> > >
 	class map {
 
@@ -379,7 +382,9 @@ namespace ft {
 			alloc_type						m_alloc;
 			binary_tree						m_tree;
 	};
-
+	
+	// template< typename Key, typename T >
+	// class map<Key, T, std::less<Key> > {};
 
 //---------------------------SWAP (non-member)--------------------------------//
 
@@ -430,6 +435,14 @@ namespace ft {
 		
 		return (!(lhs < rhs));
 	}
+
+
 }
+
+// template<class T1, class T2, int I>
+// class A {};             // primary template
+ 
+// template<class T, int I>
+// class A<T, T*, I> {}; 
 
 #endif
