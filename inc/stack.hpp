@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/07 10:13:23 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/16 16:44:58 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ namespace ft
 
 			template< class _T, class _Container >
 			friend bool operator>=( const ft::stack<_T,_Container>& lhs, const ft::stack<_T,_Container>& rhs );
+
 
 //--------------------------PRIVATE VARIABLES----------------------------------------//
 		

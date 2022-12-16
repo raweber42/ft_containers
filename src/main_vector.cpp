@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:08 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/14 09:39:24 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/16 17:04:21 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int main(void) {
 	// ft::vector<int> v4(v3);
 	// print_values(v4);
 
-	std::cout << COLOR_BLUE << "Initializing vector v5 via assignment 'v5 = v3'" << COLOR_DEFAULT  << std::endl;
+	std::cout << COLOR_BLUE << "Initializing vector v5 via assignment 'v5 = v2'" << COLOR_DEFAULT  << std::endl;
 	ft::vector<int> v5 = v2;
 	print_values(v5);
 	usleep(500000);
@@ -161,17 +161,6 @@ int main(void) {
 	catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
 	}
-	// std::cout << "Current capacity is: " << v1.capacity() << std::endl;
-	// std::cout <<  COLOR_BLUE << "Try calling 'v1.reserve(999999999999999)' (should THROW EXCEPTION)" << COLOR_DEFAULT << std::endl;
-	// try {
-	// 	v1.reserve(99999999999999);
-	// }
-	// catch (std::exception &e) {
-	// 	std::cerr << e.what() << std::endl;
-	// }
-	// catch (std::bad_alloc &e) {
-	// 	std::cerr << e.what() << std::endl;
-	// }
 	std::cout << "Current capacity is: " << v1.capacity() << std::endl << std::endl;
 	usleep(500000);
 

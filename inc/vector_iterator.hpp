@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:38:06 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/15 08:32:38 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/16 16:50:11 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,21 +98,11 @@ namespace ft {
 
 				return (vector_iterator(_ptr + offset));
 			}
-			
-			// difference_type  operator+(vector_iterator rhs) const {
-
-			// 	return (_ptr + rhs._ptr);
-			// }
 
 			vector_iterator  operator-(difference_type offset) const {
 
 				return (vector_iterator(_ptr - offset));
 			}
-
-			// difference_type  operator-(vector_iterator rhs) const {
-
-			// 	return (_ptr - rhs._ptr);
-			// }
 
 			vector_iterator &operator+=(difference_type offset) {
 				_ptr += offset;
@@ -297,8 +287,6 @@ namespace ft {
 
 			reverse_vector_iterator operator+(difference_type offset) const {
 
-				// std::cout << "-1 called" << std::endl;
-				// std::cout << "value is: " << *(_base - offset) << std::endl;
 				return (reverse_vector_iterator(_base - offset));
 			}
 
@@ -361,69 +349,30 @@ namespace ft {
 	template<typename T1>
 	reverse_vector_iterator<T1> operator+(const reverse_vector_iterator<T1> &lhs, typename reverse_vector_iterator<T1>::difference_type offset) {
 
-		// std::cout << "1 called" << std::endl;
 		return (reverse_vector_iterator<T1>(lhs.base() - offset));
 	}
 
 	template<typename T2>
 	reverse_vector_iterator<T2> operator+(typename reverse_vector_iterator<T2>::difference_type offset, const reverse_vector_iterator<T2> &rhs) {
 
-		// std::cout << "2 called" << std::endl;
 		return (reverse_vector_iterator<T2>(rhs.base() - offset));
 	}
 	
 	template<typename T2>
 	reverse_vector_iterator<T2> operator-(typename reverse_vector_iterator<T2>::difference_type offset, const reverse_vector_iterator<T2> &rhs) {
 
-		// std::cout << "3 called" << std::endl;
 		return (reverse_vector_iterator<T2>(rhs.base() + offset));
 	}
 
 	template<typename T1>
 	reverse_vector_iterator<T1> operator-(const reverse_vector_iterator<T1> &lhs, typename reverse_vector_iterator<T1>::difference_type offset) {
 
-		// std::cout << "4 called" << std::endl;
 		return (reverse_vector_iterator<T1>(lhs.base() + offset));
 	}
 
 	template<typename Iterator1, typename Iterator2>
 	typename reverse_vector_iterator<Iterator1>::difference_type operator-(const reverse_vector_iterator<Iterator1>& lhs, const reverse_vector_iterator<Iterator2>& rhs) {
-		return (rhs.base() - lhs.base()); // should this be '+' ?
+		return (rhs.base() - lhs.base());
 	}
-
-
-//---------------VECTOR REVERSE ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> SAME ITERATOR TYPE----------------------------------------
-
-
-	// template<typename T>
-	// bool operator==(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
-	// 	return (lhs.base() == rhs.base());	
-	// }
-
-	// template<typename T>
-	// bool operator!=(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
-	// 	return (lhs.base() != rhs.base());
-	// }
-
-	// template<typename T>
-	// bool operator<(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
-	// 	return (lhs.base() > rhs.base());
-	// }
-
-	// template<typename T>
-	// bool operator<=(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
-	// 	return (lhs.base() >= rhs.base());
-	// }
-
-	// template<typename T>
-	// bool operator>(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
-	// 	return (lhs.base() < rhs.base());
-	// }
-
-	// template<typename T>
-	// bool operator>=(const reverse_vector_iterator<T> &lhs, const reverse_vector_iterator<T> &rhs) {
-	// 	return (lhs.base() <= rhs.base());
-	// }
-
 
 } //namespace end

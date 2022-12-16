@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/15 08:55:22 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/16 17:46:38 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <functional>
 #include "utils.hpp"
 #include "map_iterator.hpp"
+#include "BST.hpp"
 
 
 namespace ft {
@@ -42,11 +43,16 @@ namespace ft {
 			typedef BST<Key, T, Compare, Alloc>							binary_tree;
 			typedef typename binary_tree::node_pointer					node_pointer;
 			typedef typename binary_tree::const_node_pointer			const_node_pointer;
-
+			
 			typedef map_iterator<node_pointer, value_type>				iterator;
 			typedef map_iterator<const_node_pointer, const_value_type>	const_iterator;
 			typedef reverse_map_iterator<iterator>						reverse_iterator;
 			typedef reverse_map_iterator<const_iterator>				const_reverse_iterator;
+			
+			// typedef typename BST<Key, T, Compare, Alloc>::iterator					iterator;
+			// typedef typename BST<Key, T, Compare, Alloc>::const_iterator			const_iterator;
+			// typedef typename BST<Key, T, Compare, Alloc>::reverse_iterator			reverse_iterator;
+			// typedef typename BST<Key, T, Compare, Alloc>::const_reverse_iterator	const_reverse_iterator;
 			
 			class value_compare {
 				
@@ -84,8 +90,6 @@ namespace ft {
 
 			map( const map& other ) : m_comp(other.m_comp), m_alloc(other.m_alloc) {
 				
-				// if (m_tree == other.m_tree)
-				// 	return;
 				m_tree.deleteAll(m_tree.getRoot());
 				m_tree.copyTree(other.m_tree.getRoot());
 			}
@@ -115,7 +119,7 @@ namespace ft {
 //-------------------------------GET ALLOC-----------------------------------------------//
 
 
-			alloc_type get_allocator(void) const { return m_alloc; }
+			alloc_type get_alloc(void) const { return m_alloc; }
 
 
 //---------------------------ELEMENT ACCESS----------------------------------------//
@@ -427,6 +431,5 @@ namespace ft {
 		return (!(lhs < rhs));
 	}
 }
-
 
 #endif

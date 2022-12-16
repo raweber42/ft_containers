@@ -141,9 +141,9 @@ std::vector<int> comparator_test(ft::map<T, V> mp) {
 template <class T, class V>
 int run_map_unit_test(std::string test_name, std::vector<int> (func1)(std::map<T, V>), std::vector<int> (func2)(ft::map<T, V>)) {
     int    result;
-    int    leaks;
-	time_t t1;
-	time_t t2;
+    // int    leaks;
+	// time_t t1;
+	// time_t t2;
 	std::vector<int > res1;
 	std::vector<int > res2;
 	std::map<int, int> map;
@@ -166,7 +166,7 @@ int run_map_unit_test(std::string test_name, std::vector<int> (func1)(std::map<T
 	// leaks = leaks_test(getpid());
 	// cout << endl;
 
-	return !(!result && !leaks);
+	return !(!result);// && !leaks);
 }
 
 int main() {

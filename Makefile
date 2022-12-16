@@ -12,10 +12,10 @@ RED = \033[31;1m
 UNDO_COL = \033[0m
 
 
-SRC = 	$(SRC_DIR)main_map.cpp 
+SRC = 	$(SRC_DIR)main_vector.cpp 
 # 		$(SRC_DIR)main_map.cpp \
 		$(SRC_DIR)subject_main.cpp \
-		$(SRC_DIR)vector_vector.cpp \
+		$(SRC_DIR)main_vector.cpp \
 		$(SRC_DIR)main_map.cpp \
 		$(SRC_DIR)main_stack.cpp \
 
@@ -37,21 +37,4 @@ fclean: clean
 
 re: fclean all
 
-debug: fclean dall
-
-iterator_overload:
-	@echo "$(RED)Compiling iterator_overload_test...$(UNDO_COL)"
-	$(CC) $(CFLAGS) src/iterator_overload_test.cpp -o iterator_overload
-	@echo "$(GREEN)SUCCESSFULLY CREATED iterator_overload_test!$(UNDO_COL)"
-
-# dall: $(OBJ)
-# 	@echo "$(RED)Compiling Debug 3 $(NAME)...$(UNDO_COL)"
-# 	$(CC) $(CFLAGS) -D DEBUG=3 $^ -o $(NAME)
-# 	@echo "$(GREEN)SUCCESSFULLY CREATED FT_CONTAINERS!$(UNDO_COL)"
-
-# dspec: $(OBJ)
-# 	@echo "$(RED)Compiling Debug 1 $(NAME)...$(UNDO_COL)"
-# 	$(CC) $(CFLAGS) -D DEBUG=1 $^ -o $(NAME)
-# 	@echo "$(GREEN)SUCCESSFULLY CREATED FT_CONTAINERS!$(UNDO_COL)"
- 
-.PHONY: all clean fclean re dall dspec debug
+.PHONY: all clean fclean re

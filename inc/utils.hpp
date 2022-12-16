@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:13:41 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/15 08:17:03 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/16 16:50:17 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ namespace ft {
 		return (!(lhs < rhs));
 	}
 
-//########## NEW_NON_CONST ##############
+//########## START NEW_NON_CONST ##############
+
 	template< class T1, class T2 >
 	bool operator==(  ft::pair<T1,T2>& lhs,  ft::pair<T1,T2>& rhs ) {
 		
@@ -152,6 +153,7 @@ namespace ft {
 
 		return (!(lhs < rhs));
 	}
+	
 //########## END NEW_NON_CONST #############
 	
 	

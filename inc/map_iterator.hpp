@@ -17,7 +17,7 @@
 #include <iostream>
 #include <stdexcept>
 #include "utils.hpp"
-#include "BST.hpp"
+// #include "BST.hpp"
 #include "iterator_traits.hpp"
 
 namespace ft {
@@ -36,6 +36,7 @@ namespace ft {
 			typedef bidirectional_iterator_tag			iterator_category;
 			typedef node_ptr							node_pointer;
 			typedef val_type							value_type;
+			typedef map_iterator<node_ptr, val_type>	mapIt;
 
 
 //---------------PROTECTED MEBER FUNCTION------------------------------------------------
@@ -54,23 +55,29 @@ namespace ft {
 			map_iterator(void) : m_current_ptr(NULL), m_root_ptr(NULL) {}
 			
 			map_iterator(node_pointer ptr, node_pointer root_ptr) : m_current_ptr(ptr), m_root_ptr(root_ptr) {}
-			
+
 			//below added for const/non-const
 			template<typename n_ptr, typename v_type>
 			map_iterator(const map_iterator<n_ptr, v_type> &copy) : m_current_ptr(copy.base()) , m_root_ptr(copy.getRootPtr()) {}
 			//end addition
 			
-			map_iterator(const map_iterator &src) : m_current_ptr(src.m_current_ptr), m_root_ptr(src.m_root_ptr) {}
+			// template<typename other_map_iterator> // MAGGI: HOW TO OVERLOAD THIS?
+			// map_iterator(const other_map_iterator &src) : m_current_ptr(src.m_current_ptr), m_root_ptr(src.m_root_ptr) {}
+			
+			// map_iterator(const map_iterator &src) : m_current_ptr(src.m_current_ptr), m_root_ptr(src.m_root_ptr) {}
 			
 			~map_iterator() {}
-	
+
+// ft::map_iterator<ft::BST<int, int, std::__1::less<int>, std::__1::allocator<ft::pair<const int, int> > >::Node *, ft::pair<const int, int> >::node_pointer' (aka 'ft::BST<int, int,std::__1::less<int>, std::__1::allocator<ft::pair<const int, int> > >::Node *') with an rvalue of type
+// ft::map_iterator<ft::BST<int, int, std::__1::plus<int>, std::__1::allocator<ft::pair<const int, int> > >::Node *, ft::pair<const int, int> >::node_pointer' (aka 'ft::BST<int, int, std::__1::plus<int>, std::__1::allocator<ft::pair<const int, int> > >::Node *')
+
 
 //---------------BASE FUNCTION (HELPER)--------------------------------------------------------------
 
 
-			node_pointer base() const { return (m_current_ptr); }
+			const node_pointer base() const { return (m_current_ptr); }
 
-			node_pointer getRootPtr() const { return (m_root_ptr); }
+			const node_pointer getRootPtr() const { return (m_root_ptr); }
 
 
 //---------------MAP ITERATOR OPERATOR OVERLOADS----------------------------------------
@@ -82,12 +89,12 @@ namespace ft {
 				return (*this);
 			}
 
-			template<typename other_map_iterator> // MAGGI: HOW TO OVERLOAD THIS?
-			map_iterator& operator=(other_map_iterator const &rhs) {
-				m_current_ptr = rhs.base();
-				m_root_ptr = rhs.getRootPtr();
-				return (*this);
-			}
+			// template<typename other_map_iterator> // MAGGI: HOW TO OVERLOAD THIS?
+			// map_iterator& operator=(other_map_iterator const &rhs) {
+			// 	m_current_ptr = rhs.base();
+			// 	m_root_ptr = rhs.getRootPtr();
+			// 	return (*this);
+			// }
 			
 			value_type &operator*(void) const { return (m_current_ptr->content); }
 
@@ -215,7 +222,6 @@ namespace ft {
 	}
 
 
-
 //######################################################################
 //######################## REVERSE MAP ITERATOR ########################
 //######################################################################
@@ -284,7 +290,6 @@ namespace ft {
 			
 			reverse_map_iterator &operator++(void) {
 				
-				// _base.m_current_ptr = _base.minusMinus(_base.m_current_ptr);
 				--_base;
 				return (*this);
 			}
@@ -298,7 +303,6 @@ namespace ft {
 
 			reverse_map_iterator &operator--(void) {
 				
-				// _base.m_current_ptr = _base.plusPlus(_base.m_current_ptr);
 				++_base;
 				return (*this);
 			}
@@ -314,15 +318,6 @@ namespace ft {
 
 //---------------REVERSE MAP ITERATOR OPERATOR OVERLOADS (NON-MEMBER) -> DIFFERENT ITERATOR TYPE----------------------------------------
 
-	// template<typename n_ptr>
-	// bool operator==(const reverse_map_iterator<n_ptr> &lhs, const reverse_map_iterator<n_ptr> &rhs) {
-	// 	return (lhs.base() == rhs.base());	
-	// }
-
-	// template<typename n_ptr>
-	// bool operator!=(const reverse_map_iterator<n_ptr> &lhs, const reverse_map_iterator<n_ptr> &rhs) {
-	// 	return (lhs.base() != rhs.base());
-	// }
 
 	template<typename n_ptr1, typename n_ptr2>
 	bool operator==(const reverse_map_iterator<n_ptr1> &lhs, const reverse_map_iterator<n_ptr2> &rhs) {

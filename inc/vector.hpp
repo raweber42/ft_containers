@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/15 08:01:59 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/16 16:48:23 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,6 @@ namespace ft
 				
 				if (index >= _size)
 					throw std::out_of_range("vector[index] call out of range");
-				// return(_vec_ptr[index]);
 				return *(_vec_ptr + index);
 			}
 
@@ -183,7 +182,6 @@ namespace ft
 				
 				if (index >= _size)
 					throw std::out_of_range("vector[index] call out of range");
-				// return(_vec_ptr[index]);
 				return *(_vec_ptr + index);
 			}
 
@@ -209,7 +207,6 @@ namespace ft
 				
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(&(_vec_ptr[i]));
-				// _size = last - first;
 				size_type new_size = 0;
 				InputIterator tmp = first;
 				while (tmp++ != last)
@@ -557,9 +554,6 @@ namespace ft
 		
 		return (!(lhs < rhs));
 	}
-
-
-
 
 } // namespace ft
 

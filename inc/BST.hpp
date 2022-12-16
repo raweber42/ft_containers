@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:36:47 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/15 10:20:00 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/16 17:25:30 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define BST_HPP
 
 #include "utils.hpp"
+#include "map_iterator.hpp"
 #include <iostream>
 #include <memory>
 #include <functional>
@@ -37,6 +38,7 @@ namespace ft
 			typedef Key													key_type;
 			typedef T													mapped_type;
 			typedef pair<const Key, T>									value_type;
+			typedef const pair<const Key, T>							const_value_type;
 			typedef std::size_t											size_type;
 			typedef std::ptrdiff_t										difference_type;
 			typedef Compare												key_compare;
@@ -47,8 +49,17 @@ namespace ft
 			typedef typename Alloc::const_pointer						const_pointer;
 			typedef Node*												node_pointer;
 			typedef const Node*											const_node_pointer;
-		
 
+			// START NEW
+			typedef map_iterator<node_pointer, value_type> 				iterator;
+			typedef map_iterator<const_node_pointer, const_value_type> 		const_iterator;
+			typedef reverse_map_iterator<iterator>						reverse_iterator;
+			typedef reverse_map_iterator<const_iterator>				const_reverse_iterator;
+			// typedef	map_iterator<node_pointer, value_type>		iterator;
+			// typedef const_map_iterator<node_pointer, value_type>	const_iterator;
+			// typedef reverse_map_iterator<iterator>						reverse_iterator;
+			// typedef reverse_map_iterator<const_iterator>				const_reverse_iterator;
+			// END NEW
 
 //---------------------------MEMBER VARIABLES---------------------------------------//
 
