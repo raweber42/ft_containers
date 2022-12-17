@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:25 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/16 16:48:23 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/17 15:43:53 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,12 @@ namespace ft
 			}
 
 
+//-------------------------------GET ALLOC-----------------------------------------------//
+
+
+			allocator_type get_allocator(void) const { return _alloc; }
+
+
 //---------------------------ITERATOR FUNCTIONS----------------------------------------//
 
 			
@@ -164,7 +170,14 @@ namespace ft
 //---------------------------ELEMENT ACCESS----------------------------------------//
 	
 			
-			reference at(size_type pos) const {
+			reference at(size_type pos) {
+				
+				if (pos >= _size)
+					throw std::out_of_range("vector.at() call out of range");
+				return(_vec_ptr[pos]);
+			}
+
+			const_reference at(size_type pos) const {
 				
 				if (pos >= _size)
 					throw std::out_of_range("vector.at() call out of range");

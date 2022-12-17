@@ -6,7 +6,7 @@
 /*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:47:32 by raweber           #+#    #+#             */
-/*   Updated: 2022/12/16 19:08:51 by raweber          ###   ########.fr       */
+/*   Updated: 2022/12/17 15:43:58 by raweber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ namespace ft {
 //-------------------------------GET ALLOC-----------------------------------------------//
 
 
-			alloc_type get_alloc(void) const { return m_alloc; }
+			alloc_type get_allocator(void) const { return m_alloc; }
 
 
 //---------------------------ELEMENT ACCESS----------------------------------------//
@@ -376,7 +376,7 @@ namespace ft {
 //---------------------------PRIVATE MEMBERS----------------------------------------//
 
 			
-		public:
+		private:
 			
 			key_compare						m_comp;
 			alloc_type						m_alloc;
